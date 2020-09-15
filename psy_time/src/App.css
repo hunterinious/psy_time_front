@@ -1,0 +1,14 @@
+.app-wrapper {
+  margin: 0 auto;
+  display: grid;
+  width: inherit;
+  grid-template-areas: "header"
+                       "cont"
+                       "footer";
+  grid-template-rows: auto;
+  grid-template-columns: auto;
+}
+
+.app-wrapper-content {
+  grid-area: cont;
+}
