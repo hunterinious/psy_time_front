@@ -1,25 +1,10 @@
-.home {
-    width: inherit;
-    margin-top: 100px;
-} 
-
-.slogan {
-  display: flex;
-  align-items: center;
-  justify-content: center
-}
-
-.slogan h2 {
-    display: block;
-    margin: 0;
+.sloganHeader {
     font-size: 50px;
 }
 
 .mainImageBlock {
-    display: block;
-    visibility: visible;
-    width: inherit;
-    height: 900px;
+    max-width: 100%;
+    height: auto;
 }
 
 .mainImageBlock img {

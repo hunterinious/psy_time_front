@@ -1,0 +1,24 @@
+.nav {
+    width: inherit;
+}
+  
+.item {
+    font-size: 25px;
+    display: inline-block;
+    width: inherit;
+    margin-left: 20px;
+}
+  
+.item a {
+    color: black;
+    font-weight: bold;
+    text-decoration: none;
+}
+  
+.item a.activeLink {
+    color: darkred;
+}
+  
+.item a:hover {
+    color: firebrick;
+}

@@ -5,9 +5,9 @@ import mainImage from '../../images/main.jpg';
 const Home = (props) => {
    
     return (
-        <div className={style.home}>
-            <div className={style.slogan}>
-                <h2>
+        <div className="container">
+            <div className={"d-flex p-2 justify-content-center"}>
+                <h2 className={style.sloganHeader}>
                     <span> СОЗДАТЕЛИ</span>
                     <span className={style.textPart}> ЩАСТЬЯ </span>
                 </h2>
