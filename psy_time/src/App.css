@@ -1,5 +1,4 @@
 .app-wrapper {
-  margin: 0 auto;
   display: grid;
   width: inherit;
   grid-template-areas: "header"

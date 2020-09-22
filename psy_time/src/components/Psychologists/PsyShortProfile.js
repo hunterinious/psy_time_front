@@ -5,12 +5,12 @@ import styles from './Psychologists.module.css';
 const PsyProfiles = (props) => {
     let statuses_length = props.statuses.length
 
-    return <div className={styles.profilesMargin}>
+    return <div className={"mx-3 my-3"}>
         <div>
             <img src={props.avatar} className={styles.userPhoto}/>    
         </div>
         <div>
-            {props.user.username}
+            {props.username}
         </div>
         <div>
         {props.statuses.map((st, i) => (

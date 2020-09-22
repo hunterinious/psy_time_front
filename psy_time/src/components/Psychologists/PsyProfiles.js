@@ -10,7 +10,7 @@ const PsyProfiles = (props) => {
             props.profiles.map(p => <PsyShortProfile 
                 avatar={p.avatar}
                 statuses={p.statuses}
-                user={p.user}
+                username={p.username}
                 key={p.id} />)
              
         }
