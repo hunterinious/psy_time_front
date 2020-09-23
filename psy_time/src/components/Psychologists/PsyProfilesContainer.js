@@ -6,7 +6,8 @@ import { Modal, Button } from 'react-bootstrap';
 import { getPsyUsersProfiles } from '../../redux/psy-profiles-reducer';
 import Preloader from '../Common/Preloader/Preloader';
 import PsyProfiles from './PsyProfiles';
-import CriteriaPsyContainer from './ModalWindow/CriteriaPsy/CriteriaPsyContainer'
+import CriteriaPsyContainer from './ModalWindow/CriteriaPsy/CriteriaPsyContainer';
+import HowToChoosePsyContainer from './ModalWindow/HowToChoosePsy/HowToChoosePsyContainer';
 
 
 class PsyProfilesContainer extends Component {
@@ -38,11 +39,11 @@ class PsyProfilesContainer extends Component {
     renderModalWindowComponent(sectionId){
         switch(sectionId) {
             case 'howToChoosePsy':
-                return 
+                return <HowToChoosePsyContainer />
             case 'randomPsy':
-                return
+                return undefined
             case 'helpToChoosePsy':
-                return
+                return undefined
             case 'criteriaPsy':
                 return <CriteriaPsyContainer />
           }
@@ -55,17 +56,17 @@ class PsyProfilesContainer extends Component {
                 <div className="row">
                     <div className="col-2">
                         <ul className="nav flex-column" onClick={this.handleOpen}>
-                            <li id='howToChoosePsy' className="nav-item">
-                                Домой
+                            <li className="nav-item">
+                                <a id='howToChoosePsy' className="nav-link" href="#">How to choose Psychologist</a>
                             </li>
-                            <li id='randomPsy' className="nav-item">
-                                <a className="nav-link" href="#">Link</a>
+                            <li className="nav-item">
+                                <a  id='randomPsy' className="nav-link" href="#">Link</a>
                             </li>
-                            <li id='helpToChoosePsy' className="nav-item">
-                                <a className="nav-link" href="#">Link</a>
+                            <li className="nav-item">
+                                <a id='helpToChoosePsy' className="nav-link" href="#">Link</a>
                             </li>
-                            <li id='criteriaPsy' className="nav-item">
-                                <a className="nav-link disabled" href="#">Disabled</a>
+                            <li className="nav-item">
+                                <a id='criteriaPsy' className="nav-link" href="#">Filter</a>
                             </li>
                         </ul>
                     </div>

@@ -40,8 +40,33 @@ export const psyUsersProfilesListAPI = {
 }
 
 export const psyUsersProfilesListNavAPI = {
-    getPsychologistsCriteria() {
+    getCriteriaPsys() {
         return axiosInstance.get(`psychologists/criteria`)
+            .then(response => {
+                return {
+                    data: response.data,
+                    status: {
+                        text: response.statusText || response.status.text,
+                        code: response.status || response.status.code
+                    }
+                }
+            })
+            .catch(error => {
+                if(error.response) {
+                    return Promise.reject({
+                        data: error.response.data,
+                        status: {
+                            text: error.response.statusText || error.response.status.text,
+                            code: error.response.status || error.response.status.code
+                        }
+                    });
+                return Promise.reject(error)
+                }
+            });
+    },
+
+    getHowToChoosePsy() {
+        return axiosInstance.get(`psychologists/how_to_choose_psychologist`)
             .then(response => {
                 return {
                     data: response.data,

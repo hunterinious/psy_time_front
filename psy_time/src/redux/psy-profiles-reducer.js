@@ -7,6 +7,7 @@ const SET_PSY_USERS_PROFILES = 'SET_PSY_USERS_PROFILE';
 const SET_CRITERIA = 'SET_CRITERIA';
 const ADD_CRITERION = 'ADD_CRITERION';
 const REMOVE_CRITERION = 'REMOVE_CRITERION';
+const HOW_TO_CHOOSE_PSY = 'HOT_TO_CHOOSE_PSY';
 
 
 let initialState = {
@@ -23,10 +24,12 @@ let initialState = {
         secondary_educations: [],
         languages: []
     },
+    howToChoosePsyText: '',
     profilesIsFetching: true,
     criteriaIsFetching: true,
 
 };
+
 
 
 const psyUsersProfilesReducer = (state = initialState, action) => {
@@ -65,6 +68,11 @@ const psyUsersProfilesReducer = (state = initialState, action) => {
                 
                 }
             }
+        case HOW_TO_CHOOSE_PSY:
+            return {
+                ...state,
+                howToChoosePsyText: action.howToChoosePsyText
+            }
         default:
             return state
     }
@@ -76,6 +84,8 @@ export const setPsyUsersProfiles = (profiles) => { return { type: SET_PSY_USERS_
 export const setCriteriaPsy = (criteria) => { return { type: SET_CRITERIA, criteria}}
 export const addCriterion = (key, id, name) => { return { type: ADD_CRITERION, data: {key, id, name} }}
 export const removeCriterion = (key, id) => { return { type: REMOVE_CRITERION, data: {key, id} }}
+export const howToChoosePsy = (howToChoosePsyText) => { return { type: HOW_TO_CHOOSE_PSY, howToChoosePsyText }}
+
 
 export const getPsyUsersProfiles = () => async (dispatch) => {
     let data = await psyUsersProfilesListAPI.getPsyUsersProfiles()
@@ -85,12 +95,19 @@ export const getPsyUsersProfiles = () => async (dispatch) => {
     }
 }
 
-export const getCriteriaPsy = () => async (dispatch) => {
+export const getCriteriaPsys = () => async (dispatch) => {
     dispatch(criteriaIsFetching(true))
-    let data = await psyUsersProfilesListNavAPI.getPsychologistsCriteria()
+    let data = await psyUsersProfilesListNavAPI.getCriteriaPsys()
     if(data.status.code === 200) {
         dispatch(setCriteriaPsy(data.data))
         dispatch(criteriaIsFetching(false))
+    }
+}
+
+export const getHowToChoosePsy = () => async (dispatch) => {
+    let data = await psyUsersProfilesListNavAPI.getHowToChoosePsy()
+    if(data.status.code === 200) {
+        dispatch(howToChoosePsy(data.data))
     }
 }
 
