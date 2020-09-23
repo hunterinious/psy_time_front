@@ -1,5 +1,5 @@
 import React, { Component, useState } from 'react';
-import Button from './Button'
+import Buttons from './Buttons'
 
 
 const CriteriaPsy = (props) => {
@@ -35,7 +35,7 @@ const CriteriaPsy = (props) => {
 
           const finded = isCriterionChoosen(id, key)
 
-          return (finded ? props.removeCriterion(key, id, name) : props.addCriterion(key, id, name))
+          return (finded ? props.removeCriterion(key, id) : props.addCriterion(key, id, name))
         }
     }
 
@@ -51,24 +51,27 @@ const CriteriaPsy = (props) => {
 
 
     return (
-      <div>
+      <div onClick={handleCriterionClick}>
         { 
           Object.keys(criteria).map((k, i) => (
             <>
-              <div className="row">
-                { criteriaNames[i] }
+              <div>
+                <label className="control-label">
+                  { criteriaNames[i] }
+                </label>
               </div>
-              <div id="genders" className="row mb-2">
-                  <Button criteria={criteria} itemsKey={k}
-                          handleCriterionClick={handleCriterionClick}
-                          setClassName={setClassName}
-                          />
+              <div id={criteriaNames[i]} >
+                  <div class="form-group">
+                    <Buttons criteria={criteria} itemsKey={k}
+                            setClassName={setClassName}
+                            />
+                  </div>
               </div>
             </>
           ))
         }
-        <div className="row">
-          <button onClick={handleSubmit}>
+        <div className="form-group form-submit">
+          <button className='btn btn-primary' onClick={handleSubmit}>
             Apply
           </button>
         </div>
