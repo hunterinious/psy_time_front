@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import { compose } from 'redux';
 import { connect } from 'react-redux';
-import { NavLink } from 'react-router-dom';
-import { Modal, Button } from 'react-bootstrap';
+import { Modal } from 'react-bootstrap';
 import { getPsyUsersProfiles } from '../../redux/psy-profiles-reducer';
 import Preloader from '../Common/Preloader/Preloader';
 import PsyProfiles from './PsyProfiles';
@@ -55,7 +54,7 @@ class PsyProfilesContainer extends Component {
             <div className="container">
                 <div className="row">
                     <div className="col-2">
-                        <ul className="nav flex-column" onClick={this.handleOpen}>
+                        <ul className="nav nav-pills flex-column" onClick={this.handleOpen}>
                             <li className="nav-item">
                                 <a id='howToChoosePsy' className="nav-link" href="#">How to choose Psychologist</a>
                             </li>

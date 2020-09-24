@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { compose } from 'redux';
 import { connect } from 'react-redux';
-import { getCriteriaPsys, addCriterion, removeCriterion } from '../../../../redux/psy-profiles-reducer';
+import { getPsysByCriteria, getCriteriaNamesPsys, setInitialCriteriaPsy, addCriteriaPsy, removeCriteriaPsy } from '../../../../redux/psy-profiles-reducer';
 import Preloader from '../../../Common/Preloader/Preloader';
 import CriteriaPsy from './CriteriaPsy';
 
@@ -9,31 +9,26 @@ import CriteriaPsy from './CriteriaPsy';
 class CriteriaPsyContainer extends Component {
     constructor(props){
         super(props)
-        this.addCriterion = this.addCriterion.bind(this)
-        this.removeCriterion = this.removeCriterion.bind(this)
         this.getPsysByCriteria = this.getPsysByCriteria.bind(this)
-        
+        this.addCriteriaPsy = this.addCriteriaPsy.bind(this)
+        this.removeCriteriaPsy = this.removeCriteriaPsy.bind(this)
     }
 
     componentDidMount(){
-        // console.log(this.props.criteria, this.props.isFetching)
-        this.props.getCriteriaPsys()
+        this.props.getCriteriaNamesPsys()
+        this.props.setInitialCriteriaPsy()
     }
 
-    componentDidUpdate(){
-        // console.log(this.props.criteria, this.props.isFetching)
+    getPsysByCriteria(criteria){
+        this.props.getPsysByCriteria(criteria)
     }
 
-    addCriterion(key, id, name){
-        this.props.addCriterion(key, id, name)
+    addCriteriaPsy(criteria){
+        this.props.addCriteriaPsy(criteria)
     }
 
-    removeCriterion(key, id){
-        this.props.removeCriterion(key, id)
-    }
-
-    getPsysByCriteria(values){
-        this.props.getPsysByCriteria(values)
+    removeCriteriaPsy(criteria){
+        this.props.removeCriteriaPsy(criteria)
     }
 
     render() {
@@ -41,10 +36,10 @@ class CriteriaPsyContainer extends Component {
             { this.props.criteriaIsFetching
              ? <Preloader /> 
              : <CriteriaPsy
-                criteria={this.props.criteria}
+                criteriaNames={this.props.criteriaNames}
                 choosenCriteria={this.props.choosenCriteria}
-                addCriterion={this.addCriterion}
-                removeCriterion={this.removeCriterion}
+                addCriteria={this.addCriteriaPsy}
+                removeCriteria={this.removeCriteriaPsy}
                 getPsysByCriteria={this.getPsysByCriteria}/>
              }
             
@@ -56,13 +51,13 @@ class CriteriaPsyContainer extends Component {
 let mapStateToProps = (state) => {
     return {
         criteriaIsFetching: state.psychologistsPage.criteriaIsFetching,
-        criteria: state.psychologistsPage.criteria,
+        criteriaNames: state.psychologistsPage.criteriaNames,
         choosenCriteria: state.psychologistsPage.choosenCriteria
     }
 }
 
 export default compose(
-    connect(mapStateToProps, { getCriteriaPsys, addCriterion, removeCriterion })
+    connect(mapStateToProps, { getPsysByCriteria, getCriteriaNamesPsys, setInitialCriteriaPsy, addCriteriaPsy, removeCriteriaPsy })
 )(CriteriaPsyContainer)
 
 
