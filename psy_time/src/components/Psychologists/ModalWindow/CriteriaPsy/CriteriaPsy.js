@@ -28,9 +28,9 @@ class CriteriaPsy extends Component {
           }))
       }
       if(prevProps.criteriaNames !== this.props.criteriaNames) {
-        this.setState(({
-          criteriaNames: this.props.criteriaNames
-        }))
+          this.setState(({
+            criteriaNames: this.props.criteriaNames
+          }))
     }
     }
 

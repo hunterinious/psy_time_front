@@ -86,6 +86,7 @@ export const setInitialCriteriaPsy = () => async (dispatch) => {
     if(storageCritetia) {
         dispatch(setInitialCriteria(storageCritetia))
     }
+    await dispatch(getCriteriaNamesPsys())
     dispatch(criteriaIsFetching(false))
 }
 

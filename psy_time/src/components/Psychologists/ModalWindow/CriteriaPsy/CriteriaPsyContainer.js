@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { compose } from 'redux';
 import { connect } from 'react-redux';
-import { getPsysByCriteria, getCriteriaNamesPsys, setInitialCriteriaPsy, addCriteriaPsy, removeCriteriaPsy } from '../../../../redux/psy-profiles-reducer';
+import { getPsysByCriteria, setInitialCriteriaPsy, addCriteriaPsy, removeCriteriaPsy } from '../../../../redux/psy-profiles-reducer';
 import Preloader from '../../../Common/Preloader/Preloader';
 import CriteriaPsy from './CriteriaPsy';
 
@@ -15,7 +15,6 @@ class CriteriaPsyContainer extends Component {
     }
 
     componentDidMount(){
-        this.props.getCriteriaNamesPsys()
         this.props.setInitialCriteriaPsy()
     }
 
@@ -41,8 +40,7 @@ class CriteriaPsyContainer extends Component {
                 addCriteria={this.addCriteriaPsy}
                 removeCriteria={this.removeCriteriaPsy}
                 getPsysByCriteria={this.getPsysByCriteria}/>
-             }
-            
+            }
         </>
     }
 }
@@ -57,7 +55,7 @@ let mapStateToProps = (state) => {
 }
 
 export default compose(
-    connect(mapStateToProps, { getPsysByCriteria, getCriteriaNamesPsys, setInitialCriteriaPsy, addCriteriaPsy, removeCriteriaPsy })
+    connect(mapStateToProps, { getPsysByCriteria, setInitialCriteriaPsy, addCriteriaPsy, removeCriteriaPsy })
 )(CriteriaPsyContainer)
 
 

@@ -56,16 +56,16 @@ class PsyProfilesContainer extends Component {
                     <div className="col-2">
                         <ul className="nav nav-pills flex-column" onClick={this.handleOpen}>
                             <li className="nav-item">
-                                <a id='howToChoosePsy' className="nav-link" href="#">How to choose Psychologist</a>
+                                <a id='howToChoosePsy' className="nav-link">How to choose Psychologist</a>
                             </li>
                             <li className="nav-item">
-                                <a  id='randomPsy' className="nav-link" href="#">Link</a>
+                                <a  id='randomPsy' className="nav-link">Link</a>
                             </li>
                             <li className="nav-item">
-                                <a id='helpToChoosePsy' className="nav-link" href="#">Link</a>
+                                <a id='helpToChoosePsy' className="nav-link">Link</a>
                             </li>
                             <li className="nav-item">
-                                <a id='criteriaPsy' className="nav-link" href="#">Filter</a>
+                                <a id='criteriaPsy' className="nav-link">Filter</a>
                             </li>
                         </ul>
                     </div>
