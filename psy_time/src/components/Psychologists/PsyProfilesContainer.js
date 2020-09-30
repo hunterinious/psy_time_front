@@ -17,7 +17,7 @@ class PsyProfilesContainer extends Component {
         this.handleClose = this.handleClose.bind(this)
         this.renderModalWindowComponent = this.renderModalWindowComponent.bind(this)
     }
-  
+
     componentDidMount() {
         this.props.getPsyUsersProfiles()
     }

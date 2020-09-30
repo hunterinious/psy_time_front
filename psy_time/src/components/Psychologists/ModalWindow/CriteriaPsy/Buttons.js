@@ -4,7 +4,7 @@ const Buttons = (props) => {
     let key = props.itemsKey
     return (
         <div>
-            {props.criteria[key].map((item, index) => (
+            {props.criteriaNames[key].map((item, index) => (
                   <button 
                     id={`${key}-${index}`}
                     className={ props.setClassName(index, key) } >

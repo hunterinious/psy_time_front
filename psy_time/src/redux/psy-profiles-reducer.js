@@ -15,6 +15,7 @@ let initialState = {
     profiles: [],
     criteriaNames: [],
     choosenCriteria: {
+        ages: [],
         genders: [],
         statuses: [],
         formats: [],

@@ -1,146 +1,202 @@
-import React, { Component } from 'react';
+import React, { useEffect, useState, useReducer} from 'react';
+import Slider from 'rc-slider';
+import Tooltip from 'rc-tooltip';
+import 'rc-tooltip/assets/bootstrap.css';
+import 'rc-slider/assets/index.css';
 import Buttons from './Buttons'
 
 
-class CriteriaPsy extends Component {
-    constructor(props){
-      super(props)
-      this.state = {
-        criteriaNames: this.props.criteriaNames,
-        choosenCriteria: this.props.choosenCriteria,
-        criteriaNamesText: ["Gender", "Status", "Formats", "Work with themes", 
-                        "Approaches used", "Specializations", "Educations",
-                        "Secondary educations", "Languages"]
-      }
-      this.isCriterionChoosen = this.isCriterionChoosen.bind(this)
-      this.setLocalCriteria = this.setLocalCriteria.bind(this)
-      this.setClassName = this.setClassName.bind(this)
-      this.handleSubmit = this.handleSubmit.bind(this)
-      this.handleRemove = this.handleRemove.bind(this)
-      this.handleCriterionClick = this.handleCriterionClick.bind(this)
+const { createSliderWithTooltip } = Slider;
+const Range = createSliderWithTooltip(Slider.Range);
+const { Handle } = Slider;
+const style = { width: 350}
 
-    }
+const handle = props => {
+    const { value, dragging, index, overlayStyle, ...restProps } = props;
+    return (
+      <Tooltip
+        prefixCls="rc-slider-tooltip"
+      
+        visible={dragging}
+        placement="bottom"
+        key={index}
+      >
+        <Handle value={value} {...restProps} />
+      </Tooltip>
+    );
+  };
+  
 
-    componentDidUpdate(prevProps, prevState) {
-      if(prevProps.choosenCriteria !== this.props.choosenCriteria) {
-          this.setState(({
-            choosenCriteria: this.props.choosenCriteria
-          }))
-      }
-      if(prevProps.criteriaNames !== this.props.criteriaNames) {
-          this.setState(({
-            criteriaNames: this.props.criteriaNames
-          }))
-    }
-    }
-
-    isCriterionChoosen(index, key) {
-      let finded = false
-      if (this.state.choosenCriteria[key]){
-          this.state.choosenCriteria[key].forEach(c => {
-            if(c[0] === index){
-              finded = true
+function reducer(state, action){
+    let data = action.data
+    switch(action.type) {
+        case 'setChoosenCriteria':
+            return {
+                ...state,
+                choosenCriteria: action.choosenCriteria
+            }        
+        case 'removeCriterion':
+            return {
+                ...state,
+                choosenCriteria: {
+                    ...state.choosenCriteria,
+                    [data.key]: [
+                        ...state.choosenCriteria[data.key]
+                        .filter(e => e[0] !== data.id)
+                    ]
+                }
             }
-          });
-      }
+        case 'addCriterion':
+            return {
+                ...state,
+                choosenCriteria: {
+                    ...state.choosenCriteria,
+                    [data.key]: [
+                        ...state.choosenCriteria[data.key],
+                        [ data.id, data.name ]
+                    ]
+                    
+                }
+            }
+        case 'addAgeCriterion':
+            return {
+                ...state,
+                choosenCriteria: {
+                    ...state.choosenCriteria,
+                    [data.key]: [
+                        data.name 
+                    ]
+                }
+            }
+        default:
+            return state
+    }
+}
 
-      return finded
+const CriteriaPsy = (props) => {
+    let [state, setState] = useReducer(reducer, { choosenCriteria: props.choosenCriteria,
+                                                  criteriaNames: props.criteriaNames })
+    const ageMinMax = props.criteriaNames.ages[0].name.split('-')
+    const ageMin = parseInt(ageMinMax[0])
+    const ageMax = parseInt(ageMinMax[1])
+    const [ageRange, setAgeRange] = useState(() => {
+        const ages = props.choosenCriteria.ages
+        if(ages.length > 0){
+            return ages[0]
+        }
+        return [ageMin, ageMax]
+    });
+    const criteriaNamesText=  ["Age", "Gender", "Status", "Formats", "Work with themes", 
+                              "Approaches used", "Specializations", "Educations",
+                              "Secondary educations", "Languages"];
+    
+    useEffect(() => {
+        setState({type: 'setChoosenCriteria', choosenCriteria: props.choosenCriteria })
+    }, [props.choosenCriteria]);
+    
+
+    const isCriterionChoosen = (index, key) => {
+        let choosenCriteria = state.choosenCriteria
+        let finded = false
+        if (choosenCriteria[key]){
+            choosenCriteria[key].forEach(c => {
+                if(c[0] === index){
+                    finded = true
+                }
+            });
+        }
+
+        return finded
     }
 
-    handleSubmit() {
-      let choosenCriteria = this.state.choosenCriteria
-      this.props.getPsysByCriteria(choosenCriteria)
-      this.props.addCriteria(choosenCriteria)
-    }
- 
-    handleCriterionClick(e) {
+    const handleCriterionClick = (e) => {
         const target = e.target
         const id = target.id
         
         if(target.tagName === "BUTTON" && id != "submit-button" && id != "remove-button"){
-          const keyId = target.id.split('-')
-          const key = keyId[0]
-          const id = parseInt(keyId[1])
-          const name = target.textContent
+            const keyId = target.id.split('-')
+            const key = keyId[0]
+            const id = parseInt(keyId[1])
+            const name = target.textContent
 
-          const finded = this.isCriterionChoosen(id, key)
+            const finded = isCriterionChoosen(id, key)
 
-          this.setLocalCriteria(finded, key, id, name)
+            if(finded) {
+                setState({ type: 'removeCriterion', data: {key, id}})
+            }else{
+                setState({ type: 'addCriterion', data: {key, id, name}})
+            }
         }
     }
 
-    handleRemove() {
-      this.props.removeCriteria()
+    const handleAgeCriterionChange = (value) => {
+        setAgeRange(value)
+        setState({type: 'addAgeCriterion', data: {key: "ages", name: value}})
     }
 
-    setLocalCriteria(finded, key, id, name){
-      if(finded){
-        this.setState({
-          choosenCriteria: {
-            ...this.state.choosenCriteria,
-            [key]: [
-                ...this.state.choosenCriteria[key]
-                .filter(e => e[0] !== id)
-            ]
-          }
-        })
-      }else {
-        this.setState({
-          choosenCriteria: {
-            ...this.state.choosenCriteria,
-            [key]: [
-                ...this.state.choosenCriteria[key],
-                [ id, name ]
-            ]
-          }
-        })
-      }
+    const handleSubmit = () => {
+        let choosenCriteria = state.choosenCriteria
+        props.getPsysByCriteria(choosenCriteria)
+        props.addCriteria(choosenCriteria)
     }
 
-    setClassName(index, key) {
-      if (this.state.choosenCriteria[key].length === 0){
-        return "btn btn-outline-secondary"
-      }
-
-      const finded = this.isCriterionChoosen(index, key)
-
-      return (finded ? "btn btn-outline-primary" : "btn btn-outline-secondary")
+    const handleRemove = () => {
+        props.removeCriteria()
+        setAgeRange([ageMin, ageMax])
+        setState({type: 'setChoosenCriteria', choosenCriteria: props.choosenCriteria })
     }
 
-    render(){
-      return (
-        <div onClick={this.handleCriterionClick}>
-          <div>
-            <button id="remove-button" className='btn btn-warning' onClick={this.handleRemove}>
-              Reset filters
+    const setClassName = (index, key) => {
+        if (state.choosenCriteria[key].length === 0){
+            return "btn btn-outline-secondary"
+        }
+
+        const finded = isCriterionChoosen(index, key)
+
+        return (finded ? "btn btn-outline-primary" : "btn btn-outline-secondary")
+    }
+
+    return (
+        <div onClick={handleCriterionClick}>
+            <div>
+            <button id="remove-button" className='btn btn-warning' onClick={handleRemove}>
+                Reset filters
             </button>
-          </div>
-          { 
-            Object.keys(this.state.criteriaNames).map((k, i) => (
-              <>
+            </div>
+            { 
+            Object.keys(state.criteriaNames).map((k, i) => (
+                <>
                 <div>
-                  <label className="control-label">
-                    {this.state.criteriaNamesText[i]}
-                  </label>
+                    <label className="control-label">
+                        {criteriaNamesText[i]}
+                    </label>
                 </div>
                 <div id={k} >
                     <div class="form-group">
-                      <Buttons criteria={this.state.criteriaNames} itemsKey={k}
-                              setClassName={this.setClassName}
-                              />
+                        {k === "ages" 
+                        ?   
+                        <Range value={ageRange}
+                         min={ageMin}
+                         max={ageMax}
+                         onChange={handleAgeCriterionChange}
+                         style={style} handle={handle}
+                         tipFormatter={value => ageRange[0] + "-" + ageRange[1] }/>
+                        :   <Buttons criteriaNames={state.criteriaNames} itemsKey={k}
+                                setClassName={setClassName} 
+                            />
+                        }
                     </div>
                 </div>
-              </>
+                </>
             ))
-          }
-          <div className="form-group form-submit">
-            <button id="submit-button" className='btn btn-primary' onClick={this.handleSubmit}>
-              Apply
+            }
+            <div className="form-group form-submit">
+            <button id="submit-button" className='btn btn-primary' onClick={handleSubmit}>
+                Apply
             </button>
-          </div>
+            </div>
         </div>
-      )
-    }
+    )
 }
 
 export default CriteriaPsy;
