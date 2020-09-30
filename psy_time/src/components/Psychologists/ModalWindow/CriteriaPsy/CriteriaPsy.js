@@ -1,31 +1,7 @@
 import React, { useEffect, useState, useReducer} from 'react';
-import Slider from 'rc-slider';
-import Tooltip from 'rc-tooltip';
-import 'rc-tooltip/assets/bootstrap.css';
-import 'rc-slider/assets/index.css';
-import Buttons from './Buttons'
+import Buttons from './Buttons';
+import RangeSlider from './RangeSlider';
 
-
-const { createSliderWithTooltip } = Slider;
-const Range = createSliderWithTooltip(Slider.Range);
-const { Handle } = Slider;
-const style = { width: 350}
-
-const handle = props => {
-    const { value, dragging, index, overlayStyle, ...restProps } = props;
-    return (
-      <Tooltip
-        prefixCls="rc-slider-tooltip"
-      
-        visible={dragging}
-        placement="bottom"
-        key={index}
-      >
-        <Handle value={value} {...restProps} />
-      </Tooltip>
-    );
-  };
-  
 
 function reducer(state, action){
     let data = action.data
@@ -175,12 +151,11 @@ const CriteriaPsy = (props) => {
                     <div class="form-group">
                         {k === "ages" 
                         ?   
-                        <Range value={ageRange}
+                        <RangeSlider value={ageRange}
                          min={ageMin}
                          max={ageMax}
                          onChange={handleAgeCriterionChange}
-                         style={style} handle={handle}
-                         tipFormatter={value => ageRange[0] + "-" + ageRange[1] }/>
+                         tipFormatter={() => ageRange[0] + "-" + ageRange[1] }/>
                         :   <Buttons criteriaNames={state.criteriaNames} itemsKey={k}
                                 setClassName={setClassName} 
                             />
