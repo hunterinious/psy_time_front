@@ -10,10 +10,6 @@ class HowToChoosePsyContainer extends Component {
         this.props.getHowToChoosePsy()
     }
 
-    componentDidUpdate(){
-        console.log(this.props.howToChoosePsyText)
-    }
-
     render() {
         return (
             <div className="container">

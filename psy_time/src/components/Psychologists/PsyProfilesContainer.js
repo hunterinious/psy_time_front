@@ -38,13 +38,13 @@ class PsyProfilesContainer extends Component {
     renderModalWindowComponent(sectionId){
         switch(sectionId) {
             case 'howToChoosePsy':
-                return <HowToChoosePsyContainer />
+                return <HowToChoosePsyContainer/>
             case 'randomPsy':
                 return undefined
             case 'helpToChoosePsy':
                 return undefined
             case 'criteriaPsy':
-                return <CriteriaPsyContainer />
+                return <CriteriaPsyContainer handleClose={this.handleClose}/>
           }
     }
 

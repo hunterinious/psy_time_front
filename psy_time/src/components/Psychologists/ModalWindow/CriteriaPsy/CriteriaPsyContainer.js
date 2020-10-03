@@ -39,7 +39,8 @@ class CriteriaPsyContainer extends Component {
                 choosenCriteria={this.props.choosenCriteria}
                 addCriteria={this.addCriteriaPsy}
                 removeCriteria={this.removeCriteriaPsy}
-                getPsysByCriteria={this.getPsysByCriteria}/>
+                getPsysByCriteria={this.getPsysByCriteria}
+                handleClose={this.props.handleClose}/>
             }
         </>
     }

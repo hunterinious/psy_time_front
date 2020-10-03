@@ -1,3 +1,4 @@
+import { compose } from 'redux';
 import { psyUsersProfilesListAPI } from '../api/api';
 import { psyUsersProfilesListNavAPI } from '../api/api';
 
@@ -68,10 +69,17 @@ export const howToChoosePsy = (howToChoosePsyText) => { return { type: HOW_TO_CH
 
 
 export const getPsyUsersProfiles = () => async (dispatch) => {
-    let data = await psyUsersProfilesListAPI.getPsyUsersProfiles()
-    if(data.status.code === 200) {
-        dispatch(setPsyUsersProfiles(data.data.results))
+    let profiles = JSON.parse(localStorage.getItem('profiles'))
+    if(profiles){
+        dispatch(setPsyUsersProfiles(profiles))
         dispatch(profilesIsFetching(false))
+    }
+    else{
+        let data = await psyUsersProfilesListAPI.getPsyUsersProfiles()
+        if(data.status.code === 200) {
+            dispatch(setPsyUsersProfiles(data.data.results))
+            dispatch(profilesIsFetching(false))
+        }
     }
 }
 
@@ -93,22 +101,26 @@ export const setInitialCriteriaPsy = () => async (dispatch) => {
 
 export const addCriteriaPsy = (criteria) => async (dispatch) => {
     dispatch(addCriteria(criteria))
+    localStorage.setItem('criteria', JSON.stringify(criteria))
 }
 
 export const removeCriteriaPsy = () => async (dispatch) => {
     dispatch(removeCriteria())
+    dispatch(getPsyUsersProfiles())
     localStorage.removeItem('criteria')
+    localStorage.removeItem('profiles')
 }
 
 export const getPsysByCriteria = (criteria) => async (dispatch) => {
     addCriteriaPsy(dispatch, criteria, addCriteria)
-    localStorage.setItem('criteria', JSON.stringify(criteria))
-    // dispatch(profilesIsFetching(true))
-    // let data = await psyUsersProfilesListNavAPI.getPsysByCriteria()
-    // if(data.status.code === 200) {
-    //     dispatch(setPsyUsersProfiles(data.data.results))
-    //     dispatch(profilesIsFetching(false))
-    // }
+    dispatch(profilesIsFetching(true))
+    let data = await psyUsersProfilesListNavAPI.getPsysByCriteria(criteria)
+    if(data.status.code === 200) {
+        let results = data.data.results
+        dispatch(setPsyUsersProfiles(results))
+        localStorage.setItem('profiles', JSON.stringify(results))
+        dispatch(profilesIsFetching(false))
+    }
 }
 
 

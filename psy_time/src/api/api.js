@@ -90,8 +90,19 @@ export const psyUsersProfilesListNavAPI = {
             });
     },
 
-    getPsysByCriteria() {
-        return axiosInstance.get(`psychologists/by-criteria`)
+    getPsysByCriteria(criteria) {
+        let c = criteria
+        return axiosInstance.get(`psychologists/filter/
+        ?ages=${c.ages}
+        &genders=${c.genders}
+        &statuses=${c.statuses}
+        &formats=${c.formats}
+        &themes=${c.themes}
+        &approaches=${c.approaches}
+        &specializations=${c.specializations}
+        &educations=${c.educations}
+        &secondary_educations=${c.secondary_educations}
+        &languages=${c.languages}`)
             .then(response => {
                 return {
                     data: response.data,

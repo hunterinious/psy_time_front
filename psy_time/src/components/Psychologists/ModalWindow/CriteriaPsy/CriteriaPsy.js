@@ -1,4 +1,5 @@
 import React, { useEffect, useState, useReducer} from 'react';
+import { Fade } from 'react-bootstrap';
 import Buttons from './Buttons';
 import RangeSlider from './RangeSlider';
 
@@ -50,8 +51,9 @@ function reducer(state, action){
 }
 
 const CriteriaPsy = (props) => {
-    let [state, setState] = useReducer(reducer, { choosenCriteria: props.choosenCriteria,
+    const [state, setState] = useReducer(reducer, { choosenCriteria: props.choosenCriteria,
                                                   criteriaNames: props.criteriaNames })
+                                                  
     const ageMinMax = props.criteriaNames.ages[0].name.split('-')
     const ageMin = parseInt(ageMinMax[0])
     const ageMax = parseInt(ageMinMax[1])
@@ -69,10 +71,36 @@ const CriteriaPsy = (props) => {
     useEffect(() => {
         setState({type: 'setChoosenCriteria', choosenCriteria: props.choosenCriteria })
     }, [props.choosenCriteria]);
-    
+
+    const choosenCriteriaOnlyNames = (choosenCriteria) => {
+        let criteria = {}
+        for (const [key, value] of Object.entries(choosenCriteria)){
+            criteria[key] = value.map(v => { 
+                if(key === "ages"){
+                    return v
+                }
+                return v[1]
+            })
+        }
+        return criteria
+    }
+
+    const areAnyChoosenCriteria = (choosenCriteria) => {
+        let count = 0
+        for (const [key, value] of Object.entries(choosenCriteria)){
+           if(value.length){
+               console.log(value, key)
+               count += 1
+           }
+        }
+        if(count){
+            return true
+        }
+        return false
+    }
 
     const isCriterionChoosen = (index, key) => {
-        let choosenCriteria = state.choosenCriteria
+        const choosenCriteria = state.choosenCriteria
         let finded = false
         if (choosenCriteria[key]){
             choosenCriteria[key].forEach(c => {
@@ -100,6 +128,13 @@ const CriteriaPsy = (props) => {
             if(finded) {
                 setState({ type: 'removeCriterion', data: {key, id}})
             }else{
+                if(key === 'genders'){
+                    const genderCriteria = state.choosenCriteria[key]
+                    if(genderCriteria.length > 0){
+                        const gender_id = genderCriteria[0][0]
+                        setState({ type: 'removeCriterion', data: {key, id:gender_id }})
+                    }
+                }
                 setState({ type: 'addCriterion', data: {key, id, name}})
             }
         }
@@ -111,9 +146,15 @@ const CriteriaPsy = (props) => {
     }
 
     const handleSubmit = () => {
-        let choosenCriteria = state.choosenCriteria
-        props.getPsysByCriteria(choosenCriteria)
-        props.addCriteria(choosenCriteria)
+        const areAny = areAnyChoosenCriteria(state.choosenCriteria)
+        if(areAny) {
+            let choosenCriteria = state.choosenCriteria
+            let choosenCriteriaForAPI = choosenCriteriaOnlyNames(choosenCriteria)
+            props.getPsysByCriteria(choosenCriteriaForAPI)
+            props.addCriteria(choosenCriteria)
+        
+        }
+        props.handleClose()
     }
 
     const handleRemove = () => {
