@@ -159,7 +159,7 @@ const CriteriaPsy = (props) => {
         props.changeCriteria(choosenCriteria)
 
         const areAny = areAnyChoosenCriteria(choosenCriteria)
-        if(areAny && state.choosenCriteria !== prevCriteria) {
+        if(state.choosenCriteria !== prevCriteria && areAny) {
             const choosenCriteriaForAPI = choosenCriteriaOnlyNames(choosenCriteria)
             props.getPsysByCriteria(choosenCriteriaForAPI)
         

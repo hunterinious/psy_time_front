@@ -71,7 +71,10 @@ class PsyProfilesContainer extends Component {
                         </ul>
                     </div>
                     <div className="col-10">
-                        <PsyProfiles profiles={this.props.profiles} />
+                        {this.props.profilesNotFound
+                         ? <div>Nothing found matching your criteria</div>
+                         : <PsyProfiles profiles={this.props.profiles} /> }
+                        
                     </div>
                 </div>
             </div>
@@ -92,7 +95,8 @@ class PsyProfilesContainer extends Component {
 let mapStateToProps = (state) => {
     return {
         profiles: state.psychologistsPage.profiles,
-        profilesIsFetching: state.psychologistsPage.profilesIsFetching
+        profilesIsFetching: state.psychologistsPage.profilesIsFetching,
+        profilesNotFound: state.psychologistsPage.profilesNotFound
     }
 }
 
