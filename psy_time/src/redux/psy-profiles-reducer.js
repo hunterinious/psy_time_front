@@ -105,14 +105,13 @@ export const addCriteriaPsy = (criteria) => async (dispatch) => {
 }
 
 export const removeCriteriaPsy = () => async (dispatch) => {
-    dispatch(removeCriteria())
-    dispatch(getPsyUsersProfiles())
     localStorage.removeItem('criteria')
     localStorage.removeItem('profiles')
+    dispatch(removeCriteria())
+    dispatch(getPsyUsersProfiles())
 }
 
 export const getPsysByCriteria = (criteria) => async (dispatch) => {
-    addCriteriaPsy(dispatch, criteria, addCriteria)
     dispatch(profilesIsFetching(true))
     let data = await psyUsersProfilesListNavAPI.getPsysByCriteria(criteria)
     if(data.status.code === 200) {

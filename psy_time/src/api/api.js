@@ -1,5 +1,7 @@
 import Axios, * as axios from "axios";
-import { compose } from "redux";
+import querystring from 'querystring';
+
+var qs = require('qs');
 
 const axiosInstance = axios.create({
     baseURL: 'http://localhost:8000/api/',
@@ -90,19 +92,51 @@ export const psyUsersProfilesListNavAPI = {
             });
     },
 
+    // getPsysByCriteria(criteria) {
+    //     let c = criteria
+    //     return axiosInstance.get(`psychologists/filter?ages=${c.ages}&genders=${c.genders}&statuses=${c.statuses}&formats=${c.formats}&themes=${c.themes}&approaches=${c.approaches}&specializations=${c.specializations}&educations=${c.educations}&secondary_educations=${c.secondary_educations}&languages=${c.languages}`)
+    //         .then(response => {
+    //             return {
+    //                 data: response.data,
+    //                 status: {
+    //                     text: response.statusText || response.status.text,
+    //                     code: response.status || response.status.code
+    //                 }
+    //             }
+    //         })
+    //         .catch(error => {
+    //             if(error.response) {
+    //                 return Promise.reject({
+    //                     data: error.response.data,
+    //                     status: {
+    //                         text: error.response.statusText || error.response.status.text,
+    //                         code: error.response.status || error.response.status.code
+    //                     }
+    //                 });
+    //             return Promise.reject(error)
+    //             }
+    //         });
+    // }
     getPsysByCriteria(criteria) {
         let c = criteria
-        return axiosInstance.get(`psychologists/filter/
-        ?ages=${c.ages}
-        &genders=${c.genders}
-        &statuses=${c.statuses}
-        &formats=${c.formats}
-        &themes=${c.themes}
-        &approaches=${c.approaches}
-        &specializations=${c.specializations}
-        &educations=${c.educations}
-        &secondary_educations=${c.secondary_educations}
-        &languages=${c.languages}`)
+        return axiosInstance.get(`psychologists/filter/`, {
+            params: {
+                ages: c.ages.length ? c.ages[0] : [],
+                genders: c.genders,
+                statuses: c.statuses,
+                formats: c.formats,
+                themes: c.themes,
+                approaches: c.approaches,
+                specializations: c.specializations,
+                educations: c.educations,
+                secondary_educations: c.secondary_educations,
+                languages: c.languages
+            },
+            paramsSerializer: function paramsSerializer(params) {
+                // "Hide" the `answer` param
+                return querystring.stringify(params)
+              }
+        })
             .then(response => {
                 return {
                     data: response.data,
@@ -125,6 +159,7 @@ export const psyUsersProfilesListNavAPI = {
                 }
             });
     }
+
 
 
    

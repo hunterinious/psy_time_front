@@ -89,7 +89,6 @@ const CriteriaPsy = (props) => {
         let count = 0
         for (const [key, value] of Object.entries(choosenCriteria)){
            if(value.length){
-               console.log(value, key)
                count += 1
            }
         }
@@ -148,10 +147,10 @@ const CriteriaPsy = (props) => {
     const handleSubmit = () => {
         const areAny = areAnyChoosenCriteria(state.choosenCriteria)
         if(areAny) {
-            let choosenCriteria = state.choosenCriteria
-            let choosenCriteriaForAPI = choosenCriteriaOnlyNames(choosenCriteria)
-            props.getPsysByCriteria(choosenCriteriaForAPI)
+            const choosenCriteria = state.choosenCriteria
+            const choosenCriteriaForAPI = choosenCriteriaOnlyNames(choosenCriteria)
             props.addCriteria(choosenCriteria)
+            props.getPsysByCriteria(choosenCriteriaForAPI)
         
         }
         props.handleClose()
