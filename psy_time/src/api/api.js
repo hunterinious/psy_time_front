@@ -119,7 +119,7 @@ export const psyUsersProfilesListNavAPI = {
     // }
     getPsysByCriteria(criteria) {
         let c = criteria
-        return axiosInstance.get(`psychologists/filter/`, {
+        return axiosInstance.get(`psychologists/filter`, {
             params: {
                 ages: c.ages.length ? c.ages[0] : [],
                 genders: c.genders,
