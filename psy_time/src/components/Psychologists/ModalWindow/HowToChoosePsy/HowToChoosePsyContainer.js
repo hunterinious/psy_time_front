@@ -13,7 +13,10 @@ class HowToChoosePsyContainer extends Component {
     render() {
         return (
             <div className="container">
-                <HowToChoosePsy text={this.props.howToChoosePsyText} />
+                <HowToChoosePsy
+                text={this.props.howToChoosePsyText}
+                handleClose={this.props.handleClose}
+                />
             </div>
         )
     }

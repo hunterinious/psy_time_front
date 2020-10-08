@@ -92,31 +92,32 @@ export const psyUsersProfilesListNavAPI = {
             });
     },
 
-    // getPsysByCriteria(criteria) {
-    //     let c = criteria
-    //     return axiosInstance.get(`psychologists/filter?ages=${c.ages}&genders=${c.genders}&statuses=${c.statuses}&formats=${c.formats}&themes=${c.themes}&approaches=${c.approaches}&specializations=${c.specializations}&educations=${c.educations}&secondary_educations=${c.secondary_educations}&languages=${c.languages}`)
-    //         .then(response => {
-    //             return {
-    //                 data: response.data,
-    //                 status: {
-    //                     text: response.statusText || response.status.text,
-    //                     code: response.status || response.status.code
-    //                 }
-    //             }
-    //         })
-    //         .catch(error => {
-    //             if(error.response) {
-    //                 return Promise.reject({
-    //                     data: error.response.data,
-    //                     status: {
-    //                         text: error.response.statusText || error.response.status.text,
-    //                         code: error.response.status || error.response.status.code
-    //                     }
-    //                 });
-    //             return Promise.reject(error)
-    //             }
-    //         });
-    // }
+    getRandomPsyUserProfile() {
+        return axiosInstance.get(`psychologists/random`)
+            .then(response => {
+                return {
+                    data: response.data,
+                    status: {
+                        text: response.statusText || response.status.text,
+                        code: response.status || response.status.code
+                    }
+                }
+            })
+            .catch(error => {
+                if(error.response) {
+                    return Promise.reject({
+                        data: error.response.data,
+                        status: {
+                            text: error.response.statusText || error.response.status.text,
+                            code: error.response.status || error.response.status.code
+                        }
+                    });
+                return Promise.reject(error)
+                }
+            });
+    },
+
+
     getPsysByCriteria(criteria) {
         let c = criteria
         return axiosInstance.get(`psychologists/filter`, {
@@ -159,8 +160,5 @@ export const psyUsersProfilesListNavAPI = {
                 }
             });
     }
-
-
-
    
 }

@@ -7,6 +7,7 @@ import Preloader from '../Common/Preloader/Preloader';
 import PsyProfiles from './PsyProfiles';
 import CriteriaPsyContainer from './ModalWindow/CriteriaPsy/CriteriaPsyContainer';
 import HowToChoosePsyContainer from './ModalWindow/HowToChoosePsy/HowToChoosePsyContainer';
+import RandomPsyContainer from './ModalWindow/RandomPsy/RandomPsyContainer';
 
 
 class PsyProfilesContainer extends Component {
@@ -38,9 +39,9 @@ class PsyProfilesContainer extends Component {
     renderModalWindowComponent(sectionId){
         switch(sectionId) {
             case 'howToChoosePsy':
-                return <HowToChoosePsyContainer/>
+                return <HowToChoosePsyContainer handleClose={this.handleClose}/>
             case 'randomPsy':
-                return undefined
+                return <RandomPsyContainer/>
             case 'helpToChoosePsy':
                 return undefined
             case 'criteriaPsy':
@@ -59,7 +60,7 @@ class PsyProfilesContainer extends Component {
                                 <a id='howToChoosePsy' className="nav-link">How to choose Psychologist</a>
                             </li>
                             <li className="nav-item">
-                                <a  id='randomPsy' className="nav-link">Link</a>
+                                <a  id='randomPsy' className="nav-link">Random Psychologist</a>
                             </li>
                             <li className="nav-item">
                                 <a id='helpToChoosePsy' className="nav-link">Link</a>

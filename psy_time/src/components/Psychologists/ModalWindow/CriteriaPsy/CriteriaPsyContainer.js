@@ -33,14 +33,14 @@ class CriteriaPsyContainer extends Component {
     render() {
         return <>
             { this.props.criteriaIsFetching
-             ? <Preloader /> 
-             : <CriteriaPsy
-                criteriaNames={this.props.criteriaNames}
-                choosenCriteria={this.props.choosenCriteria}
-                changeCriteria={this.changeCriteriaPsy}
-                removeCriteria={this.removeCriteriaPsy}
-                getPsysByCriteria={this.getPsysByCriteria}
-                handleClose={this.props.handleClose}/>
+                ? <Preloader /> 
+                : <CriteriaPsy
+                    criteriaNames={this.props.criteriaNames}
+                    choosenCriteria={this.props.choosenCriteria}
+                    changeCriteria={this.changeCriteriaPsy}
+                    removeCriteria={this.removeCriteriaPsy}
+                    getPsysByCriteria={this.getPsysByCriteria}
+                    handleClose={this.props.handleClose}/>
             }
         </>
     }

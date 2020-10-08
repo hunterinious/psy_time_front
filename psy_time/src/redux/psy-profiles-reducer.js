@@ -4,6 +4,7 @@ import { psyUsersProfilesListNavAPI } from '../api/api';
 const PROFILES_IS_FETCHING = 'PROFILES_IS_FETCHING';
 const CRITERIA_IS_FETCHING = 'CRITERIA_IS_FETCHING';
 const SET_PSY_USERS_PROFILES = 'SET_PSY_USERS_PROFILE';
+const SET_RANDOM_PSY_USER_PROFILE = 'SET_RANDOM_PSY_USER_PROFILE';
 const SET_CRITERIA_NAMES = 'SET_CRITERIA_NAMES';
 const SET_INITIAL_CRITERIA = 'SET_INITIAL_CRITERIA';
 const CHANGE_CRITERIA = 'CHANGE_CRITERIA';
@@ -14,6 +15,7 @@ const HOW_TO_CHOOSE_PSY = 'HOT_TO_CHOOSE_PSY';
 let initialState = {
     profiles: [],
     criteriaNames: [],
+    randomProfile: undefined,
     choosenCriteria: {
         ages: [],
         genders: [],
@@ -42,6 +44,8 @@ const psyUsersProfilesReducer = (state = initialState, action) => {
             return { ...state, criteriaIsFetching: action.criteriaIsFetching}
         case SET_PSY_USERS_PROFILES:
             return {...state, profiles: action.profiles}
+        case SET_RANDOM_PSY_USER_PROFILE:
+            return {...state, randomProfile: action.profile}
         case SET_CRITERIA_NAMES:
             return {...state, criteriaNames: action.criteriaNames}
         case SET_INITIAL_CRITERIA:
@@ -60,6 +64,7 @@ const psyUsersProfilesReducer = (state = initialState, action) => {
 export const profilesIsFetching = (profilesIsFetching) => ({ type: PROFILES_IS_FETCHING, profilesIsFetching})
 export const criteriaIsFetching = (criteriaIsFetching) => ({ type: CRITERIA_IS_FETCHING, criteriaIsFetching})
 export const setPsyUsersProfiles = (profiles) => { return { type: SET_PSY_USERS_PROFILES, profiles}}
+export const setRandomPsyUserProfile = (profile) => { return { type: SET_RANDOM_PSY_USER_PROFILE, profile}}
 export const setCriteriaNames = (criteriaNames) => { return { type: SET_CRITERIA_NAMES, criteriaNames }}
 export const setInitialCriteria = (criteria) => {return { type: SET_INITIAL_CRITERIA, criteria}}
 export const changeCriteria = (criteria) => { return { type: CHANGE_CRITERIA, criteria }}
@@ -79,6 +84,13 @@ export const getPsyUsersProfiles = () => async (dispatch) => {
             dispatch(setPsyUsersProfiles(data.data.results))
             dispatch(profilesIsFetching(false))
         }
+    }
+}
+
+export const getRandomPsyUserProfile = () => async (dispatch) => {
+    let data = await psyUsersProfilesListNavAPI.getRandomPsyUserProfile()
+    if(data.status.code === 200) {
+        dispatch(setRandomPsyUserProfile(data.data))
     }
 }
 
