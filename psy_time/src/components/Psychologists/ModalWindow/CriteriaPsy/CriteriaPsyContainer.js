@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { compose } from 'redux';
 import { connect } from 'react-redux';
-import { getPsysByCriteria, setInitialCriteriaPsy, addCriteriaPsy, removeCriteriaPsy } from '../../../../redux/psy-profiles-reducer';
+import { getPsysByCriteria, setInitialCriteriaPsy, changeCriteriaPsy, removeCriteriaPsy } from '../../../../redux/psy-profiles-reducer';
 import Preloader from '../../../Common/Preloader/Preloader';
 import CriteriaPsy from './CriteriaPsy';
 
@@ -10,7 +10,7 @@ class CriteriaPsyContainer extends Component {
     constructor(props){
         super(props)
         this.getPsysByCriteria = this.getPsysByCriteria.bind(this)
-        this.addCriteriaPsy = this.addCriteriaPsy.bind(this)
+        this.changeCriteriaPsy = this.changeCriteriaPsy.bind(this)
         this.removeCriteriaPsy = this.removeCriteriaPsy.bind(this)
     }
 
@@ -22,8 +22,8 @@ class CriteriaPsyContainer extends Component {
         this.props.getPsysByCriteria(criteria)
     }
 
-    addCriteriaPsy(criteria){
-        this.props.addCriteriaPsy(criteria)
+    changeCriteriaPsy(criteria){
+        this.props.changeCriteriaPsy(criteria)
     }
 
     removeCriteriaPsy(criteria){
@@ -37,7 +37,7 @@ class CriteriaPsyContainer extends Component {
              : <CriteriaPsy
                 criteriaNames={this.props.criteriaNames}
                 choosenCriteria={this.props.choosenCriteria}
-                addCriteria={this.addCriteriaPsy}
+                changeCriteria={this.changeCriteriaPsy}
                 removeCriteria={this.removeCriteriaPsy}
                 getPsysByCriteria={this.getPsysByCriteria}
                 handleClose={this.props.handleClose}/>
@@ -56,7 +56,7 @@ let mapStateToProps = (state) => {
 }
 
 export default compose(
-    connect(mapStateToProps, { getPsysByCriteria, setInitialCriteriaPsy, addCriteriaPsy, removeCriteriaPsy })
+    connect(mapStateToProps, { getPsysByCriteria, setInitialCriteriaPsy, changeCriteriaPsy, removeCriteriaPsy })
 )(CriteriaPsyContainer)
 
 

@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useReducer} from 'react';
+import React, { useEffect, useState, useReducer, useRef} from 'react';
 import { Fade } from 'react-bootstrap';
 import Buttons from './Buttons';
 import RangeSlider from './RangeSlider';
@@ -50,9 +50,19 @@ function reducer(state, action){
     }
 }
 
+function usePrevious(value) {
+    const ref = useRef();
+    useEffect(() => {
+      ref.current = value;
+    });
+    return ref.current;
+  }
+  
+
 const CriteriaPsy = (props) => {
     const [state, setState] = useReducer(reducer, { choosenCriteria: props.choosenCriteria,
                                                   criteriaNames: props.criteriaNames })
+    const prevCriteria = usePrevious(state.choosenCriteria)
                                                   
     const ageMinMax = props.criteriaNames.ages[0].name.split('-')
     const ageMin = parseInt(ageMinMax[0])
@@ -145,14 +155,16 @@ const CriteriaPsy = (props) => {
     }
 
     const handleSubmit = () => {
-        const areAny = areAnyChoosenCriteria(state.choosenCriteria)
-        if(areAny) {
-            const choosenCriteria = state.choosenCriteria
+        const choosenCriteria = state.choosenCriteria
+        props.changeCriteria(choosenCriteria)
+
+        const areAny = areAnyChoosenCriteria(choosenCriteria)
+        if(areAny && state.choosenCriteria !== prevCriteria) {
             const choosenCriteriaForAPI = choosenCriteriaOnlyNames(choosenCriteria)
-            props.addCriteria(choosenCriteria)
             props.getPsysByCriteria(choosenCriteriaForAPI)
         
         }
+
         props.handleClose()
     }
 

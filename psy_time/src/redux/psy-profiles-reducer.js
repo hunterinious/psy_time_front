@@ -1,4 +1,3 @@
-import { compose } from 'redux';
 import { psyUsersProfilesListAPI } from '../api/api';
 import { psyUsersProfilesListNavAPI } from '../api/api';
 
@@ -7,7 +6,7 @@ const CRITERIA_IS_FETCHING = 'CRITERIA_IS_FETCHING';
 const SET_PSY_USERS_PROFILES = 'SET_PSY_USERS_PROFILE';
 const SET_CRITERIA_NAMES = 'SET_CRITERIA_NAMES';
 const SET_INITIAL_CRITERIA = 'SET_INITIAL_CRITERIA';
-const ADD_CRITERIA = 'ADD_CRITERIA';
+const CHANGE_CRITERIA = 'CHANGE_CRITERIA';
 const REMOVE_CRITERIA = 'REMOVE_CRITERIA';
 const HOW_TO_CHOOSE_PSY = 'HOT_TO_CHOOSE_PSY';
 
@@ -47,7 +46,7 @@ const psyUsersProfilesReducer = (state = initialState, action) => {
             return {...state, criteriaNames: action.criteriaNames}
         case SET_INITIAL_CRITERIA:
             return {...state, choosenCriteria: action.criteria}
-        case ADD_CRITERIA:
+        case CHANGE_CRITERIA:
             return {...state, choosenCriteria: action.criteria}
         case REMOVE_CRITERIA:
             return {...state, choosenCriteria: initialState.choosenCriteria}
@@ -63,7 +62,7 @@ export const criteriaIsFetching = (criteriaIsFetching) => ({ type: CRITERIA_IS_F
 export const setPsyUsersProfiles = (profiles) => { return { type: SET_PSY_USERS_PROFILES, profiles}}
 export const setCriteriaNames = (criteriaNames) => { return { type: SET_CRITERIA_NAMES, criteriaNames }}
 export const setInitialCriteria = (criteria) => {return { type: SET_INITIAL_CRITERIA, criteria}}
-export const addCriteria = (criteria) => { return { type: ADD_CRITERIA, criteria }}
+export const changeCriteria = (criteria) => { return { type: CHANGE_CRITERIA, criteria }}
 export const removeCriteria = () => { return { type: REMOVE_CRITERIA }}
 export const howToChoosePsy = (howToChoosePsyText) => { return { type: HOW_TO_CHOOSE_PSY, howToChoosePsyText }}
 
@@ -99,8 +98,8 @@ export const setInitialCriteriaPsy = () => async (dispatch) => {
     dispatch(criteriaIsFetching(false))
 }
 
-export const addCriteriaPsy = (criteria) => async (dispatch) => {
-    dispatch(addCriteria(criteria))
+export const changeCriteriaPsy = (criteria) => async (dispatch) => {
+    dispatch(changeCriteria(criteria))
     localStorage.setItem('criteria', JSON.stringify(criteria))
 }
 
