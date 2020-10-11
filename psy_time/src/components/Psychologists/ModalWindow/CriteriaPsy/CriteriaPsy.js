@@ -3,16 +3,21 @@ import { Fade } from 'react-bootstrap';
 import Buttons from './Buttons';
 import RangeSlider from './RangeSlider';
 
+const SET_CHOOSEN_CRITERIA = 'SET_CHOOSEN_CRITERIA';
+const REMOVE_CRITERION = 'REMOVE_CRITERION';
+const ADD_CRITERION = 'ADD_CRITERION';
+const ADD_AGE_CRITERION = 'ADD_AGE_CRITERION';
+
 
 function reducer(state, action){
     let data = action.data
     switch(action.type) {
-        case 'setChoosenCriteria':
+        case SET_CHOOSEN_CRITERIA:
             return {
                 ...state,
                 choosenCriteria: action.choosenCriteria
             }        
-        case 'removeCriterion':
+        case REMOVE_CRITERION:
             return {
                 ...state,
                 choosenCriteria: {
@@ -23,7 +28,7 @@ function reducer(state, action){
                     ]
                 }
             }
-        case 'addCriterion':
+        case ADD_CRITERION:
             return {
                 ...state,
                 choosenCriteria: {
@@ -35,7 +40,7 @@ function reducer(state, action){
                     
                 }
             }
-        case 'addAgeCriterion':
+        case ADD_AGE_CRITERION:
             return {
                 ...state,
                 choosenCriteria: {
@@ -79,7 +84,7 @@ const CriteriaPsy = (props) => {
                               "Secondary educations", "Languages"];
     
     useEffect(() => {
-        setState({type: 'setChoosenCriteria', choosenCriteria: props.choosenCriteria })
+        setState({type: SET_CHOOSEN_CRITERIA, choosenCriteria: props.choosenCriteria })
     }, [props.choosenCriteria]);
 
     const choosenCriteriaOnlyNames = (choosenCriteria) => {
@@ -135,23 +140,23 @@ const CriteriaPsy = (props) => {
             const finded = isCriterionChoosen(id, key)
 
             if(finded) {
-                setState({ type: 'removeCriterion', data: {key, id}})
+                setState({ type: REMOVE_CRITERION, data: {key, id}})
             }else{
                 if(key === 'genders'){
                     const genderCriteria = state.choosenCriteria[key]
                     if(genderCriteria.length > 0){
                         const gender_id = genderCriteria[0][0]
-                        setState({ type: 'removeCriterion', data: {key, id:gender_id }})
+                        setState({ type: REMOVE_CRITERION, data: {key, id:gender_id }})
                     }
                 }
-                setState({ type: 'addCriterion', data: {key, id, name}})
+                setState({ type: ADD_CRITERION, data: {key, id, name}})
             }
         }
     }
 
     const handleAgeCriterionChange = (value) => {
         setAgeRange(value)
-        setState({type: 'addAgeCriterion', data: {key: "ages", name: value}})
+        setState({type: ADD_AGE_CRITERION, data: {key: "ages", name: value}})
     }
 
     const handleSubmit = () => {
@@ -171,7 +176,7 @@ const CriteriaPsy = (props) => {
     const handleRemove = () => {
         props.removeCriteria()
         setAgeRange([ageMin, ageMax])
-        setState({type: 'setChoosenCriteria', choosenCriteria: props.choosenCriteria })
+        setState({type: SET_CHOOSEN_CRITERIA, choosenCriteria: props.choosenCriteria })
     }
 
     const setClassName = (index, key) => {
@@ -218,9 +223,9 @@ const CriteriaPsy = (props) => {
             ))
             }
             <div className="form-group form-submit">
-            <button id="submit-button" className='btn btn-primary' onClick={handleSubmit}>
-                Apply
-            </button>
+                <button id="submit-button" className='btn btn-primary' onClick={handleSubmit}>
+                    Apply
+                </button>
             </div>
         </div>
     )

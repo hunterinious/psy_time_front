@@ -1,9 +1,9 @@
-import { psyUsersProfilesListAPI } from '../api/api';
-import { psyUsersProfilesListNavAPI } from '../api/api';
+import { psyUsersProfilesListAPI } from '../api/psyProfilesApi';
+import { psyUsersProfilesListNavAPI } from '../api/psyProfilesApi';
 
-const PROFILES_IS_FETCHING = 'PROFILES_IS_FETCHING';
+const PROFILES_ARE_FETCHING = 'PROFILES_ARE_FETCHING';
 const PROFILES_NOT_FOUND = 'PROFILES_NOT_FOUND';
-const CRITERIA_IS_FETCHING = 'CRITERIA_IS_FETCHING';
+const CRITERIA_ARE_FETCHING = 'CRITERIA_ARE_FETCHING';
 const SET_PSY_USERS_PROFILES = 'SET_PSY_USERS_PROFILE';
 const SET_RANDOM_PSY_USER_PROFILE = 'SET_RANDOM_PSY_USER_PROFILE';
 const SET_CRITERIA_NAMES = 'SET_CRITERIA_NAMES';
@@ -31,21 +31,20 @@ let initialState = {
         languages: []
     },
     howToChoosePsyText: '',
-    profilesIsFetching: true,
-    criteriaIsFetching: true,
-
+    profilesAreFetching: true,
+    criteriaAreFetching: true,
 };
 
 
 
 const psyUsersProfilesReducer = (state = initialState, action) => {
     switch (action.type) {
-        case PROFILES_IS_FETCHING:
-            return { ...state, profilesIsFetching: action.profilesIsFetching}
+        case PROFILES_ARE_FETCHING:
+            return { ...state, profilesAreFetching: action.profilesAreFetching}
         case PROFILES_NOT_FOUND:
             return { ...state, profilesNotFound: action.profilesNotFound}
-        case CRITERIA_IS_FETCHING:
-            return { ...state, criteriaIsFetching: action.criteriaIsFetching}
+        case CRITERIA_ARE_FETCHING:
+            return { ...state, criteriaAreFetching: action.criteriaAreFetching}
         case SET_PSY_USERS_PROFILES:
             return {...state, profiles: action.profiles}
         case SET_RANDOM_PSY_USER_PROFILE:
@@ -65,9 +64,9 @@ const psyUsersProfilesReducer = (state = initialState, action) => {
     }
 }
 
-export const profilesIsFetching = (profilesIsFetching) => ({ type: PROFILES_IS_FETCHING, profilesIsFetching})
+export const profilesAreFetching = (profilesAreFetching) => ({ type: PROFILES_ARE_FETCHING, profilesAreFetching})
 export const profilesNotFound = (profilesNotFound) => ({ type: PROFILES_NOT_FOUND, profilesNotFound})
-export const criteriaIsFetching = (criteriaIsFetching) => ({ type: CRITERIA_IS_FETCHING, criteriaIsFetching})
+export const criteriaAreFetching = (criteriaAreFetching) => ({ type: CRITERIA_ARE_FETCHING, criteriaAreFetching})
 export const setPsyUsersProfiles = (profiles) => { return { type: SET_PSY_USERS_PROFILES, profiles}}
 export const setRandomPsyUserProfile = (profile) => { return { type: SET_RANDOM_PSY_USER_PROFILE, profile}}
 export const setCriteriaNames = (criteriaNames) => { return { type: SET_CRITERIA_NAMES, criteriaNames }}
@@ -86,14 +85,14 @@ export const getPsyUsersProfiles = () => async (dispatch) => {
             dispatch(setPsyUsersProfiles(profiles))
             dispatch(profilesNotFound(false))
         }
-        dispatch(profilesIsFetching(false))
+        dispatch(profilesAreFetching(false))
     }
     else{
         let data = await psyUsersProfilesListAPI.getPsyUsersProfiles()
         if(data.status.code === 200) {
             dispatch(setPsyUsersProfiles(data.data.results))
             dispatch(profilesNotFound(false))
-            dispatch(profilesIsFetching(false))
+            dispatch(profilesAreFetching(false))
         }
     }
 }
@@ -118,7 +117,7 @@ export const setInitialCriteriaPsy = () => async (dispatch) => {
         dispatch(setInitialCriteria(storageCritetia))
     }
     await dispatch(getCriteriaNamesPsys())
-    dispatch(criteriaIsFetching(false))
+    dispatch(criteriaAreFetching(false))
 }
 
 export const changeCriteriaPsy = (criteria) => async (dispatch) => {
@@ -134,7 +133,7 @@ export const removeCriteriaPsy = () => async (dispatch) => {
 }
 
 export const getPsysByCriteria = (criteria) => async (dispatch) => {
-    dispatch(profilesIsFetching(true))
+    dispatch(profilesAreFetching(true))
     let data = await psyUsersProfilesListNavAPI.getPsysByCriteria(criteria)
     if(data.status.code === 200) {
         let results = data.data.results
@@ -145,7 +144,7 @@ export const getPsysByCriteria = (criteria) => async (dispatch) => {
             dispatch(profilesNotFound(true))
         }
         localStorage.setItem('profiles', JSON.stringify(results))
-        dispatch(profilesIsFetching(false))
+        dispatch(profilesAreFetching(false))
     }
 }
 

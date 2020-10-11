@@ -1,10 +1,9 @@
 import Axios, * as axios from "axios";
 import querystring from 'querystring';
 
-var qs = require('qs');
 
 const axiosInstance = axios.create({
-    baseURL: 'http://localhost:8000/api/',
+    baseURL: 'http://localhost:8000/api/psychologists/',
     withCredentials: true,
     headers: {
         'Accept': 'application/json'
@@ -16,7 +15,7 @@ export default axiosInstance
 export const psyUsersProfilesListAPI = {
 
     getPsyUsersProfiles() {
-        return axiosInstance.get(`psychologists/`)
+        return axiosInstance.get(``)
             .then(response => {
                 return {
                     data: response.data,
@@ -43,7 +42,7 @@ export const psyUsersProfilesListAPI = {
 
 export const psyUsersProfilesListNavAPI = {
     getCriteriaNamesPsys() {
-        return axiosInstance.get(`psychologists/criteria`)
+        return axiosInstance.get(`criteria`)
             .then(response => {
                 return {
                     data: response.data,
@@ -68,7 +67,7 @@ export const psyUsersProfilesListNavAPI = {
     },
 
     getHowToChoosePsy() {
-        return axiosInstance.get(`psychologists/how-to-choose-psychologist`)
+        return axiosInstance.get(`how-to-choose-psychologist`)
             .then(response => {
                 return {
                     data: response.data,
@@ -93,7 +92,7 @@ export const psyUsersProfilesListNavAPI = {
     },
 
     getRandomPsyUserProfile() {
-        return axiosInstance.get(`psychologists/random`)
+        return axiosInstance.get(`random`)
             .then(response => {
                 return {
                     data: response.data,
@@ -120,7 +119,7 @@ export const psyUsersProfilesListNavAPI = {
 
     getPsysByCriteria(criteria) {
         let c = criteria
-        return axiosInstance.get(`psychologists/filter`, {
+        return axiosInstance.get(`filter`, {
             params: {
                 ages: c.ages.length ? c.ages[0] : [],
                 genders: c.genders,
@@ -134,7 +133,6 @@ export const psyUsersProfilesListNavAPI = {
                 languages: c.languages
             },
             paramsSerializer: function paramsSerializer(params) {
-                // "Hide" the `answer` param
                 return querystring.stringify(params)
               }
         })

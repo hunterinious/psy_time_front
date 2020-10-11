@@ -32,7 +32,7 @@ class CriteriaPsyContainer extends Component {
 
     render() {
         return <>
-            { this.props.criteriaIsFetching
+            { this.props.criteriaAreFetching
                 ? <Preloader /> 
                 : <CriteriaPsy
                     criteriaNames={this.props.criteriaNames}
@@ -49,7 +49,7 @@ class CriteriaPsyContainer extends Component {
 
 let mapStateToProps = (state) => {
     return {
-        criteriaIsFetching: state.psychologistsPage.criteriaIsFetching,
+        criteriaAreFetching: state.psychologistsPage.criteriaAreFetching,
         criteriaNames: state.psychologistsPage.criteriaNames,
         choosenCriteria: state.psychologistsPage.choosenCriteria
     }
