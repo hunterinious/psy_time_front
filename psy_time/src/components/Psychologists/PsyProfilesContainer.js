@@ -11,6 +11,12 @@ import RandomPsyContainer from './ModalWindow/RandomPsy/RandomPsyContainer';
 import HelpContainer from '../Help/HelpContainer';
 
 
+const HOW_TO_CHOOSE_PSY = 'HOW_TO_CHOOSE_PSY';
+const CRITERIA_PSY = 'CRITERIA_PSY'
+const RANDOM_PSY = 'RANDOM_PSY';
+const HELP = 'HELP';
+
+
 class PsyProfilesContainer extends Component {
     constructor(props) {
         super()
@@ -27,18 +33,18 @@ class PsyProfilesContainer extends Component {
     handleOpen = (e) => {
         let id = e.target.id
         let text = ''
-        console.log(e.target.id)
+
         switch(id) {
-            case 'howToChoosePsy':
+            case HOW_TO_CHOOSE_PSY:
                 text = 'How To Choose Psychologist'
                 break;
-            case 'randomPsy':
+            case  RANDOM_PSY:
                 text = 'Random Psychologist'
                 break;
-            case 'help':
+            case HELP:
                 text = 'Help in choosing'
                 break;
-            case 'criteriaPsy':
+            case CRITERIA_PSY:
                 text = 'Filtering'
                 break;
         }
@@ -58,13 +64,13 @@ class PsyProfilesContainer extends Component {
 
     renderModalWindowComponent(sectionId){
         switch(sectionId) {
-            case 'howToChoosePsy':
+            case HOW_TO_CHOOSE_PSY:
                 return <HowToChoosePsyContainer handleClose={this.handleClose}/>
-            case 'randomPsy':
+            case RANDOM_PSY:
                 return <RandomPsyContainer/>
-            case 'help':
+            case HELP:
                 return <HelpContainer handleClose={this.handleClose}/>
-            case 'criteriaPsy':
+            case CRITERIA_PSY:
                 return <CriteriaPsyContainer handleClose={this.handleClose}/>
           }
     }
@@ -77,16 +83,16 @@ class PsyProfilesContainer extends Component {
                     <div className="col-2">
                         <ul className="nav nav-pills flex-column" onClick={this.handleOpen}>
                             <li className="nav-item">
-                                <a id='howToChoosePsy' className="nav-link">How to choose Psychologist</a>
+                                <a id={HOW_TO_CHOOSE_PSY} className="nav-link">How to choose Psychologist</a>
                             </li>
                             <li className="nav-item">
-                                <a  id='randomPsy' className="nav-link">Random Psychologist</a>
+                                <a  id={RANDOM_PSY} className="nav-link">Random Psychologist</a>
                             </li>
                             <li className="nav-item">
-                                <a id='help' className="nav-link">Help in Choosing</a>
+                                <a id={HELP} className="nav-link">Help in Choosing</a>
                             </li>
                             <li className="nav-item">
-                                <a id='criteriaPsy' className="nav-link">Filter</a>
+                                <a id={CRITERIA_PSY} className="nav-link">Filter</a>
                             </li>
                         </ul>
                     </div>

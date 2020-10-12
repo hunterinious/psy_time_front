@@ -10,23 +10,24 @@ const Help = (props) => {
 
     const themeOptions = ["Help to choose", "Your question"]
 
-    const onSubmit = async values => {
- 
-        let theme = ''
-        let selectTheme = values.selectTheme
-        if (selectTheme === themeOptions[0]){
-            theme = selectTheme
-        }else {
-            theme = values.yourTheme
-        }
-     
-        let data = await helpAPI.help(values.email, values.username, values.countries,
-                                theme, values.message)
-       
-        if(data.status.code === 201) {
-            alert("Your request in pending")
-            props.handleClose()
-        }
+    const onSubmit = async (values, { setSubmitting, setFieldError }) => {
+        const selectTheme = values.selectTheme
+        const theme = selectTheme === themeOptions[0] ? selectTheme : values.theme
+
+        const data = helpAPI.help(values.email, values.username, values.countries,
+                                  null, values.message)
+                            .then(() => {
+                                alert("Your request in pending")
+                                props.handleClose()
+                            })
+                            .catch(error => {
+                                if(error.status.code === 400){
+                                    for (const [key, value] of Object.entries(error.data)) {
+                                        setFieldError(key, value[0])    
+                                    };
+                                }
+                            })
+
     }
 
     const initialValues = {
@@ -35,7 +36,7 @@ const Help = (props) => {
         message: '',
         countries: '',
         selectTheme: props.helpToChoose ? themeOptions[0] : themeOptions[1],
-        yourTheme: ''
+        theme: ''
     }
 
     const validationSchema = Yup.object().shape({
@@ -44,7 +45,7 @@ const Help = (props) => {
         message: Yup.string().required('Required'),
         countries: Yup.string().required('Required'),
         selectTheme: Yup.string().notRequired(''),
-        yourTheme: Yup.string().when('selectTheme', {
+        theme: Yup.string().when('selectTheme', {
           is: themeOptions[1],
           then: Yup.string().required("Required")
         })
@@ -95,7 +96,7 @@ const Help = (props) => {
                           control='input'
                           type='text'
                           placeholder='Theme'
-                          name='yourTheme'
+                          name='theme'
                         />
                       : null
                       }
