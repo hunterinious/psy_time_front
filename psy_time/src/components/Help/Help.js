@@ -3,6 +3,7 @@ import { Formik, Form} from 'formik';
 import * as Yup from 'yup';
 import FormikControl from '../Common/FormControl/FormikControl';
 import { helpAPI } from '../../api/helpApi';
+import style from './Help.module.css'
 
 
 const Help = (props) => {
@@ -15,7 +16,7 @@ const Help = (props) => {
         const theme = selectTheme === themeOptions[0] ? selectTheme : values.theme
 
         const data = helpAPI.help(values.email, values.username, values.countries,
-                                  null, values.message)
+                                  theme, values.message)
                             .then(() => {
                                 alert("Your request in pending")
                                 props.handleClose()
@@ -103,7 +104,7 @@ const Help = (props) => {
                   </div>
                   <div className="col">
                       <FormikControl
-                        className="form-control"
+                        className={"form-control " + style.message}
                         control='textarea'
                         placeholder='Message Text'
                         name='message'
