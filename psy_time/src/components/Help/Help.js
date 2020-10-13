@@ -47,8 +47,8 @@ const Help = (props) => {
         countries: Yup.string().required('Required'),
         selectTheme: Yup.string().notRequired(''),
         theme: Yup.string().when('selectTheme', {
-          is: themeOptions[1],
-          then: Yup.string().required("Required")
+            is: themeOptions[1],
+            then: Yup.string().required("Required")
         })
     })
 
