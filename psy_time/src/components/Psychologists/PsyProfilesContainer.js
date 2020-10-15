@@ -30,8 +30,7 @@ class PsyProfilesContainer extends Component {
         this.props.getPsyUsersProfiles()
     }
 
-    handleOpen = (e) => {
-        let id = e.target.id
+    getHeaderText(id) {
         let text = ''
 
         switch(id) {
@@ -48,6 +47,13 @@ class PsyProfilesContainer extends Component {
                 text = 'Filtering'
                 break;
         }
+
+        return text
+    }
+
+    handleOpen = (e) => {
+        const id = e.target.id
+        const text = this.getHeaderText(id)
 
         this.setState({
             show: true,

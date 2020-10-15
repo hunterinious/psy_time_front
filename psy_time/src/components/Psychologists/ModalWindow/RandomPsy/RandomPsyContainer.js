@@ -20,7 +20,7 @@ class RandomPsyContainer extends Component {
             ? <RandomPsy
                 random_profile={this.props.randomProfile}
                 getRandomPsyUserProfile={this.props.getRandomPsyUserProfile} />
-            : <div></div>
+            : null
         }
         </>
     }

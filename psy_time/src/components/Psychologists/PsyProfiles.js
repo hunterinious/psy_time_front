@@ -8,6 +8,7 @@ const PsyProfiles = (props) => {
    return <div className={"d-flex p-2 flex-wrap "}>
         {  
             props.profiles.map(p => <PsyShortProfile 
+                id={p.id}
                 avatar={p.avatar}
                 statuses={p.statuses}
                 username={p.username}

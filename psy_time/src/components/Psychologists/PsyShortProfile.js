@@ -1,13 +1,16 @@
-import React, { Component } from 'react';
+import React from 'react';
+import { NavLink } from 'react-router-dom';
 import styles from './Psychologists.module.css';
 
 
 const PsyProfiles = (props) => {
-    let statuses_length = props.statuses.length
+    const statuses_length = props.statuses.length
 
     return <div className={"mx-3 my-3"}>
         <div>
-            <img src={props.avatar} className={styles.userPhoto}/>    
+            <NavLink to={'/public-profile/' + props.id}>
+                <img src={props.avatar} className={styles.userPhoto}/>    
+            </NavLink>
         </div>
         <div>
             {props.username}

@@ -1,11 +1,15 @@
+import { psyUserProfileAPI } from '../api/psyProfilesApi';
 import { psyUsersProfilesListAPI } from '../api/psyProfilesApi';
 import { psyUsersProfilesListNavAPI } from '../api/psyProfilesApi';
 
+
+const SET_PSY_USERS_PROFILES = 'SET_PSY_USERS_PROFILE';
 const PROFILES_ARE_FETCHING = 'PROFILES_ARE_FETCHING';
 const PROFILES_NOT_FOUND = 'PROFILES_NOT_FOUND';
-const CRITERIA_ARE_FETCHING = 'CRITERIA_ARE_FETCHING';
-const SET_PSY_USERS_PROFILES = 'SET_PSY_USERS_PROFILE';
+const SET_PSY_PUBLIC_PROFILE = 'SET_PSY_PUBLIC_PROFILE';
+const SET_PSY_EXNTENDED_PUBLIC_PROFILE = 'SET_PSY_EXNTENDED_PUBLIC_PROFILE'
 const SET_RANDOM_PSY_USER_PROFILE = 'SET_RANDOM_PSY_USER_PROFILE';
+const CRITERIA_ARE_FETCHING = 'CRITERIA_ARE_FETCHING';
 const SET_CRITERIA_NAMES = 'SET_CRITERIA_NAMES';
 const SET_INITIAL_CRITERIA = 'SET_INITIAL_CRITERIA';
 const CHANGE_CRITERIA = 'CHANGE_CRITERIA';
@@ -16,8 +20,11 @@ const HOW_TO_CHOOSE_PSY = 'HOT_TO_CHOOSE_PSY';
 let initialState = {
     profiles: [],
     profilesNotFound: false,
-    criteriaNames: [],
+    profilesAreFetching: true,
+    publicProfile: undefined,
+    extendedPublicProfile: undefined,
     randomProfile: undefined,
+    criteriaNames: [],
     choosenCriteria: {
         ages: [],
         genders: [],
@@ -30,15 +37,19 @@ let initialState = {
         secondary_educations: [],
         languages: []
     },
-    howToChoosePsyText: '',
-    profilesAreFetching: true,
     criteriaAreFetching: true,
+    howToChoosePsyText: ''
 };
 
 
 
 const psyUsersProfilesReducer = (state = initialState, action) => {
     switch (action.type) {
+        case SET_PSY_PUBLIC_PROFILE:
+            return {...state, publicProfile: action.profile}
+        case SET_PSY_EXNTENDED_PUBLIC_PROFILE:
+            console.log(action.profile)
+            return {...state, extendedPublicProfile: action.profile}
         case PROFILES_ARE_FETCHING:
             return { ...state, profilesAreFetching: action.profilesAreFetching}
         case PROFILES_NOT_FOUND:
@@ -64,17 +75,35 @@ const psyUsersProfilesReducer = (state = initialState, action) => {
     }
 }
 
+
+export const setPsyPublicProfile = (profile) => ({ type: SET_PSY_PUBLIC_PROFILE, profile})
+export const setPsyExtendedPublicProfile = (profile) => ({ type: SET_PSY_EXNTENDED_PUBLIC_PROFILE, profile})
 export const profilesAreFetching = (profilesAreFetching) => ({ type: PROFILES_ARE_FETCHING, profilesAreFetching})
 export const profilesNotFound = (profilesNotFound) => ({ type: PROFILES_NOT_FOUND, profilesNotFound})
+export const setPsyUsersProfiles = (profiles) => ({ type: SET_PSY_USERS_PROFILES, profiles})
+export const setRandomPsyUserProfile = (profile) =>  ({ type: SET_RANDOM_PSY_USER_PROFILE, profile})
 export const criteriaAreFetching = (criteriaAreFetching) => ({ type: CRITERIA_ARE_FETCHING, criteriaAreFetching})
-export const setPsyUsersProfiles = (profiles) => { return { type: SET_PSY_USERS_PROFILES, profiles}}
-export const setRandomPsyUserProfile = (profile) => { return { type: SET_RANDOM_PSY_USER_PROFILE, profile}}
-export const setCriteriaNames = (criteriaNames) => { return { type: SET_CRITERIA_NAMES, criteriaNames }}
-export const setInitialCriteria = (criteria) => {return { type: SET_INITIAL_CRITERIA, criteria}}
-export const changeCriteria = (criteria) => { return { type: CHANGE_CRITERIA, criteria }}
-export const removeCriteria = () => { return { type: REMOVE_CRITERIA }}
-export const howToChoosePsy = (howToChoosePsyText) => { return { type: HOW_TO_CHOOSE_PSY, howToChoosePsyText }}
+export const setCriteriaNames = (criteriaNames) =>  ({ type: SET_CRITERIA_NAMES, criteriaNames })
+export const setInitialCriteria = (criteria) =>  ({ type: SET_INITIAL_CRITERIA, criteria})
+export const changeCriteria = (criteria) => ({ type: CHANGE_CRITERIA, criteria })
+export const removeCriteria = () =>  ({ type: REMOVE_CRITERIA })
+export const howToChoosePsy = (howToChoosePsyText) =>  ({ type: HOW_TO_CHOOSE_PSY, howToChoosePsyText })
 
+
+export const getPsyExtendedPublicProfile = (id) => async (dispatch) => {
+    let data = await psyUserProfileAPI.getPsyExtendedPublicProfile(id)
+    if(data.status.code === 200) {
+        dispatch(setPsyExtendedPublicProfile(data.data))
+    }
+}
+
+
+export const getPsyPublicProfile = (id) => async (dispatch) => {
+    let data = await psyUserProfileAPI.getPsyPublicProfile(id)
+    if(data.status.code === 200) {
+        dispatch(setPsyPublicProfile(data.data))
+    }
+}
 
 export const getPsyUsersProfiles = () => async (dispatch) => {
     let profiles = JSON.parse(localStorage.getItem('profiles'))
