@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { withRouter } from 'react-router-dom';
 import { compose } from 'redux';
 import { connect } from 'react-redux';
 import { getPsyExtendedPublicProfile } from '../../../../redux/psy-profiles-reducer';
@@ -7,7 +6,7 @@ import ExtendedProfile from './ExtendedProfile';
 
 class ExtendedProfileContainer extends Component {
     componentDidMount(){
-        this.props.getPsyExtendedPublicProfile(this.props.match.params.id)
+        this.props.getPsyExtendedPublicProfile(this.props.paramId)
     }
 
     render() {
@@ -30,5 +29,4 @@ let mapStateToProps = (state) => {
 
 export default compose(
     connect(mapStateToProps, { getPsyExtendedPublicProfile }),
-    withRouter
 )(ExtendedProfileContainer)

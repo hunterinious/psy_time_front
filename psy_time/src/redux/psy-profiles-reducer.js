@@ -8,6 +8,8 @@ const PROFILES_ARE_FETCHING = 'PROFILES_ARE_FETCHING';
 const PROFILES_NOT_FOUND = 'PROFILES_NOT_FOUND';
 const SET_PSY_PUBLIC_PROFILE = 'SET_PSY_PUBLIC_PROFILE';
 const SET_PSY_EXNTENDED_PUBLIC_PROFILE = 'SET_PSY_EXNTENDED_PUBLIC_PROFILE'
+const SET_PSY_REVIEWS = 'SET_PSY_REVIEWS';
+const REVIEWS_ARE_FETCHING = 'REVIEWS_ARE_FETCHING';
 const SET_RANDOM_PSY_USER_PROFILE = 'SET_RANDOM_PSY_USER_PROFILE';
 const CRITERIA_ARE_FETCHING = 'CRITERIA_ARE_FETCHING';
 const SET_CRITERIA_NAMES = 'SET_CRITERIA_NAMES';
@@ -23,6 +25,8 @@ let initialState = {
     profilesAreFetching: true,
     publicProfile: undefined,
     extendedPublicProfile: undefined,
+    reviews: [],
+    reviewsAreFetching: true,
     randomProfile: undefined,
     criteriaNames: [],
     choosenCriteria: {
@@ -48,8 +52,11 @@ const psyUsersProfilesReducer = (state = initialState, action) => {
         case SET_PSY_PUBLIC_PROFILE:
             return {...state, publicProfile: action.profile}
         case SET_PSY_EXNTENDED_PUBLIC_PROFILE:
-            console.log(action.profile)
             return {...state, extendedPublicProfile: action.profile}
+        case SET_PSY_REVIEWS:
+            return {...state, reviews: action.reviews}
+        case REVIEWS_ARE_FETCHING:
+            return {...state, reviewsAreFetching: action.reviewsAreFetching}
         case PROFILES_ARE_FETCHING:
             return { ...state, profilesAreFetching: action.profilesAreFetching}
         case PROFILES_NOT_FOUND:
@@ -78,6 +85,8 @@ const psyUsersProfilesReducer = (state = initialState, action) => {
 
 export const setPsyPublicProfile = (profile) => ({ type: SET_PSY_PUBLIC_PROFILE, profile})
 export const setPsyExtendedPublicProfile = (profile) => ({ type: SET_PSY_EXNTENDED_PUBLIC_PROFILE, profile})
+export const setPsyReviews = (reviews) => ({ type: SET_PSY_REVIEWS, reviews})
+export const reviewsAreFetching = (reviewsAreFetching) => ({ type: REVIEWS_ARE_FETCHING, reviewsAreFetching})
 export const profilesAreFetching = (profilesAreFetching) => ({ type: PROFILES_ARE_FETCHING, profilesAreFetching})
 export const profilesNotFound = (profilesNotFound) => ({ type: PROFILES_NOT_FOUND, profilesNotFound})
 export const setPsyUsersProfiles = (profiles) => ({ type: SET_PSY_USERS_PROFILES, profiles})
@@ -103,6 +112,15 @@ export const getPsyPublicProfile = (id) => async (dispatch) => {
     if(data.status.code === 200) {
         dispatch(setPsyPublicProfile(data.data))
     }
+}
+
+export const getPsyReviews = (id) => async (dispatch) => {
+    let data = await psyUserProfileAPI.getPsyReviews(id)
+    dispatch(reviewsAreFetching(true))
+    if(data.status.code === 200) {
+        await dispatch(setPsyReviews(data.data.reviews))   
+    }
+    dispatch(reviewsAreFetching(false))
 }
 
 export const getPsyUsersProfiles = () => async (dispatch) => {

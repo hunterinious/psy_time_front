@@ -5,7 +5,8 @@ import { connect } from 'react-redux';
 import { getPsyPublicProfile } from '../../../redux/psy-profiles-reducer';
 import styles from './PsyPublicProfile.module.css';
 import PsyPublicProfile from './PsyPublicProfile';
-import ExtendedProfileContainer from './ExtendedProfile/ExtendedProfileConrainer';
+import ExtendedProfileContainer from './ExtendedProfile/ExtendedProfileContainer';
+import ReviewsContainer from './Reviews/ReviewsContainer';
 
 
 const POSTS = 'POSTS';
@@ -40,13 +41,14 @@ class PsyPublicProfileContainer extends Component {
     }
 
     renderSectionComponent(sectionId){
+        const paramId = this.props.match.params.id
         switch(sectionId) {
             case POSTS:
                 return 
             case REVIEWS:
-                return 
+                return <ReviewsContainer paramId={paramId} />
             case EXTENDED_PROFILE:
-                return <ExtendedProfileContainer />
+                return <ExtendedProfileContainer paramId={paramId} />
           }
     }
 
