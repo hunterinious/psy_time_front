@@ -17,7 +17,7 @@ const RandomPsy = (props) => {
                 </NavLink> 
             </div>
             <div>
-                {profile.username}
+                {profile.first_name + " " + profile.last_name}
             </div>
             <div>
                 <button className="btn btn-warning" onClick={handleGetRandom}>

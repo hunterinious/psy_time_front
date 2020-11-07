@@ -11,7 +11,8 @@ const PsyProfiles = (props) => {
                 id={p.id}
                 avatar={p.avatar}
                 statuses={p.statuses}
-                username={p.username}
+                first_name={p.first_name}
+                last_name={p.last_name}
                 key={p.id} />)
              
         }

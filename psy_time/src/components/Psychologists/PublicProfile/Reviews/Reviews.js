@@ -3,7 +3,6 @@ import style from './Reviews.module.css'
 
 
 const Reviews = (props) => {
-    console.log(props)
     return (
         <div>
             {
@@ -11,7 +10,7 @@ const Reviews = (props) => {
                     <div className="card">
                         <div className={"row " + style.reviewsMargin}>
                             <div className="col-sm-2">
-                                {elem.username}
+                                {elem.first_name + " " + elem.last_name}
                             </div>
                             <div className="col-sm-8">
                                 {elem.text}

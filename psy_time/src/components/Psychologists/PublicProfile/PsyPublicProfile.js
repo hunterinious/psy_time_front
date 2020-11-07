@@ -15,7 +15,7 @@ const PsyPublicProfile = (props) => {
                 <div className="col-lg-offset-1 col-lg-6">
                     <div className="row">
                         <div className="col">
-                            {profile.username}
+                            {profile.first_name + " " + profile.last_name }
                         </div>
                         <div className="col-2">
                             {`$${profile.duration}/${profile.price}min`}
