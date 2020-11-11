@@ -1,13 +1,12 @@
 import React, { Component } from 'react';
 import { compose } from 'redux';
 import { connect } from 'react-redux';
-import {
-    getPsysByCriteria,
+import { getPsysByCriteria, getPsyUsersProfiles } from '../../../../redux/psy-profiles-reducer';
+import { 
     setInitialCriteriaPsy,
     changeCriteriaPsy,
-    removeCriteriaPsy,
-    getPsyUsersProfiles 
-} from '../../../../redux/psy-profiles-reducer';
+    removeCriteriaPsy
+ } from '../../../../redux/criteria-reducer';
 import Preloader from '../../../Common/Preloader/Preloader';
 import CriteriaPsy from './CriteriaPsy';
 
@@ -61,9 +60,9 @@ class CriteriaPsyContainer extends Component {
 
 let mapStateToProps = (state) => {
     return {
-        criteriaAreFetching: state.psychologistsPage.criteriaAreFetching,
-        criteriaNames: state.psychologistsPage.criteriaNames,
-        choosenCriteria: state.psychologistsPage.choosenCriteria
+        criteriaAreFetching: state.criteria.criteriaAreFetching,
+        criteriaNames: state.criteria.criteriaNames,
+        choosenCriteria: state.criteria.choosenCriteria
     }
 }
 

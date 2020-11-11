@@ -1,11 +1,13 @@
 import { combineReducers, createStore, applyMiddleware } from 'redux';
+import criteriaReducer from './criteria-reducer';
 import psyUsersProfilesReducer from './psy-profiles-reducer';
 import countriesReducer from './countries-reducer';
 import thunkMiddleware from 'redux-thunk';
 
 let reducers = combineReducers({
     psychologistsPage: psyUsersProfilesReducer,
-    countries: countriesReducer
+    countries: countriesReducer,
+    criteria: criteriaReducer
 });
 
 let store = createStore(reducers, applyMiddleware(thunkMiddleware));
