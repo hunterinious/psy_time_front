@@ -176,7 +176,6 @@ export const removeCriteriaPsy = () => async (dispatch) => {
     localStorage.removeItem('criteria')
     localStorage.removeItem('profiles')
     dispatch(removeCriteria())
-    dispatch(getPsyUsersProfiles())
 }
 
 export const getPsysByCriteria = (criteria) => async (dispatch) => {
