@@ -11,7 +11,6 @@ const SET_PSY_EXNTENDED_PUBLIC_PROFILE = 'SET_PSY_EXNTENDED_PUBLIC_PROFILE'
 const SET_PSY_REVIEWS = 'SET_PSY_REVIEWS';
 const REVIEWS_ARE_FETCHING = 'REVIEWS_ARE_FETCHING';
 const SET_RANDOM_PSY_USER_PROFILE = 'SET_RANDOM_PSY_USER_PROFILE';
-const HOW_TO_CHOOSE_PSY = 'HOT_TO_CHOOSE_PSY';
 
 
 let initialState = {
@@ -23,7 +22,6 @@ let initialState = {
     reviews: [],
     reviewsAreFetching: true,
     randomProfile: undefined,
-    howToChoosePsyText: ''
 };
 
 
@@ -46,8 +44,6 @@ const psyUsersProfilesReducer = (state = initialState, action) => {
             return {...state, profiles: action.profiles}
         case SET_RANDOM_PSY_USER_PROFILE:
             return {...state, randomProfile: action.profile}
-        case HOW_TO_CHOOSE_PSY:
-            return {...state, howToChoosePsyText: action.howToChoosePsyText}
         default:
             return state
     }
@@ -62,7 +58,6 @@ export const profilesAreFetching = (profilesAreFetching) => ({ type: PROFILES_AR
 export const profilesNotFound = (profilesNotFound) => ({ type: PROFILES_NOT_FOUND, profilesNotFound})
 export const setPsyUsersProfiles = (profiles) => ({ type: SET_PSY_USERS_PROFILES, profiles})
 export const setRandomPsyUserProfile = (profile) =>  ({ type: SET_RANDOM_PSY_USER_PROFILE, profile})
-export const howToChoosePsy = (howToChoosePsyText) =>  ({ type: HOW_TO_CHOOSE_PSY, howToChoosePsyText })
 
 
 export const getPsyExtendedPublicProfile = (id) => async (dispatch) => {
@@ -131,14 +126,6 @@ export const getPsysByCriteria = (criteria) => async (dispatch) => {
         }
         localStorage.setItem('profiles', JSON.stringify(results))
         dispatch(profilesAreFetching(false))
-    }
-}
-
-
-export const getHowToChoosePsy = () => async (dispatch) => {
-    let data = await psyUsersProfilesListNavAPI.getHowToChoosePsy()
-    if(data.status.code === 200) {
-        dispatch(howToChoosePsy(data.data))
     }
 }
 

@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { compose } from 'redux';
 import { connect } from 'react-redux'; 
-import { getHowToChoosePsy }  from '../../../../redux/psy-profiles-reducer';
+import { getHowToChoosePsy }  from '../../../../redux/how-to-choose-psy-reducer';
 import HowToChoosePsy from './HowToChoosePsy';
 
 
@@ -24,7 +24,7 @@ class HowToChoosePsyContainer extends Component {
 
 let mapStateToProps = (state) => {
     return {
-        howToChoosePsyText: state.psychologistsPage.howToChoosePsyText
+        howToChoosePsyText: state.howToChoosePsy.howToChoosePsyText
     }
 }
 
