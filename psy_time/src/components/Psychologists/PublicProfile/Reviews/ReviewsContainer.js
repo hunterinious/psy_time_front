@@ -11,7 +11,6 @@ class ReviewsContainer extends Component {
     }
 
     render() {
-        console.log(this.props.reviewsAreFetching, this.props.reviews)
         return (
             <>
             { this.props.reviewsAreFetching
