@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { compose } from 'redux';
 import { connect } from 'react-redux';
-import { getPsyReviews } from '../../../../redux/psy-profiles-reducer';
+import { getPsyReviews } from '../../../../redux/psy-reviews-reducer';
 import Preloader from '../../../Common/Preloader/Preloader';
 import Reviews from './Reviews';
 
@@ -24,8 +24,8 @@ class ReviewsContainer extends Component {
 
 let mapStateToProps = (state) => {
     return {
-        reviews: state.psychologistsPage.reviews,
-        reviewsAreFetching: state.psychologistsPage.reviewsAreFetching
+        reviews: state.psyReviews.reviews,
+        reviewsAreFetching: state.psyReviews.reviewsAreFetching
     }
 }
 
