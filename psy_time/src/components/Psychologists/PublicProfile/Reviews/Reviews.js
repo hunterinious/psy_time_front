@@ -10,7 +10,7 @@ const Reviews = (props) => {
                     <div className="card">
                         <div className={"row " + style.reviewsMargin}>
                             <div className="col-sm-2">
-                                {elem.first_name + " " + elem.last_name}
+                                {elem.name}
                             </div>
                             <div className="col-sm-8">
                                 {elem.text}

@@ -13,7 +13,7 @@ const PsyProfiles = (props) => {
             </NavLink>
         </div>
         <div>
-            {props.first_name + " " + props.last_name}
+            {props.name}
         </div>
         <div>
         {props.statuses.map((st, i) => (
