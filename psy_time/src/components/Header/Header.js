@@ -1,14 +1,18 @@
 import React, { useState } from 'react';
+import { withRouter } from 'react-router-dom';
+import { compose } from 'redux';
 import style from './Header.module.css';
 import Navbar from '../../components/Navbar/Navbar';
 import logo from '../../images/logo.png';
-import RegistrationModal from '../Authentication/Registration/Registration';
+import LoginContainer from '../Authentication/Login/Login';
 
 const Header = (props) => {
     const [show, setShow] = useState(false)
 
     const handleOpen = () => {
-        setShow(true)
+        if(props.location.pathname !== '/login'){
+            setShow(true)
+        }
     }
 
     const handleClose = () => {
@@ -31,7 +35,7 @@ const Header = (props) => {
                         ? <div> { props.username } <button onClick={props.logout}>Log out</button></div>
                         : <div>
                             <div onClick={handleOpen}>Login</div>
-                            { show ? <RegistrationModal handleClose={handleClose} />: null }
+                            { show ? <LoginContainer modal={true} handleClose={handleClose} />: null }
                         </div> }
                 </div>
             </header>
@@ -39,4 +43,4 @@ const Header = (props) => {
     );
 }
 
-export default Header;
+export default compose(withRouter)(Header);

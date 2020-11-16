@@ -21,7 +21,4 @@ export const setTokenData = (access_token, refresh_token, refresh_expired) => as
 }
 
 
-
-
 export default authReducer;
-

@@ -14,8 +14,6 @@ const RegistrationForm = (props) => {
                             .then(data => {
                                 data = data.data
                                 props.setTokenData(data.access, data.refresh, data.refresh_expired)
-                                alert("You have successfully registered")
-                                props.handleClose()
                             })
                             .catch(error => {
                                 if(error.status.code === 400){
@@ -85,23 +83,11 @@ const RegistrationForm = (props) => {
 }
 
 
-const RegistrationModal = (props) => {
-    const handleClose = () =>  {
-       props.handleClose()
-    }
-
+const Registration = (props) => {
     return(
-        <div>
-            <Modal size="lg" show={true} onHide={handleClose} animation={false}>
-                <Modal.Header closeButton>
-                        <Modal.Title>Registration</Modal.Title>
-                </Modal.Header>
-                <Modal.Body>
-                    <RegistrationForm
-                    setTokenData={props.setTokenData}
-                    handleClose={props.handleClose} />
-                </Modal.Body>
-            </Modal>
+        <div className="container">
+            <RegistrationForm
+            setTokenData={props.setTokenData} />
         </div>
     )
 }
@@ -110,4 +96,4 @@ const mapStateToProps = (state) => ({
     isAuth: state.auth.isAuth
 })
 
-export default connect(mapStateToProps, {setTokenData})(RegistrationModal);
+export default connect(mapStateToProps, {setTokenData})(Registration);

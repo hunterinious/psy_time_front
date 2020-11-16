@@ -9,6 +9,7 @@ export const handleUnauthorized = (error, axiosInstance) => {
     const wrong_login_or_ps = "No active account found with the given credentials"
     if (response.status === 401 && response.data.detail !== wrong_login_or_ps &&
         response.statusText === "Unauthorized") {
+            
         const refresh_token = localStorage.getItem('refresh_token');
         if(!refresh_token) return Promise.reject(error)
 

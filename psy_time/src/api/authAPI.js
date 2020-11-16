@@ -50,4 +50,30 @@ export const authAPI = {
             }
         })
     },
+
+    loginUser(email, password){
+        return axiosInstance.post('login/', {
+            email,
+            password
+        }).then(response => {
+            return {
+                data: response.data,
+                status: {
+                    text: response.statusText || response.status.text,
+                    code: response.status || response.status.code
+                }
+            }
+        }).catch(error =>{
+            if(error.response) {
+                return Promise.reject({
+                    data: error.response.data,
+                    status: {
+                        text: error.response.statusText || error.response.status.text,
+                        code: error.response.status || error.response.status.code
+                    }
+                });
+            return Promise.reject(error)
+            }
+        })
+    },
 }
