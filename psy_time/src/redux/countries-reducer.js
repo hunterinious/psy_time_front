@@ -1,4 +1,4 @@
-import { countriesAPI } from '../api/countriesApi';
+import { countriesAPI } from '../api/countriesAPI';
 
 const SET_COUNTRIES = 'SET_COUNTRIES';
 const COUNTRIES_ARE_FETCHING = 'COUNTRIES_ARE_FETCHING';

@@ -4,6 +4,7 @@ import howToChoosePsyReducer from './how-to-choose-psy-reducer'
 import psyUsersProfilesReducer from './psy-profiles-reducer';
 import psyReviewsReducer from './psy-reviews-reducer';
 import countriesReducer from './countries-reducer';
+import authReducer from './auth-reducer';
 import thunkMiddleware from 'redux-thunk';
 
 let reducers = combineReducers({
@@ -11,7 +12,8 @@ let reducers = combineReducers({
     countries: countriesReducer,
     criteria: criteriaReducer,
     howToChoosePsy: howToChoosePsyReducer,
-    psyReviews: psyReviewsReducer
+    psyReviews: psyReviewsReducer,
+    auth: authReducer,
 });
 
 let store = createStore(reducers, applyMiddleware(thunkMiddleware));

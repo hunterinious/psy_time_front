@@ -1,4 +1,4 @@
-import { psyUsersProfilesListNavAPI } from '../api/psyProfilesApi';
+import { psyUsersProfilesListNavAPI } from '../api/psyProfilesAPI';
 
 
 const CRITERIA_ARE_FETCHING = 'CRITERIA_ARE_FETCHING';

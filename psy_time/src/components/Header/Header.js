@@ -1,10 +1,20 @@
-import React, { Component } from 'react';
+import React, { useState } from 'react';
 import style from './Header.module.css';
-import { NavLink } from 'react-router-dom';
 import Navbar from '../../components/Navbar/Navbar';
-import logo from '../../images/logo.png'
+import logo from '../../images/logo.png';
+import RegistrationModal from '../Authentication/Registration/Registration';
 
 const Header = (props) => {
+    const [show, setShow] = useState(false)
+
+    const handleOpen = () => {
+        setShow(true)
+    }
+
+    const handleClose = () => {
+        setShow(false)
+    }
+
     return (
         <div className="container">
             <header className={"d-flex p-2 justify-content-between"}>
@@ -20,10 +30,8 @@ const Header = (props) => {
                     { props.isAuth
                         ? <div> { props.username } <button onClick={props.logout}>Log out</button></div>
                         : <div>
-                            <div> <NavLink to={'/login'}>
-                                <h2> Л<span className={style.textPart}>О</span>ГИН</h2>
-                                </NavLink>
-                            </div>
+                            <div onClick={handleOpen}>Login</div>
+                            { show ? <RegistrationModal handleClose={handleClose} />: null }
                         </div> }
                 </div>
             </header>

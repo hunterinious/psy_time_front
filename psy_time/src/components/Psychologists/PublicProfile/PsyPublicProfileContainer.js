@@ -59,7 +59,7 @@ class PsyPublicProfileContainer extends Component {
                 { this.props.profile
                     ? <>
                     <PsyPublicProfile profile={this.props.profile} />
-                    <div clasName="d-flex flex-row" onClick={this.handleSectionClick}>
+                    <div className="d-flex flex-row" onClick={this.handleSectionClick}>
                         <ul className={"nav nav-tabs "} role="tablist">
                             <div className={"p-2 ml-20 " + styles.navsCustom}> 
                                 <li id={POSTS} className="nav-item">

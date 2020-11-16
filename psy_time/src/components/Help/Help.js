@@ -2,7 +2,7 @@ import React from 'react';
 import { Formik, Form} from 'formik';
 import * as Yup from 'yup';
 import FormikControl from '../Common/FormControl/FormikControl';
-import { helpAPI } from '../../api/helpApi';
+import { helpAPI } from '../../api/helpAPI';
 import style from './Help.module.css'
 
 
