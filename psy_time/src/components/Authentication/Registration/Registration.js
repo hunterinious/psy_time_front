@@ -4,7 +4,7 @@ import { Formik, Form} from 'formik';
 import FormikControl from '../../Common/FormControl/FormikControl';
 import * as Yup from 'yup';
 import { connect } from 'react-redux';
-import { setTokenData } from '../../../redux/auth-reducer';
+import { getUserLoginData } from '../../../redux/auth-reducer';
 import { authAPI } from '../../../api/authAPI';
 
 
@@ -13,7 +13,10 @@ const RegistrationForm = (props) => {
         const data = authAPI.registerUser(values.email, values.password, values.name)
                             .then(data => {
                                 data = data.data
-                                props.setTokenData(data.access, data.refresh, data.refresh_expired)
+                                localStorage.setItem('access_token', data.access)
+                                localStorage.setItem('refresh_token', data.refresh)
+                                localStorage.setItem('refresh_expired', data.refresh_expired)
+                                props.getUserLoginData()
                             })
                             .catch(error => {
                                 if(error.status.code === 400){
@@ -84,10 +87,14 @@ const RegistrationForm = (props) => {
 
 
 const Registration = (props) => {
+    const getUserLoginData = () => {
+        props.getUserLoginData()
+    }
     return(
         <div className="container">
             <RegistrationForm
-            setTokenData={props.setTokenData} />
+                getUserLoginData={getUserLoginData}
+            />
         </div>
     )
 }
@@ -96,4 +103,4 @@ const mapStateToProps = (state) => ({
     isAuth: state.auth.isAuth
 })
 
-export default connect(mapStateToProps, {setTokenData})(Registration);
+export default connect(mapStateToProps, {getUserLoginData})(Registration);

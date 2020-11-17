@@ -6,7 +6,7 @@ import { Formik, Form} from 'formik';
 import FormikControl from '../../Common/FormControl/FormikControl';
 import * as Yup from 'yup';
 import { connect } from 'react-redux';
-import { setTokenData } from '../../../redux/auth-reducer';
+import { getUserLoginData } from '../../../redux/auth-reducer';
 import { authAPI } from '../../../api/authAPI';
 import style from './Login.module.css'
 
@@ -16,12 +16,15 @@ const LoginForm = (props) => {
         const data = authAPI.loginUser(values.email, values.password)
                             .then(data => {
                                 data = data.data
-                                props.setTokenData(data.access, data.refresh, data.refresh_expired)
+                                localStorage.setItem('access_token', data.access)
+                                localStorage.setItem('refresh_token', data.refresh)
+                                localStorage.setItem('refresh_expired', data.refresh_expired)
+                                props.getUserLoginData()
                                 props.handlePostSubmit()
                             })
                             .catch(error => {
                                 const errorCode = error.status.code
-                                console.log(error)
+
                                 if(errorCode === 400){
                                     for (const [key, value] of Object.entries(error.data)) {
                                         setFieldError(key, value[0])    
@@ -101,8 +104,8 @@ const LoginContainer = (props) => {
         }
     }
 
-    const setTokenData = (access, refresh, refExpired) => {
-        props.setTokenData(access, refresh, refExpired)
+    const getUserLoginData = () => {
+        props.getUserLoginData()
     }
 
     return(
@@ -116,7 +119,7 @@ const LoginContainer = (props) => {
                     </Modal.Header>
                     <Modal.Body>
                         <LoginForm
-                        setTokenData={setTokenData}
+                        getUserLoginData={getUserLoginData}
                         handlePostSubmit={handlePostSubmit} />
                     </Modal.Body>
                     <Modal.Footer>
@@ -130,7 +133,7 @@ const LoginContainer = (props) => {
             :
             <div className="container">
                 <LoginForm
-                setTokenData={setTokenData}
+                getUserLoginData={getUserLoginData}
                 handlePostSubmit={handlePostSubmit} />
             </div>
         }
@@ -143,7 +146,7 @@ const mapStateToProps = (state) => ({
 })
 
 export default compose(
-    connect(mapStateToProps, {setTokenData}),
+    connect(mapStateToProps, {getUserLoginData}),
     withRouter,
 )(LoginContainer);
 
