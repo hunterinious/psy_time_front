@@ -25,7 +25,7 @@ axiosInstance.interceptors.response.use(
 
 export const authAPI = {
     registerUser(email, password, name){
-        return axiosInstance.post(`registration/`, {
+        return axiosInstance.post(`api-registration/`, {
             email,
             password,
             profile: {'name' : name}
@@ -52,7 +52,7 @@ export const authAPI = {
     },
 
     loginUser(email, password){
-        return axiosInstance.post('login/', {
+        return axiosInstance.post('api-login/', {
             email,
             password
         }).then(response => {
