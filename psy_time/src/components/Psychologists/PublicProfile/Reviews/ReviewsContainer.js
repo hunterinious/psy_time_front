@@ -29,6 +29,4 @@ let mapStateToProps = (state) => {
     }
 }
 
-export default compose(
-    connect(mapStateToProps, { getPsyReviews }),
-)(ReviewsContainer)
+export default connect(mapStateToProps, { getPsyReviews })(ReviewsContainer)

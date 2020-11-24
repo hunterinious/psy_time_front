@@ -7,15 +7,16 @@ import style from './Help.module.css'
 
 
 const Help = (props) => {
-    props.countries.unshift("Choose a country")
-
-    const themeOptions = ["Help to choose", "Your question"]
+    const themeOptions = [
+        { value: "Help to choose", label: "Help to choose"},
+        { value: "Your question", label: "Your question" }
+    ]
 
     const onSubmit = async (values, { setSubmitting, setFieldError }) => {
         const selectTheme = values.selectTheme
-        const theme = selectTheme === themeOptions[0] ? selectTheme : values.theme
+        const theme = selectTheme === themeOptions[0].value ? selectTheme : values.theme
 
-        const data = helpAPI.help(values.email, values.username, values.countries,
+        const data = helpAPI.help(values.email, values.name, values.country,
                                   theme, values.message)
                             .then(() => {
                                 alert("Your request in pending")
@@ -33,21 +34,19 @@ const Help = (props) => {
 
     const initialValues = {
         email: '',
-        username: '',
+        name: '',
         message: '',
-        countries: '',
-        selectTheme: props.helpToChoose ? themeOptions[0] : themeOptions[1],
-        theme: ''
+        theme: '',
+        selectTheme: props.helpToChoose ? themeOptions[0].value : themeOptions[1].value
     }
 
     const validationSchema = Yup.object().shape({
         email: Yup.string().required('Required'),
-        username: Yup.string().required('Required'),
+        name: Yup.string().required('Required'),
         message: Yup.string().required('Required'),
-        countries: Yup.string().required('Required'),
-        selectTheme: Yup.string().notRequired(''),
+        country: Yup.string().required('Required'),
         theme: Yup.string().when('selectTheme', {
-            is: themeOptions[1],
+            is: themeOptions[1].value,
             then: Yup.string().required("Required")
         })
     })
@@ -69,35 +68,36 @@ const Help = (props) => {
                         className="form-control"
                         control='input'
                         type='email'
-                        placeholder='Email'
                         name='email'
+                        label='Email'
                       />
                       <FormikControl
                         className="form-control"
                         control='input'
                         type='text'
-                        placeholder='Your name'
-                        name='username'
+                        name='name'
+                        label='Name'
                       />
                       <FormikControl
-                        className="form-control"
-                        control='select'
-                        name='countries'
+                        control='rselect'
+                        name='country'
                         options={props.countries}
+                        label='Choose a country'
                       />
                       <FormikControl
-                        className="form-control"
-                        control='select'
+                        control='rselect'
                         name='selectTheme'
                         options={themeOptions}
+                        label='Choose your theme'
+                        value={props.helpToChoose ? themeOptions[0]: themeOptions[1]}
                       />
-                      {formik.values.selectTheme === themeOptions[1] 
+                      {formik.values.selectTheme === themeOptions[1].value
                       ? <FormikControl
                           className="form-control"
                           control='input'
                           type='text'
-                          placeholder='Theme'
                           name='theme'
+                          label='Your theme'
                         />
                       : null
                       }
@@ -106,8 +106,8 @@ const Help = (props) => {
                       <FormikControl
                         className={"form-control " + style.message}
                         control='textarea'
-                        placeholder='Message Text'
                         name='message'
+                        label='Text message'
                       />
                   </div>
               </div>

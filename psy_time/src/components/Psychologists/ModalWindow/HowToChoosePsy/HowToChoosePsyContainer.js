@@ -29,7 +29,5 @@ let mapStateToProps = (state) => {
 }
 
 
-export default compose(
-    connect(mapStateToProps, { getHowToChoosePsy })
-)(HowToChoosePsyContainer)
+export default connect(mapStateToProps, { getHowToChoosePsy })(HowToChoosePsyContainer)
 

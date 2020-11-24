@@ -33,6 +33,4 @@ let mapStateToProps = (state) => {
 }
 
 
-export default compose(
-    connect(mapStateToProps, { getRandomPsyUserProfile })
-)(RandomPsyContainer)
+export default connect(mapStateToProps, { getRandomPsyUserProfile })(RandomPsyContainer)

@@ -1,24 +1,26 @@
 
 import React from 'react';
-import { Field, ErrorMessage } from 'formik';
+import RSelect from "react-select";
+import { ErrorMessage, useField } from 'formik';
 
-function Select (props) {
-  const { name, options, className, ...rest } = props
+
+export function ReactSelect (props) {
+  const { name, label, value, options } = props
+
+  const [field, meta, helpers] = useField(props);
+  const { setValue } = helpers;
+
 
   return (
     <div className="form-group">
-      <Field as='select' {...rest} name={name} className={className}>
-        { options.map(option => {
-          return (
-            <option key={option} value={option}>
-              {option}
-            </option>
-          )
-        })}
-      </Field>
+      <label htmlFor={name}>{label}</label>
+      <RSelect
+        name={name}
+        options={options}
+        defaultValue={value}
+        onChange={option=>setValue(option.value)}
+      />
       <ErrorMessage component={"div"} name={name} className="invalid-feedback"/>
     </div>
   )
 }
-
-export default Select;

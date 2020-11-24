@@ -6,6 +6,7 @@ const COUNTRIES_ARE_FETCHING = 'COUNTRIES_ARE_FETCHING';
 
 let initialState = {
    countries: [],
+   cities: [],
    countriesAreFetching: true
 };
 
@@ -31,7 +32,7 @@ export const getCountries = () => async (dispatch) => {
     let data = await countriesAPI.getCountries()
     if(data.status.code === 200) {
         let new_data = data.data.map(v => {
-            return v.name
+            return { value: v.name, label: v.name }
         })
         dispatch(setCountries(new_data))
     }

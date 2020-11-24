@@ -66,14 +66,13 @@ let mapStateToProps = (state) => {
     }
 }
 
-export default compose(
-    connect(mapStateToProps,
+export default connect(mapStateToProps,
             {   getPsysByCriteria,
                 setInitialCriteriaPsy,
                 changeCriteriaPsy,
                 removeCriteriaPsy,
                 getPsyUsersProfiles 
-            })
+            }
 )(CriteriaPsyContainer)
 
 

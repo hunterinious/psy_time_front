@@ -27,6 +27,4 @@ let mapStateToProps = (state) => {
     }
 }
 
-export default compose(
-    connect(mapStateToProps, { getPsyExtendedPublicProfile }),
-)(ExtendedProfileContainer)
+export default connect(mapStateToProps, { getPsyExtendedPublicProfile })(ExtendedProfileContainer)

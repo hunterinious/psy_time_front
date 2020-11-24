@@ -11,10 +11,10 @@ const axiosInstance = axios.create({
 
 
 export const helpAPI = {
-    help(email, username, country, theme, message) {
+    help(email, name, country, theme, message) {
         return axiosInstance.post(`help`, {
             email,
-            username,
+            name,
             country, 
             theme,
             message

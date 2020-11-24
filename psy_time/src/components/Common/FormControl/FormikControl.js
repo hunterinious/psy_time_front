@@ -1,7 +1,7 @@
 import React from 'react';
 import Input from '../FormComponents/Input';
 import TextArea from '../FormComponents/TextArea';
-import Select from '../FormComponents/Select';
+import { ReactSelect } from '../FormComponents/Select';
 import { useField } from 'formik'
 
 
@@ -17,8 +17,8 @@ const FormikControl = (props) => {
       return <Input {...rest} className={className}/>
     case 'textarea':
       return <TextArea {...rest} className={className}/>
-    case 'select':
-      return <Select {...rest} className={className}/>
+    case 'rselect':
+      return <ReactSelect {...rest}/>
     default:
       return null
   }

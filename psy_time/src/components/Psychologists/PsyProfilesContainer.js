@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { compose } from 'redux';
 import { connect } from 'react-redux';
 import { Modal } from 'react-bootstrap';
 import { getPsyUsersProfiles } from '../../redux/psy-profiles-reducer';
@@ -132,8 +131,6 @@ let mapStateToProps = (state) => {
     }
 }
 
-export default compose(
-    connect(mapStateToProps, {getPsyUsersProfiles})
-)(PsyProfilesContainer)
+export default connect(mapStateToProps, {getPsyUsersProfiles})(PsyProfilesContainer)
 
 

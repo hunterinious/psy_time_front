@@ -18,8 +18,7 @@ const LoginForm = (props) => {
                                 data = data.data
                                 localStorage.setItem('access_token', data.access)
                                 localStorage.setItem('refresh_token', data.refresh)
-                                localStorage.setItem('refresh_expired', data.refresh_expired)
-                                props.getUserLoginData()
+                                localStorage.setItem('refresh_expire', data.refresh_expire)
                                 props.handlePostSubmit()
                             })
                             .catch(error => {
@@ -67,15 +66,15 @@ const LoginForm = (props) => {
                         className="form-control"
                         control='input'
                         type='email'
-                        placeholder='Email'
                         name='email'
+                        label='Email'
                       />
                       <FormikControl
                         className="form-control"
                         control='input'
                         type='password'
-                        placeholder='Password'
                         name='password'
+                        label='Password'
                       />
                   </div>
               </div>
@@ -87,11 +86,20 @@ const LoginForm = (props) => {
     )
 }
 
+const SingUpBlock = (props) => {
+    return (
+        <div> 
+        Not registered yet? - <NavLink to={'/registration'}>Sign Up</NavLink> 
+        </div> 
+    )
+}
+
 
 const LoginContainer = (props) => {
     if(props.isAuth){
-        return <Redirect to={"/"} />
+        props.history.push('/profile')
     }
+    
     const handleClose = () => {
         props.handleClose()
     }
@@ -100,13 +108,10 @@ const LoginContainer = (props) => {
         if(props.modal){
             handleClose()
         }else{
-            props.history.push('/');
+            props.history.push('/profile')
         }
     }
 
-    const getUserLoginData = () => {
-        props.getUserLoginData()
-    }
 
     return(
         <>
@@ -119,22 +124,19 @@ const LoginContainer = (props) => {
                     </Modal.Header>
                     <Modal.Body>
                         <LoginForm
-                        getUserLoginData={getUserLoginData}
                         handlePostSubmit={handlePostSubmit} />
                     </Modal.Body>
                     <Modal.Footer>
-                        Not registered yet? - 
-                        <div> 
-                            <NavLink to={'/registration'} onClick={handleClose}>Sign Up</NavLink> 
-                        </div> 
+                        <SingUpBlock />
                     </Modal.Footer>
                 </Modal>
             </div>
             :
             <div className="container">
                 <LoginForm
-                getUserLoginData={getUserLoginData}
-                handlePostSubmit={handlePostSubmit} />
+                handlePostSubmit={handlePostSubmit}
+                />
+                <SingUpBlock />
             </div>
         }
         </>

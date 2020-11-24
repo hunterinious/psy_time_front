@@ -1,5 +1,5 @@
 import React , { Component } from 'react';
-import { Modal } from 'react-bootstrap';
+import { Redirect } from 'react-router-dom';
 import { Formik, Form} from 'formik';
 import FormikControl from '../../Common/FormControl/FormikControl';
 import * as Yup from 'yup';
@@ -15,8 +15,7 @@ const RegistrationForm = (props) => {
                                 data = data.data
                                 localStorage.setItem('access_token', data.access)
                                 localStorage.setItem('refresh_token', data.refresh)
-                                localStorage.setItem('refresh_expired', data.refresh_expired)
-                                props.getUserLoginData()
+                                localStorage.setItem('refresh_expire', data.refresh_expire)
                             })
                             .catch(error => {
                                 if(error.status.code === 400){
@@ -58,22 +57,22 @@ const RegistrationForm = (props) => {
                         className="form-control"
                         control='input'
                         type='email'
-                        placeholder='Email'
                         name='email'
+                        label='Email'
                       />
                       <FormikControl
                         className="form-control"
                         control='input'
                         type='password'
-                        placeholder='Password'
                         name='password'
+                        label='Password'
                       />
                       <FormikControl
                         className="form-control"
                         control='input'
                         type='text'
-                        placeholder='Your name'
                         name='name'
+                        label='Name'
                       />  
                   </div>
               </div>
@@ -87,14 +86,13 @@ const RegistrationForm = (props) => {
 
 
 const Registration = (props) => {
-    const getUserLoginData = () => {
-        props.getUserLoginData()
+    if(props.isAuth){
+        return <Redirect to='/profile' />
     }
+    
     return(
         <div className="container">
-            <RegistrationForm
-                getUserLoginData={getUserLoginData}
-            />
+            <RegistrationForm/>
         </div>
     )
 }
