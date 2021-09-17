@@ -1,14 +1,15 @@
 import React from 'react';
 import { Formik, Form} from 'formik';
-import FormikControl from '../Common/FormControl/FormikControl';
+import FormikControl from '../../Common/FormControl/FormikControl';
 import * as Yup from 'yup';
-import { profileAPI } from '../../api/profileAPI';
+import { profileAPI } from '../../../api/profileAPI';
 
 
-const RegularProfileForm = (props) => {
+const ProfileForm = (props) => {
     const profile = props.profile
-    const countries = props.countries
-    const cities = props.cities
+    const profileTimezone = profile.timezone
+    const timezones = props.timezones
+    const currentTimezone = { value: profileTimezone.name, label:  profileTimezone.name}
 
 
     const onSubmit = async (values, { setSubmitting, setFieldError }) => {
@@ -16,12 +17,12 @@ const RegularProfileForm = (props) => {
                                                          values.email,
                                                          values.password,
                                                          values.name,
-                                                         values.country)
-                               .then(data => {
-                                 data = data.data
+                                                         values.timezone)
+                               .then(data => async () => {
+                                  await props.setUserProfile(data.data)
                                })
                                .catch(error => {
-                                   if(error.status.code === 400){
+                                   if(error?.status?.code === 400){
                                        for (const [key, value] of Object.entries(error.data)) {
                                            setFieldError(key, value[0])    
                                       }
@@ -71,14 +72,15 @@ const RegularProfileForm = (props) => {
                         control='input'
                         type='password'
                         name='password'
-                        label='New Password'
+                        label='Password'
                       />
-                    <FormikControl
+                      <FormikControl
+                        className="form-control"
                         control='rselect'
-                        name='country'
-                        label='Country'
-                        value={profile.city ? profile.city.country.name : countries[0].value}
-                        options={countries}
+                        name='timezone'
+                        label='Timezone'
+                        value={currentTimezone}
+                        options={timezones}
                       />  
                   </div>
               </div>
@@ -90,14 +92,16 @@ const RegularProfileForm = (props) => {
     )
 }
 
-const RegularProfile = (props) => {
-    return (
-        <div className="container">
-            <RegularProfileForm profile={props.profile} countries={props.countries} />
-        </div>
-        
-    )
+const Profile = (props) => {
+  return (
+      <div className="container">
+          <ProfileForm profile={props.profile}
+              timezones={props.timezones}
+              setUserProfile={props.setUserProfile} />
+      </div>
+      
+  )
    
 }
 
-export default RegularProfile;
+export default Profile;

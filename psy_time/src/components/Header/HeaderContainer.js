@@ -27,7 +27,8 @@ class HeaderContainer extends Component {
             <Header
             handleOpenModal={this.handleOpenModal}
             handleCloseModal={this.handleCloseModal}
-            showModal={this.state.showModal}/>
+            showModal={this.state.showModal}
+            isAuth={this.props.isAuth}/>
         )
     }
 }

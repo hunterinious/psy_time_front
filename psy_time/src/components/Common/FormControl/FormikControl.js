@@ -18,7 +18,7 @@ const FormikControl = (props) => {
     case 'textarea':
       return <TextArea {...rest} className={className}/>
     case 'rselect':
-      return <ReactSelect {...rest}/>
+      return <ReactSelect {...rest} className={className}/>
     default:
       return null
   }

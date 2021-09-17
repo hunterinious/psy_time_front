@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { withRouter } from 'react-router-dom';
 import { compose } from 'redux';
 import style from './Header.module.css';
@@ -23,7 +23,7 @@ const Header = (props) => {
                         ? <div><button onClick={props.logout}>Log out</button></div>
                         : <div>
                             <div onClick={props.handleOpenModal}>Login</div>
-                            { props.showModal ? <LoginContainer modal={true} handleClose={props.handleCloseModal} />: null }
+                            { props.showModal ? <LoginContainer modal={true} handleClose={props.handleCloseModal} /> : null }
                         </div> }
                 </div>
             </header>

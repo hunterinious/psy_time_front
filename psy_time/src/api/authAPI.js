@@ -24,11 +24,11 @@ axiosInstance.interceptors.response.use(
 );
 
 export const authAPI = {
-    registerUser(email, password, name){
+    registerUser(email, password, name, timezoneName){
         return axiosInstance.post(`api-registration/`, {
             email,
             password,
-            profile: {'name' : name}
+            profile: {'name' : name, 'timezone': {name: timezoneName}}
         }).then(response => {
             return {
                 data: response.data,

@@ -1,12 +1,11 @@
-import React , { Component } from 'react';
-import { NavLink, Redirect, withRouter } from 'react-router-dom';
+import React from 'react';
+import { NavLink, withRouter } from 'react-router-dom';
 import { compose } from 'redux';
 import { Modal } from 'react-bootstrap';
 import { Formik, Form} from 'formik';
 import FormikControl from '../../Common/FormControl/FormikControl';
 import * as Yup from 'yup';
 import { connect } from 'react-redux';
-import { getUserLoginData } from '../../../redux/auth-reducer';
 import { authAPI } from '../../../api/authAPI';
 import style from './Login.module.css'
 
@@ -89,14 +88,14 @@ const LoginForm = (props) => {
 const SingUpBlock = (props) => {
     return (
         <div> 
-        Not registered yet? - <NavLink to={'/registration'}>Sign Up</NavLink> 
+            Not registered yet? - <NavLink to={'/registration'} onClick={props.handleClose}>Sign Up</NavLink> 
         </div> 
     )
 }
 
 
 const LoginContainer = (props) => {
-    if(props.isAuth){
+    const redirectToProfile = () => {
         props.history.push('/profile')
     }
     
@@ -107,11 +106,15 @@ const LoginContainer = (props) => {
     const handlePostSubmit = () => {
         if(props.modal){
             handleClose()
+            redirectToProfile()
         }else{
-            props.history.push('/profile')
+            redirectToProfile()
         }
     }
 
+    if(props.isAuth){
+        redirectToProfile()
+    }
 
     return(
         <>
@@ -124,17 +127,17 @@ const LoginContainer = (props) => {
                     </Modal.Header>
                     <Modal.Body>
                         <LoginForm
-                        handlePostSubmit={handlePostSubmit} />
+                            handlePostSubmit={handlePostSubmit} />
                     </Modal.Body>
                     <Modal.Footer>
-                        <SingUpBlock />
+                        <SingUpBlock handleClose={handleClose}/>
                     </Modal.Footer>
                 </Modal>
             </div>
             :
             <div className="container">
                 <LoginForm
-                handlePostSubmit={handlePostSubmit}
+                    handlePostSubmit={handlePostSubmit}
                 />
                 <SingUpBlock />
             </div>
@@ -148,7 +151,7 @@ const mapStateToProps = (state) => ({
 })
 
 export default compose(
-    connect(mapStateToProps, {getUserLoginData}),
+    connect(mapStateToProps, {}),
     withRouter,
 )(LoginContainer);
 

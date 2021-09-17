@@ -6,7 +6,7 @@ import Footer from './components/Footer/Footer';
 import Home from './components/Home/Home';
 import PsyProfilesContainer from './components/Psychologists/PsyProfilesContainer';
 import PsyPublicProfileContainer from './components/Psychologists/PublicProfile/PsyPublicProfileContainer';
-import ProfileContainer from './components/Profile/ProfileContainer';
+import ProfilesContainer from './components/PrivateProfiles/ProfilesContainer';
 import Registration from './components/Authentication/Registration/Registration';
 import LoginContainer from './components/Authentication/Login/Login';
 
@@ -19,7 +19,7 @@ class App extends Component {
             <Route exact path='/' render={ () => <Home />} />
             <Route exact path='/psychologists' render={ () => <PsyProfilesContainer />} />
             <Route path="/public-profile/:id" render={ () => <PsyPublicProfileContainer/>} />
-            <Route path='/profile' render={ () => <ProfileContainer />} />
+            <Route path='/profile' render={ () => <ProfilesContainer />} />
             <Route path='/registration' render={ () => <Registration />} />
             <Route path='/login' render={ () => <LoginContainer modal={false} />} />
           </div>

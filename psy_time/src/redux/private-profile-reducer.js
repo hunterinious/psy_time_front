@@ -9,7 +9,7 @@ let initialState = {
 };
 
 
-const profileReducer = (state = initialState, action) => {
+const privateProfileReducer = (state = initialState, action) => {
     switch (action.type) {
         case SET_USER_PROFILE:
             return {...state, profile: action.profile}
@@ -35,4 +35,4 @@ export const getUserProfile = (id, userType) => async (dispatch) => {
 }
 
 
-export default profileReducer;
+export default privateProfileReducer;

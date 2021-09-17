@@ -1,38 +1,40 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
-import { getUserProfile } from '../../redux/profile-reducer';
-import { getCountries }  from '../../redux/countries-reducer';
+import { getUserProfile, setUserProfile } from '../../redux/private-profile-reducer';
+import { getTimezones } from '../../redux/locations-reducer';
 import Preloader from '../Common/Preloader/Preloader';
 import { withAuthRedirect } from '../hoc/withAuthRedirect'
-import RegularProfile from './RegularProfile';
-import PsychologistProfile from './PsychologistProfile';
+import RegContainer from './Regular/Profile';
+import PsyContainer from './Psychologist/Profile';
 
-
-class ProfileContainer extends Component {
+class ProfilesContainer extends Component {
     componentDidMount(){
         this.props.getUserProfile(this.props.profileId, this.props.userType)
-        this.props.getCountries()
+        this.props.getTimezones()
     }
 
     render() {
         const profile = this.props.profile
-        const countries = this.props.countries
-        const cities = this.props.cities
+        const timezones = this.props.timezones
 
         return (
             <>
             {
-             profile && !this.props.countriesAreFetching
+             profile && !this.props.timezonesAreFetching
                 ?
                 <div>
                     { this.props.userType === 'R' 
                     ? 
                     (
-                    <RegularProfile profile={profile} countries={countries} cities={cities}/>
+                    <RegContainer profile={profile}
+                        timezones={timezones}
+                        setUserProfile={this.props.setUserProfile}/>
                     )
                     :
-                    <PsychologistProfile profile={profile} countries={countries} cities={cities} />
+                    <PsyContainer profile={profile}
+                        timezones={timezones}
+                        setUserProfile={this.props.setUserProfile}/>
                     }
                 </div>                
                 :
@@ -49,14 +51,13 @@ let mapStateToProps = (state) => {
         profile: state.profilePage.profile,
         profileId: state.auth.profileId,
         userType: state.auth.userType,
-        countries: state.countries.countries,
-        cities: state.countries.cities,
-        countriesAreFetching: state.countries.countriesAreFetching
+        timezones: state.locations.timezones,
+        timezonesAreFetching: state.locations.timezonesAreFetching
     }
 }
 
 export default compose(
-    connect(mapStateToProps, { getUserProfile, getCountries }),
+    connect(mapStateToProps, { getUserProfile, setUserProfile, getTimezones }),
     withAuthRedirect
 )
-(ProfileContainer)
+(ProfilesContainer)

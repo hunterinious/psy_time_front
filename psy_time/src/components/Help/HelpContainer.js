@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { compose } from 'redux';
 import { connect } from 'react-redux'; 
-import { getCountries }  from '../../redux/countries-reducer';
+import { getCountries }  from '../../redux/locations-reducer';
 import Preloader from '../Common/Preloader/Preloader';
 import Help from './Help';
 

@@ -1,22 +1,20 @@
-import { compose } from "redux";
-
 export const addAuthorizationHeader = (config) => {
     config.headers['Authorization'] = "JWT " + localStorage.getItem('access_token');
     return config
 }
 
 export const handleUnauthorized = (error, axiosInstance) => {
+    const WRONG_LOGIN_OR_PASSWORD = "No active account found with the given credentials"
+    const USER_NOT_FOUND = "User not found"
     const originalRequest = error.config;
     const response = error.response
-    const wrong_login_or_ps = "No active account found with the given credentials"
-    const user_not_found = "User not found"
     const detail = response.data.detail
 
-    if(detail === user_not_found){
+    if(detail === USER_NOT_FOUND){
         return Promise.reject(error)
     }
 
-    if (response.status === 401 && detail !== wrong_login_or_ps) {
+    if (response.status === 401 && detail !== WRONG_LOGIN_OR_PASSWORD) {
         const refresh_token = localStorage.getItem('refresh_token');
         const refresh_expire = localStorage.getItem('refresh_expire')
 

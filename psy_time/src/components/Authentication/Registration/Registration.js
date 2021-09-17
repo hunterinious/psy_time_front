@@ -1,21 +1,23 @@
-import React , { Component } from 'react';
-import { Redirect } from 'react-router-dom';
+import React from 'react';
+import { withRouter } from 'react-router-dom';
 import { Formik, Form} from 'formik';
 import FormikControl from '../../Common/FormControl/FormikControl';
 import * as Yup from 'yup';
+import { compose } from 'redux';
 import { connect } from 'react-redux';
-import { getUserLoginData } from '../../../redux/auth-reducer';
 import { authAPI } from '../../../api/authAPI';
 
 
 const RegistrationForm = (props) => {
     const onSubmit = async (values, { setSubmitting, setFieldError }) => {
-        const data = authAPI.registerUser(values.email, values.password, values.name)
+        const timeZoneName = Intl.DateTimeFormat().resolvedOptions().timeZone
+        const data = authAPI.registerUser(values.email, values.password, values.name, timeZoneName)
                             .then(data => {
                                 data = data.data
                                 localStorage.setItem('access_token', data.access)
                                 localStorage.setItem('refresh_token', data.refresh)
                                 localStorage.setItem('refresh_expire', data.refresh_expire)
+                                props.handlePostSubmit()
                             })
                             .catch(error => {
                                 if(error.status.code === 400){
@@ -86,13 +88,21 @@ const RegistrationForm = (props) => {
 
 
 const Registration = (props) => {
+    const redirectToProfile = () => {
+        props.history.push('/profile')
+    }
+
+    const handlePostSubmit = () => {
+        redirectToProfile()
+    }
+
     if(props.isAuth){
-        return <Redirect to='/profile' />
+        redirectToProfile()
     }
     
     return(
         <div className="container">
-            <RegistrationForm/>
+            <RegistrationForm handlePostSubmit={handlePostSubmit}/>
         </div>
     )
 }
@@ -101,4 +111,7 @@ const mapStateToProps = (state) => ({
     isAuth: state.auth.isAuth
 })
 
-export default connect(mapStateToProps, {getUserLoginData})(Registration);
+export default compose(
+    connect(mapStateToProps, {}),
+    withRouter
+)(Registration);

@@ -1,4 +1,4 @@
-
+import cn from 'classnames'
 import React from 'react';
 import RSelect from "react-select";
 import { ErrorMessage, useField } from 'formik';
@@ -9,7 +9,6 @@ export function ReactSelect (props) {
 
   const [field, meta, helpers] = useField(props);
   const { setValue } = helpers;
-
 
   return (
     <div className="form-group">
