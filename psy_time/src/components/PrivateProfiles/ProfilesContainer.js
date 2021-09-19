@@ -4,9 +4,9 @@ import { compose } from 'redux';
 import { getUserProfile, setUserProfile } from '../../redux/private-profile-reducer';
 import { getTimezones } from '../../redux/locations-reducer';
 import Preloader from '../Common/Preloader/Preloader';
-import { withAuthRedirect } from '../hoc/withAuthRedirect'
-import RegContainer from './Regular/Profile';
-import PsyContainer from './Psychologist/Profile';
+import { withAuthRedirect } from '../hoc/withAuthRedirect';
+import PsyProfileContainer from './Psychologist/PsyProfileContainer';
+import RegularProfileContainer from './Regular/RegularProfileContainer';
 
 class ProfilesContainer extends Component {
     componentDidMount(){
@@ -15,26 +15,28 @@ class ProfilesContainer extends Component {
     }
 
     render() {
-        const profile = this.props.profile
-        const timezones = this.props.timezones
+        const { profile, timezones, timezonesAreFetching, userType, setUserProfile } = this.props
 
         return (
             <>
             {
-             profile && !this.props.timezonesAreFetching
+             profile && !timezonesAreFetching
                 ?
                 <div>
-                    { this.props.userType === 'R' 
+                    { userType === 'R' 
                     ? 
                     (
-                    <RegContainer profile={profile}
+                    <RegularProfileContainer
+                        profile={profile}
                         timezones={timezones}
-                        setUserProfile={this.props.setUserProfile}/>
+                        setUserProfile={setUserProfile}/>
                     )
                     :
-                    <PsyContainer profile={profile}
+                    <PsyProfileContainer
+                        profile={profile}
                         timezones={timezones}
-                        setUserProfile={this.props.setUserProfile}/>
+                        setUserProfile={setUserProfile}/>
+                    
                     }
                 </div>                
                 :

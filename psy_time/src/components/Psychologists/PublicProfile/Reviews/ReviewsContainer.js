@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { compose } from 'redux';
 import { connect } from 'react-redux';
 import { getPsyReviews } from '../../../../redux/psy-reviews-reducer';
 import Preloader from '../../../Common/Preloader/Preloader';

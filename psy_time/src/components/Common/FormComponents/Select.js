@@ -1,25 +1,44 @@
-import cn from 'classnames'
 import React from 'react';
-import RSelect from "react-select";
-import { ErrorMessage, useField } from 'formik';
+import style from './FormComponents.module.scss'
 
 
-export function ReactSelect (props) {
-  const { name, label, value, options } = props
+export function RSelect (props) {
+  const {SelectComponent, required, name, label, value, placeholder, options} = props
 
-  const [field, meta, helpers] = useField(props);
-  const { setValue } = helpers;
+  let selectRef = null;
+  const setSelectRef = (ref) => {
+      selectRef = ref;
+  };
+
+  const handleChange = (option) => {
+      const optionValue = option.value
+      if(props.onChange){
+         props.onChange(optionValue)
+      }
+  }
 
   return (
     <div className="form-group">
       <label htmlFor={name}>{label}</label>
-      <RSelect
+      <SelectComponent
+        ref={setSelectRef}
+        placeholder={placeholder}
         name={name}
         options={options}
+        value={value}
         defaultValue={value}
-        onChange={option=>setValue(option.value)}
+        onChange={handleChange}
       />
-      <ErrorMessage component={"div"} name={name} className="invalid-feedback"/>
+      {required && (
+          <input
+            tabIndex={-1}
+            autoComplete="off"
+            className={style.SelectError}
+            value={value}
+            onFocus={() => selectRef.focus()}
+            required={required}
+          />
+        )}
     </div>
   )
 }

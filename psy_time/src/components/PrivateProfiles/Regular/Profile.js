@@ -1,25 +1,26 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Formik, Form} from 'formik';
 import FormikControl from '../../Common/FormControl/FormikControl';
 import * as Yup from 'yup';
 import { profileAPI } from '../../../api/profileAPI';
+import selectHelper from '../../../utils/selectHelper';
 
 
 const ProfileForm = (props) => {
-    const profile = props.profile
-    const profileTimezone = profile.timezone
-    const timezones = props.timezones
-    const currentTimezone = { value: profileTimezone.name, label:  profileTimezone.name}
+    const { profile, timezones, setUserProfile } = props
+    const timezoneOptions = selectHelper.mapSelectOptions(timezones)
+    const [currentTimezone, setCurrentTimezone] = useState(selectHelper.mapSelectOptions(profile.timezone))
 
 
-    const onSubmit = async (values, { setSubmitting, setFieldError }) => {
+    const onSubmit = async (values, { setFieldError }) => {
+        const password = values.password ? values.password : null
         const data = profileAPI.updateRegularUserProfile(profile.id,
                                                          values.email,
-                                                         values.password,
+                                                         password,
                                                          values.name,
-                                                         values.timezone)
+                                                         values.timezone.value)
                                .then(data => async () => {
-                                  await props.setUserProfile(data.data)
+                                  await setUserProfile(data.data)
                                })
                                .catch(error => {
                                    if(error?.status?.code === 400){
@@ -28,12 +29,19 @@ const ProfileForm = (props) => {
                                       }
                                    }
                                })
-
     }
 
-    const initialValues = {
+    const onTimezoneChange = (value, formik) => {
+      const timezone = selectHelper.valueToSelectOptionObject(value)
+      setCurrentTimezone(timezone)
+      formik.setFieldValue('timezone', timezone)
+  }
+
+    let initialValues = {
         name: profile.name,
         email: profile.user.email,
+        password: null,
+        timezone: currentTimezone
     }
 
     const validationSchema = Yup.object().shape({
@@ -80,7 +88,8 @@ const ProfileForm = (props) => {
                         name='timezone'
                         label='Timezone'
                         value={currentTimezone}
-                        options={timezones}
+                        options={timezoneOptions}
+                        onChange={(value) => onTimezoneChange(value, formik)}
                       />  
                   </div>
               </div>
@@ -95,7 +104,8 @@ const ProfileForm = (props) => {
 const Profile = (props) => {
   return (
       <div className="container">
-          <ProfileForm profile={props.profile}
+          <ProfileForm
+              profile={props.profile}
               timezones={props.timezones}
               setUserProfile={props.setUserProfile} />
       </div>

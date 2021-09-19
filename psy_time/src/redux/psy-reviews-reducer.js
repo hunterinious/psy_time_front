@@ -1,4 +1,4 @@
-import { psyUserProfileAPI } from '../api/psyProfilesAPI';
+import { psyUserProfileAPI } from '../api/psyPublicProfilesAPI';
 
 
 const SET_PSY_REVIEWS = 'SET_PSY_REVIEWS';

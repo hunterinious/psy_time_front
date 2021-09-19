@@ -1,16 +1,20 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Formik, Form} from 'formik';
 import * as Yup from 'yup';
 import FormikControl from '../Common/FormControl/FormikControl';
 import { helpAPI } from '../../api/helpAPI';
 import style from './Help.module.css'
+import selectHelper from '../../utils/selectHelper';
 
 
 const Help = (props) => {
+    const {countries, handleClose} = props
+    const [helpToChoose, setHelpToChoose] = useState(props.helpToChoose)
     const themeOptions = [
         { value: "Help to choose", label: "Help to choose"},
         { value: "Your question", label: "Your question" }
     ]
+    const countryOptions = selectHelper.mapSelectOptions(countries)
 
     const onSubmit = async (values, { setSubmitting, setFieldError }) => {
         const selectTheme = values.selectTheme
@@ -20,7 +24,7 @@ const Help = (props) => {
                                   theme, values.message)
                             .then(() => {
                                 alert("Your request in pending")
-                                props.handleClose()
+                                handleClose()
                             })
                             .catch(error => {
                                 if(error.status.code === 400){
@@ -32,12 +36,20 @@ const Help = (props) => {
 
     }
 
+    const handleThemeChange = (value) => {
+        if(value === themeOptions[1].value){
+            setHelpToChoose(false)
+        }else {
+            setHelpToChoose(true)
+        }
+    }
+
     const initialValues = {
         email: '',
         name: '',
         message: '',
         theme: '',
-        selectTheme: props.helpToChoose ? themeOptions[0].value : themeOptions[1].value
+        selectTheme: helpToChoose ? themeOptions[0].value : themeOptions[1].value
     }
 
     const validationSchema = Yup.object().shape({
@@ -56,8 +68,7 @@ const Help = (props) => {
             <Formik
             initialValues={initialValues}
             validationSchema={validationSchema}
-            onSubmit={onSubmit}
-            
+            onSubmit={onSubmit}    
             >
             {formik => (
             <Form>
@@ -81,7 +92,7 @@ const Help = (props) => {
                       <FormikControl
                         control='rselect'
                         name='country'
-                        options={props.countries}
+                        options={countryOptions}
                         label='Choose a country'
                       />
                       <FormikControl
@@ -89,7 +100,8 @@ const Help = (props) => {
                         name='selectTheme'
                         options={themeOptions}
                         label='Choose your theme'
-                        value={props.helpToChoose ? themeOptions[0]: themeOptions[1]}
+                        value={helpToChoose ? themeOptions[0]: themeOptions[1]}
+                        onChange={handleThemeChange}
                       />
                       {formik.values.selectTheme === themeOptions[1].value
                       ? <FormikControl

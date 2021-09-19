@@ -1,4 +1,4 @@
-import { psyUsersProfilesListNavAPI } from '../api/psyProfilesAPI';
+import { psyUsersProfilesListNavAPI } from '../api/psyPublicProfilesAPI';
 
 
 const HOW_TO_CHOOSE_PSY = 'HOT_TO_CHOOSE_PSY';

@@ -1,6 +1,6 @@
-import { psyUserProfileAPI } from '../api/psyProfilesAPI';
-import { psyUsersProfilesListAPI } from '../api/psyProfilesAPI';
-import { psyUsersProfilesListNavAPI } from '../api/psyProfilesAPI';
+import { psyUserProfileAPI } from '../api/psyPublicProfilesAPI';
+import { psyUsersProfilesListAPI } from '../api/psyPublicProfilesAPI';
+import { psyUsersProfilesListNavAPI } from '../api/psyPublicProfilesAPI';
 
 
 const SET_PSY_USERS_PROFILES = 'SET_PSY_USERS_PROFILE';

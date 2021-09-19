@@ -89,7 +89,6 @@ export const psyUserProfileAPI = {
 }
 
 export const psyUsersProfilesListAPI = {
-
     getPsyUsersProfiles() {
         return axiosInstance.get(``)
             .then(response => {
@@ -192,7 +191,6 @@ export const psyUsersProfilesListNavAPI = {
             });
     },
 
-
     getPsysByCriteria(criteria) {
         let c = criteria
         return axiosInstance.get(`filter`, {
@@ -234,5 +232,4 @@ export const psyUsersProfilesListNavAPI = {
                 }
             });
     }
-   
 }

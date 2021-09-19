@@ -11,13 +11,14 @@ class HelpContainer extends Component {
     }
 
     render() {
+        const {countries, handleClose} = this.props
         return <>
             { this.props.countriesAreFetching 
                 ? <Preloader />
                 : <Help
-                    countries={this.props.countries}
+                    countries={countries}
                     helpToChoose={true}
-                    handleClose={this.props.handleClose}
+                    handleClose={handleClose}
                    />
             }
         </>
@@ -27,8 +28,8 @@ class HelpContainer extends Component {
 
 let mapStateToProps = (state) => {
     return {
-        countries: state.countries.countries,
-        countriesAreFetching: state.countries.countriesAreFetching
+        countries: state.locations.countries,
+        countriesAreFetching: state.locations.countriesAreFetching
     }
 }
 
