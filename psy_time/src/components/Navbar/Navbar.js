@@ -6,10 +6,10 @@ const Navbar = () => {
     return (
         <nav className={style.nav} >
             <div className={style.item}>
-                <NavLink exact to="/" activeClassName={style.activeLink}>ДОМОЙ</NavLink>
+                <NavLink exact to="/" activeClassName={style.activeLink}>Home</NavLink>
             </div>
             <div className={style.item}>
-                <NavLink to="/psychologists" activeClassName={style.activeLink}>ТЕРАПЕВТЫ</NavLink>
+                <NavLink to="/psychologists" activeClassName={style.activeLink}>Psychologists</NavLink>
             </div>
         </nav>
     );

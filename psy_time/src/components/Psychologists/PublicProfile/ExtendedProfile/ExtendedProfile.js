@@ -1,5 +1,4 @@
 import React from 'react'
-import { compose } from 'redux'
 
 const ExtendedProfile = (props) => {
     const profile = props.profile
@@ -7,7 +6,7 @@ const ExtendedProfile = (props) => {
     const renderPropsArrays = (array) => {
         let length = array.length
         return array.map((item, index) => (
-            length - 1 == index ? item.name : item.name + ", " 
+            length - 1 === index ? item.name : item.name + ", " 
         ))
     }
     
