@@ -11,9 +11,15 @@ const ProfileForm = (props) => {
     const timezoneOptions = selectHelper.mapSelectOptions(timezones)
     const [currentTimezone, setCurrentTimezone] = useState(selectHelper.mapSelectOptions(profile.timezone))
 
-
     const onSubmit = async (values, actions) => {
-        updatePrivateRegularUserProfile(user.id, values, actions)
+        const onSubmitRequestFailed = (error) => {
+          for (const [key, value] of Object.entries(error.data)) {
+            actions.setFieldError(key, value[0])    
+          }
+        }
+
+        const {email, password, name, timezone} = values
+        updatePrivateRegularUserProfile({id: user.id, email, password, name, timezone: timezone.value, onFail: onSubmitRequestFailed})
     }
 
     const onTimezoneChange = (value, formik) => {

@@ -18,9 +18,16 @@ const ProfileForm = (props) => {
 
 
     const onSubmit = async (values, actions) => {
-        updatePrivatePsyUserProfile(user.id, values, actions)
-    }
+        const onSubmitRequestFailed = (error) => {
+          for (const [key, value] of Object.entries(error.data)) {
+            actions.setFieldError(key, value[0])    
+          }
+        }
 
+        const {email, password, name, city, country, timezone} = values
+        updatePrivatePsyUserProfile({id: user.id, email, password, name, city: city.value,
+                                     country: country.value, timezone:timezone.value, onFail: onSubmitRequestFailed})
+    }
 
     const onCountryChange = (value, formik) => {
         const country = selectHelper.valueToSelectOptionObject(value)

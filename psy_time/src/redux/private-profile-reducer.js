@@ -34,38 +34,36 @@ export const getUserProfile = (id, userType) => async (dispatch) => {
     }
 }
 
-export const updatePrivateRegularUserProfile = (id, formValues, formActions) => async (dispatch) => {
-    const password = formValues.password ? formValues.password : null
-    const {email, name, timezone} = formValues
+export const updatePrivateRegularUserProfile = (data) => async (dispatch) => {
+    const {id, email, password, name, timezone, onSuccess, onFail} = data
+    const psw = password ? password : null
 
     try{
-        const data = await profileAPI.updateRegularUserProfile(id, email, password, name, timezone.value)
+        const data = await profileAPI.updateRegularUserProfile(id, email, psw, name, timezone)
         if(data.status.code === 200) {
             await dispatch(setUserProfile(data.data))
+            if(onSuccess){ onSuccess(data)}
         }
     }catch(error) {
         if(error?.status?.code === 400){
-            for (const [key, value] of Object.entries(error.data)) {
-                formActions.setFieldError(key, value[0])    
-           }
+            if(onFail){ onFail(error)}
         }
     }
 }
 
-export const updatePrivatePsyUserProfile = (id, formValues, formActions) => async (dispatch) => {
-    const password = formValues.password ? formValues.password : null
-    const {email, name, city, country, timezone} = formValues
+export const updatePrivatePsyUserProfile = (data) => async (dispatch) => {
+    const {id, email, password, name, city, country, timezone, onSuccess, onFail} = data
+    const psw = password ? password : null
 
     try{
-        const data = await profileAPI.updatePsyUserProfile(id, email, password, name, city.value, country.value, timezone.value)
+        const data = await profileAPI.updatePsyUserProfile(id, email, psw, name, city, country, timezone)
         if(data.status.code === 200) {
             await dispatch(setUserProfile(data.data))
+            if(onSuccess){ onSuccess(data)}
         }
     }catch(error) {
         if(error?.status?.code === 400){
-            for (const [key, value] of Object.entries(error.data)) {
-                formActions.setFieldError(key, value[0])    
-           }
+            if(onFail){ onFail(error)}
         }
     }
 }
