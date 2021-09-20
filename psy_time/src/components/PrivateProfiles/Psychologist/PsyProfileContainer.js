@@ -11,16 +11,17 @@ class PsyProfileContainer extends Component {
     }
 
     render () {
-        const {profile, cities, countries, timezones, setUserProfile} = this.props
+        const {user, cities, countries, timezones, updatePrivatePsyUserProfile} = this.props
+
         if(!this.props.countriesAreFetching && !this.props.citiesAreFetching){
             return (
                 <div>
                     <Profile 
-                        profile={profile} 
+                        user={user}
                         cities={cities}
                         countries={countries}
                         timezones={timezones}
-                        setUserProfile={setUserProfile}
+                        updatePrivatePsyUserProfile={updatePrivatePsyUserProfile}
                         />
                 </div>
             );

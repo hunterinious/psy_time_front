@@ -2,33 +2,18 @@ import React, { useState } from 'react';
 import { Formik, Form} from 'formik';
 import FormikControl from '../../Common/FormControl/FormikControl';
 import * as Yup from 'yup';
-import { profileAPI } from '../../../api/profileAPI';
 import selectHelper from '../../../utils/selectHelper';
 
 
 const ProfileForm = (props) => {
-    const { profile, timezones, setUserProfile } = props
+    const { user, timezones, updatePrivateRegularUserProfile } = props
+    const profile = user.profile
     const timezoneOptions = selectHelper.mapSelectOptions(timezones)
     const [currentTimezone, setCurrentTimezone] = useState(selectHelper.mapSelectOptions(profile.timezone))
 
 
-    const onSubmit = async (values, { setFieldError }) => {
-        const password = values.password ? values.password : null
-        const data = profileAPI.updateRegularUserProfile(profile.id,
-                                                         values.email,
-                                                         password,
-                                                         values.name,
-                                                         values.timezone.value)
-                               .then(data => async () => {
-                                  await setUserProfile(data.data)
-                               })
-                               .catch(error => {
-                                   if(error?.status?.code === 400){
-                                       for (const [key, value] of Object.entries(error.data)) {
-                                           setFieldError(key, value[0])    
-                                      }
-                                   }
-                               })
+    const onSubmit = async (values, actions) => {
+        updatePrivateRegularUserProfile(user.id, values, actions)
     }
 
     const onTimezoneChange = (value, formik) => {
@@ -39,8 +24,8 @@ const ProfileForm = (props) => {
 
     let initialValues = {
         name: profile.name,
-        email: profile.user.email,
-        password: null,
+        email: user.email,
+        password: undefined,
         timezone: currentTimezone
     }
 
@@ -102,12 +87,14 @@ const ProfileForm = (props) => {
 }
 
 const Profile = (props) => {
+  const {user, timezones, updatePrivateRegularUserProfile} = props
+
   return (
       <div className="container">
           <ProfileForm
-              profile={props.profile}
-              timezones={props.timezones}
-              setUserProfile={props.setUserProfile} />
+              user={user}
+              timezones={timezones}
+              updatePrivateRegularUserProfile={updatePrivateRegularUserProfile} />
       </div>
       
   )

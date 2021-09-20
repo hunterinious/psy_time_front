@@ -3,13 +3,13 @@ import Profile from './Profile'
 
 class RegularProfileContainer extends Component {
     render () {
-        const {profile, timezones, setUserProfile} = this.props
+        const {user, timezones, updatePrivateRegularUserProfile} = this.props
         return (
             <div>
                 <Profile 
-                    profile={profile} 
+                    user={user}
                     timezones={timezones}
-                    setUserProfile={setUserProfile}/>
+                    updatePrivateRegularUserProfile={updatePrivateRegularUserProfile}/>
             </div>
         );
     }

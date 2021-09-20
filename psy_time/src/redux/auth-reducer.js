@@ -9,7 +9,7 @@ let initialState = {
     isAuth: false,
     loginFailed: false,
     loginDataIsFetching: true,
-    profileId: null,
+    userId: null,
     userType: null
 }
 
@@ -39,7 +39,7 @@ const authReducer = (state = initialState, action) => {
 
 }
 
-export const setUserLoginData = (profileId, userType, isAuth) => ({ type: SET_USER_LOGIN_DATA, data: {profileId, userType, isAuth}});
+export const setUserLoginData = (userId, userType, isAuth) => ({ type: SET_USER_LOGIN_DATA, data: {userId, userType, isAuth}});
 export const loginDataIsFetching = (isFetching, loginFailed) => ({ type: LOGIN_DATA_IS_FETCHING, isFetching, loginFailed})
 export const dropLoginStatus = ({isAuth, loginFailed, isFetching}) => ({ type: DROP_LOGIN_STATUS, isAuth, loginFailed, isFetching })
 
@@ -49,7 +49,7 @@ export const getUserLoginData = () => async (dispatch) => {
         let data = await authAPI.getUserLoginData()
         if(data.status.code === 200){
             data = data.data
-            dispatch(setUserLoginData(data.profile_id, data.user_type, true))
+            dispatch(setUserLoginData(data.id, data.user_type, true))
             dispatch(loginDataIsFetching(false, false))
         }
     } catch(error){

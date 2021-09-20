@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
-import { getUserProfile, setUserProfile } from '../../redux/private-profile-reducer';
+import { getUserProfile, updatePrivateRegularUserProfile, updatePrivatePsyUserProfile } from '../../redux/private-profile-reducer';
 import { getTimezones } from '../../redux/locations-reducer';
 import Preloader from '../Common/Preloader/Preloader';
 import { withAuthRedirect } from '../hoc/withAuthRedirect';
@@ -10,33 +10,32 @@ import RegularProfileContainer from './Regular/RegularProfileContainer';
 
 class ProfilesContainer extends Component {
     componentDidMount(){
-        this.props.getUserProfile(this.props.profileId, this.props.userType)
+        this.props.getUserProfile(this.props.userId, this.props.userType)
         this.props.getTimezones()
     }
 
     render() {
-        const { profile, timezones, timezonesAreFetching, userType, setUserProfile } = this.props
+        const { profile: user, timezones, timezonesAreFetching, userType, updatePrivateRegularUserProfile, updatePrivatePsyUserProfile } = this.props
 
         return (
             <>
             {
-             profile && !timezonesAreFetching
+             user && !timezonesAreFetching
                 ?
                 <div>
                     { userType === 'R' 
                     ? 
                     (
                     <RegularProfileContainer
-                        profile={profile}
+                        user={user}
                         timezones={timezones}
-                        setUserProfile={setUserProfile}/>
+                        updatePrivateRegularUserProfile={updatePrivateRegularUserProfile}/>
                     )
                     :
                     <PsyProfileContainer
-                        profile={profile}
+                        user={user}
                         timezones={timezones}
-                        setUserProfile={setUserProfile}/>
-                    
+                        updatePrivatePsyUserProfile={updatePrivatePsyUserProfile}/>
                     }
                 </div>                
                 :
@@ -50,8 +49,8 @@ class ProfilesContainer extends Component {
 
 let mapStateToProps = (state) => {
     return {
-        profile: state.profilePage.profile,
-        profileId: state.auth.profileId,
+        profile: state.profile.profile,
+        userId: state.auth.userId,
         userType: state.auth.userType,
         timezones: state.locations.timezones,
         timezonesAreFetching: state.locations.timezonesAreFetching
@@ -59,7 +58,7 @@ let mapStateToProps = (state) => {
 }
 
 export default compose(
-    connect(mapStateToProps, { getUserProfile, setUserProfile, getTimezones }),
+    connect(mapStateToProps, { getUserProfile, updatePrivateRegularUserProfile, updatePrivatePsyUserProfile, getTimezones }),
     withAuthRedirect
 )
 (ProfilesContainer)

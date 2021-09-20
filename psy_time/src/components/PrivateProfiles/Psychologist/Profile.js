@@ -2,12 +2,12 @@ import React, { useState } from 'react';
 import { Formik, Form } from 'formik';
 import FormikControl from '../../Common/FormControl/FormikControl';
 import * as Yup from 'yup';
-import { profileAPI } from '../../../api/profileAPI';
 import selectHelper from '../../../utils/selectHelper';
 
 
 const ProfileForm = (props) => {
-    const { profile, cities, countries, timezones, setUserProfile} = props
+    const {user, cities, countries, timezones, updatePrivatePsyUserProfile} = props
+    const profile = user.profile
     const [currentCity, setCurrentCity] = useState(selectHelper.mapSelectOptions(profile.city))
     const [currentCountry, setCurrentCountry] = useState(selectHelper.mapSelectOptions(profile.city?.country))
     const [countryCities, setCountryCities] = useState(cities.filter(c => c.country.name === currentCountry.value))
@@ -17,26 +17,8 @@ const ProfileForm = (props) => {
     const [currentTimezone, setCurrentTimezone] = useState(selectHelper.mapSelectOptions(profile.timezone))
 
 
-    const onSubmit = async (values, { setFieldError }) => {
-      const password = values.password ? values.password : null
-      const data = profileAPI.updatePsyUserProfile(profile.id,
-                                                    values.email,
-                                                    password,
-                                                    values.name,
-                                                    values.city.value,
-                                                    values.country.value,
-                                                    values.timezone.value)
-                             .then(data => async () => {
-                                await setUserProfile(data.data)
-                             })
-                             .catch(error => {
-                                 if(error?.status?.code === 400){
-                                     for (const [key, value] of Object.entries(error.data)) {
-                                         setFieldError(key, value[0])    
-                                    }
-                                 }
-                             })
-
+    const onSubmit = async (values, actions) => {
+        updatePrivatePsyUserProfile(user.id, values, actions)
     }
 
 
@@ -63,8 +45,8 @@ const ProfileForm = (props) => {
 
     let initialValues = {
         name: profile.name,
-        email: profile.user.email,
-        password: null,
+        email: user.email,
+        password: undefined,
         city: currentCity,
         country: currentCountry,
         timezone: currentTimezone
@@ -149,15 +131,16 @@ const ProfileForm = (props) => {
 }
 
 const Profile = (props) => {
-  const {profile, cities, countries, timezones, setUserProfile} = props
+  const {user, cities, countries, timezones, updatePrivatePsyUserProfile} = props
+
   return (
       <div className="container">
           <ProfileForm 
-              profile={profile} 
+              user={user}
               cities={cities}
               countries={countries}
               timezones={timezones}
-              setUserProfile={setUserProfile} />
+              updatePrivatePsyUserProfile={updatePrivatePsyUserProfile} />
       </div>
       
   )

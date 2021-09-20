@@ -15,7 +15,7 @@ let reducers = combineReducers({
     howToChoosePsy: howToChoosePsyReducer,
     psyReviews: psyReviewsReducer,
     auth: authReducer,
-    profilePage: privateProfileReducer,
+    profile: privateProfileReducer,
 });
 
 let store = createStore(reducers, applyMiddleware(thunkMiddleware));

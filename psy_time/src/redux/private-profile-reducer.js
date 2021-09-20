@@ -34,5 +34,41 @@ export const getUserProfile = (id, userType) => async (dispatch) => {
     }
 }
 
+export const updatePrivateRegularUserProfile = (id, formValues, formActions) => async (dispatch) => {
+    const password = formValues.password ? formValues.password : null
+    const {email, name, timezone} = formValues
+
+    try{
+        const data = await profileAPI.updateRegularUserProfile(id, email, password, name, timezone.value)
+        if(data.status.code === 200) {
+            await dispatch(setUserProfile(data.data))
+        }
+    }catch(error) {
+        if(error?.status?.code === 400){
+            for (const [key, value] of Object.entries(error.data)) {
+                formActions.setFieldError(key, value[0])    
+           }
+        }
+    }
+}
+
+export const updatePrivatePsyUserProfile = (id, formValues, formActions) => async (dispatch) => {
+    const password = formValues.password ? formValues.password : null
+    const {email, name, city, country, timezone} = formValues
+
+    try{
+        const data = await profileAPI.updatePsyUserProfile(id, email, password, name, city.value, country.value, timezone.value)
+        if(data.status.code === 200) {
+            await dispatch(setUserProfile(data.data))
+        }
+    }catch(error) {
+        if(error?.status?.code === 400){
+            for (const [key, value] of Object.entries(error.data)) {
+                formActions.setFieldError(key, value[0])    
+           }
+        }
+    }
+}
+
 
 export default privateProfileReducer;
