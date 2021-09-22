@@ -10,6 +10,11 @@ import ProfilesContainer from './components/PrivateProfiles/ProfilesContainer';
 import Registration from './components/Authentication/Registration/Registration';
 import LoginContainer from './components/Authentication/Login/Login';
 
+require('dotenv').config()
+
+
+console.log(process.env, 'env vars')
+
 class App extends Component {
   render() {
       return (

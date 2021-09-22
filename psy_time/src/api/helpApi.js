@@ -1,44 +1,9 @@
-import Axios, * as axios from "axios";
+const BASE_URL = 'core'
 
-
-const axiosInstance = axios.create({
-    baseURL: 'http://localhost:8000/api/core/',
-    withCredentials: true,
-    headers: {
-        'Accept': 'application/json'
+export default {
+    help: {
+        method: 'post',
+        path: () => `${BASE_URL}/help`,
+        requiredAuth: false
     }
-})
-
-
-export const helpAPI = {
-    help(email, name, country, theme, message) {
-        return axiosInstance.post(`help`, {
-            email,
-            name,
-            country, 
-            theme,
-            message
-        })
-            .then(response => {
-                return {
-                    data: response.data,
-                    status: {
-                        text: response.statusText || response.status.text,
-                        code: response.status || response.status.code
-                    }
-                }
-            })
-            .catch(error => {
-                if(error.response) {
-                    return Promise.reject({
-                        data: error.response.data,
-                        status: {
-                            text: error.response.statusText || error.response.status.text,
-                            code: error.response.status || error.response.status.code
-                        }
-                    });
-                return Promise.reject(error)
-                }
-            });
-    },
 }
