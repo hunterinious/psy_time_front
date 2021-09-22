@@ -1,5 +1,5 @@
-import { psyUserProfileAPI } from '../api/psyPublicProfilesAPI';
-import { psyUsersProfilesListAPI } from '../api/psyPublicProfilesAPI';
+import { PsyPublicProfilesRequest } from '../api';
+import commonApiService from '../services/commonApiService';
 import { psyUsersProfilesListNavAPI } from '../api/psyPublicProfilesAPI';
 
 
@@ -50,22 +50,36 @@ export const setPsyUsersProfiles = (profiles) => ({ type: SET_PSY_USERS_PROFILES
 export const setRandomPsyUserProfile = (profile) =>  ({ type: SET_RANDOM_PSY_USER_PROFILE, profile})
 
 
-export const getPsyExtendedPublicProfile = (id) => async (dispatch) => {
-    let data = await psyUserProfileAPI.getPsyExtendedPublicProfile(id)
-    if(data.status.code === 200) {
-        dispatch(setPsyExtendedPublicProfile(data.data))
+export const getPsyExtendedPublicProfile = (data, onSuccess, onFail) => async (dispatch) => {
+    const apiData = await commonApiService.callRequest(
+        {
+            payload: data,
+            action: PsyPublicProfilesRequest.getPsyExtendedPublicProfile,
+            onSuccess,
+            onFail
+        }
+    )
+    if(apiData) {
+        dispatch(setPsyExtendedPublicProfile(apiData.data))
     }
 }
 
 
-export const getPsyPublicProfile = (id) => async (dispatch) => {
-    let data = await psyUserProfileAPI.getPsyPublicProfile(id)
-    if(data.status.code === 200) {
-        dispatch(setPsyPublicProfile(data.data))
+export const getPsyPublicProfile = (data, onSuccess, onFail) => async (dispatch) => {
+    const apiData = await commonApiService.callRequest(
+        {
+            payload: data,
+            action: PsyPublicProfilesRequest.getPsyPublicProfile,
+            onSuccess,
+            onFail
+        }
+    )
+    if(apiData) {
+        dispatch(setPsyPublicProfile(apiData.data))
     }
 }
 
-export const getPsyUsersProfiles = () => async (dispatch) => {
+export const getPsyUsersProfiles = (onSuccess, onFail) => async (dispatch) => {
     let profiles = JSON.parse(localStorage.getItem('profiles'))
     if(profiles){
         if(!profiles.length){
@@ -77,24 +91,36 @@ export const getPsyUsersProfiles = () => async (dispatch) => {
         dispatch(profilesAreFetching(false))
     }
     else{
-        let data = await psyUsersProfilesListAPI.getPsyUsersProfiles()
-        if(data.status.code === 200) {
-            dispatch(setPsyUsersProfiles(data.data.results))
+        const apiData = await commonApiService.callRequest(
+            {
+                action: PsyPublicProfilesRequest.getPsyUsersProfiles,
+                onSuccess,
+                onFail
+            }
+        )
+        if(apiData) {
+            dispatch(setPsyUsersProfiles(apiData.data.results))
             dispatch(profilesNotFound(false))
             dispatch(profilesAreFetching(false))
         }
     }
 }
 
-export const getRandomPsyUserProfile = () => async (dispatch) => {
-    let data = await psyUsersProfilesListNavAPI.getRandomPsyUserProfile()
-    if(data.status.code === 200) {
-        dispatch(setRandomPsyUserProfile(data.data))
+export const getRandomPsyUserProfile = (onSuccess, onFail) => async (dispatch) => {
+    const apiData = await commonApiService.callRequest(
+        {
+            action: PsyPublicProfilesRequest.getRandomPsyUserProfile,
+            onSuccess,
+            onFail
+        }
+    )
+    if(apiData) {
+        dispatch(setRandomPsyUserProfile(apiData.data))
     }
 }
 
 
-export const getPsysByCriteria = (criteria) => async (dispatch) => {
+export const getPsysByCriteria = (criteria, onSuccess, onFail) => async (dispatch) => {
     dispatch(profilesAreFetching(true))
     let data = await psyUsersProfilesListNavAPI.getPsysByCriteria(criteria)
     if(data.status.code === 200) {

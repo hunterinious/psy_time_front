@@ -1,14 +1,14 @@
 import commonApiService from "./commonApiService";
-import helpAPI from "../api/helpAPI";
+import { HelpRequest } from "../api";
 
 
-const callHelpRequest = async ({payload, onSuccess, onFail}) => {
+const callHelpRequest = async (data, onSuccess, onFail) => {
     commonApiService.callRequest(
         {
-            payload: payload,
-            action: helpAPI.help,
-            onSuccess: (res) => { if (onSuccess) { onSuccess(res); } },
-            onFail: (res) => { if (onFail) { onFail(res); } }
+            payload: data,
+            action: HelpRequest.help,
+            onSuccess,
+            onFail
         }
     )
 }

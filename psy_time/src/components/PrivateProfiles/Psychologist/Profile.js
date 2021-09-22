@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { Formik, Form } from 'formik';
 import FormikControl from '../../Common/FormControl/FormikControl';
 import * as Yup from 'yup';
-import selectHelper from '../../../utils/selectHelper';
 
 
 const ProfileForm = (props) => {
@@ -16,15 +15,17 @@ const ProfileForm = (props) => {
 
 
     const onSubmit = async (values, actions) => {
-        const onSubmitRequestFailed = (error) => {
-          for (const [key, value] of Object.entries(error.data)) {
-            actions.setFieldError(key, value[0])    
-          }
+        const onFail = (error) => {
+            if(error.status.code === 400){
+                for (const [key, value] of Object.entries(error.data)) {
+                    actions.setFieldError(key, value[0])    
+                }
+            }
         }
 
         const {email, password, name, city, country, timezone} = values
         updatePrivatePsyUserProfile({id: user.id, email, password, name, city,
-                                     country, timezone, onFail: onSubmitRequestFailed})
+                                     country, timezone}, null, onFail)
     }
 
     const onCountryChange = (option, formik) => {

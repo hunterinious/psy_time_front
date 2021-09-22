@@ -1,7 +1,6 @@
 import Axios, * as axios from "axios";
 import querystring from 'querystring';
 
-
 const axiosInstance = axios.create({
     baseURL: 'http://localhost:8000/api/psychologists/',
     withCredentials: true,
@@ -10,187 +9,49 @@ const axiosInstance = axios.create({
     }
 })
 
+const BASE_URL = 'psychologists'
 
-export const psyUserProfileAPI = {
-    getPsyPublicProfile(id) {
-        return axiosInstance.get(`/public-profile/${id}/detail`)
-            .then(response => {
-                return {
-                    data: response.data,
-                    status: {
-                        text: response.statusText || response.status.text,
-                        code: response.status || response.status.code
-                    }
-                }
-            })
-            .catch(error => {
-                if(error.response) {
-                    return Promise.reject({
-                        data: error.response.data,
-                        status: {
-                            text: error.response.statusText || error.response.status.text,
-                            code: error.response.status || error.response.status.code
-                        }
-                    });
-                return Promise.reject(error)
-                }
-            });
+// eslint-disable-next-line import/no-anonymous-default-export
+export default {
+    getPsyPublicProfile: {
+        method: 'get',
+        path: ({id}) => `${BASE_URL}/public-profile/${id}/detail`,
+        requiredAuth: false
     },
-
-    getPsyExtendedPublicProfile(id) {
-        return axiosInstance.get(`/public-extended-profile/${id}/detail`)
-            .then(response => {
-                return {
-                    data: response.data,
-                    status: {
-                        text: response.statusText || response.status.text,
-                        code: response.status || response.status.code
-                    }
-                }
-            })
-            .catch(error => {
-                if(error.response) {
-                    return Promise.reject({
-                        data: error.response.data,
-                        status: {
-                            text: error.response.statusText || error.response.status.text,
-                            code: error.response.status || error.response.status.code
-                        }
-                    });
-                return Promise.reject(error)
-                }
-            });
+    getPsyExtendedPublicProfile: {
+        method: 'get',
+        path: ({id}) => `${BASE_URL}/public-extended-profile/${id}/detail`,
+        requiredAuth: false
     },
-
-    getPsyReviews(id) {
-        return axiosInstance.get(`/reviews/${id}/detail`)
-            .then(response => {
-                return {
-                    data: response.data,
-                    status: {
-                        text: response.statusText || response.status.text,
-                        code: response.status || response.status.code
-                    }
-                }
-            })
-            .catch(error => {
-                if(error.response) {
-                    return Promise.reject({
-                        data: error.response.data,
-                        status: {
-                            text: error.response.statusText || error.response.status.text,
-                            code: error.response.status || error.response.status.code
-                        }
-                    });
-                return Promise.reject(error)
-                }
-            });
-    }
-}
-
-export const psyUsersProfilesListAPI = {
-    getPsyUsersProfiles() {
-        return axiosInstance.get(``)
-            .then(response => {
-                return {
-                    data: response.data,
-                    status: {
-                        text: response.statusText || response.status.text,
-                        code: response.status || response.status.code
-                    }
-                }
-            })
-            .catch(error => {
-                if(error.response) {
-                    return Promise.reject({
-                        data: error.response.data,
-                        status: {
-                            text: error.response.statusText || error.response.status.text,
-                            code: error.response.status || error.response.status.code
-                        }
-                    });
-                return Promise.reject(error)
-                }
-            });
+    getPsyReviews: {
+        method: 'get',
+        path: ({id}) => `${BASE_URL}/reviews/${id}/detail`,
+        requiredAuth: false
+    },
+    getPsyUsersProfiles: {
+        method: 'get',
+        path: () => `${BASE_URL}`,
+        requiredAuth: false
+    },
+    getCriteriaNamesPsys: {
+        method: 'get',
+        path: () => `${BASE_URL}/criteria`,
+        requiredAuth: false
+    },
+    getHowToChoosePsy: {
+        method: 'get',
+        path: () => `${BASE_URL}/how-to-choose-psychologist`,
+        requiredAuth: false
+    },
+    getRandomPsyUserProfile: {
+        method: 'get',
+        path: () => `${BASE_URL}/random`,
+        requiredAuth: false
     },
 }
+
 
 export const psyUsersProfilesListNavAPI = {
-    getCriteriaNamesPsys() {
-        return axiosInstance.get(`criteria`)
-            .then(response => {
-                return {
-                    data: response.data,
-                    status: {
-                        text: response.statusText || response.status.text,
-                        code: response.status || response.status.code
-                    }
-                }
-            })
-            .catch(error => {
-                if(error.response) {
-                    return Promise.reject({
-                        data: error.response.data,
-                        status: {
-                            text: error.response.statusText || error.response.status.text,
-                            code: error.response.status || error.response.status.code
-                        }
-                    });
-                return Promise.reject(error)
-                }
-            });
-    },
-
-    getHowToChoosePsy() {
-        return axiosInstance.get(`how-to-choose-psychologist`)
-            .then(response => {
-                return {
-                    data: response.data,
-                    status: {
-                        text: response.statusText || response.status.text,
-                        code: response.status || response.status.code
-                    }
-                }
-            })
-            .catch(error => {
-                if(error.response) {
-                    return Promise.reject({
-                        data: error.response.data,
-                        status: {
-                            text: error.response.statusText || error.response.status.text,
-                            code: error.response.status || error.response.status.code
-                        }
-                    });
-                return Promise.reject(error)
-                }
-            });
-    },
-
-    getRandomPsyUserProfile() {
-        return axiosInstance.get(`random`)
-            .then(response => {
-                return {
-                    data: response.data,
-                    status: {
-                        text: response.statusText || response.status.text,
-                        code: response.status || response.status.code
-                    }
-                }
-            })
-            .catch(error => {
-                if(error.response) {
-                    return Promise.reject({
-                        data: error.response.data,
-                        status: {
-                            text: error.response.statusText || error.response.status.text,
-                            code: error.response.status || error.response.status.code
-                        }
-                    });
-                return Promise.reject(error)
-                }
-            });
-    },
-
     getPsysByCriteria(criteria) {
         let c = criteria
         return axiosInstance.get(`filter`, {

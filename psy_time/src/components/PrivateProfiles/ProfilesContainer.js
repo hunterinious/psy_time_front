@@ -10,8 +10,9 @@ import RegularProfileContainer from './Regular/RegularProfileContainer';
 
 class ProfilesContainer extends Component {
     componentDidMount(){
-        this.props.getUserProfile(this.props.userId, this.props.userType)
-        this.props.getTimezones()
+        const props = this.props
+        props.getUserProfile({id: props.userId, userType: props.userType})
+        props.getTimezones()
     }
 
     render() {

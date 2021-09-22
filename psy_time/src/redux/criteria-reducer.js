@@ -1,4 +1,5 @@
-import { psyUsersProfilesListNavAPI } from '../api/psyPublicProfilesAPI';
+import { PsyPublicProfilesRequest } from "../api";
+import commonApiService from "../services/commonApiService";
 
 
 const CRITERIA_ARE_FETCHING = 'CRITERIA_ARE_FETCHING';
@@ -50,10 +51,16 @@ export const changeCriteria = (criteria) => ({ type: CHANGE_CRITERIA, criteria }
 export const removeCriteria = () =>  ({ type: REMOVE_CRITERIA })
 
 
-export const getCriteriaNamesPsys = () => async (dispatch) => {
-    let data = await psyUsersProfilesListNavAPI.getCriteriaNamesPsys()
-    if(data.status.code === 200) {
-        dispatch(setCriteriaNames(data.data))
+export const getCriteriaNamesPsys = (onSuccess, onFail) => async (dispatch) => {
+    const apiData = await commonApiService.callRequest(
+        {
+            action: PsyPublicProfilesRequest.getCriteriaNamesPsys,
+            onSuccess,
+            onFail
+        }
+    )
+    if(apiData) {
+        dispatch(setCriteriaNames(apiData.data))
     }
 }
 

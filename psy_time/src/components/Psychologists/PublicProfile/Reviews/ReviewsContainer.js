@@ -6,7 +6,7 @@ import Reviews from './Reviews';
 
 class ReviewsContainer extends Component {
     componentDidMount(){
-        this.props.getPsyReviews(this.props.paramId)
+        this.props.getPsyReviews({id: this.props.paramId})
     }
 
     render() {

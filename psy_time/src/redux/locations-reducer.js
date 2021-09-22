@@ -1,4 +1,5 @@
-import { locationsAPI } from '../api/locationsAPI';
+import { LocationRequest } from "../api";
+import commonApiService from "../services/commonApiService";
 
 const SET_CITIES = 'SET_CITIES'
 const CITIES_ARE_FETCHING = 'CITIES_ARE_FETCHING'
@@ -45,9 +46,15 @@ export const setTimezones = (timezones) => ({ type: SET_TIMEZONES, timezones})
 export const timezonesAreFetching = (timezonesAreFetching) => ({ type: TIMEZONES_ARE_FETCHING, timezonesAreFetching})
 
 
-export const getCitiesWithCountry = () => async (dispatch) => {
-    let apiData = await locationsAPI.getCitiesWithCountry()
-    if(apiData.status.code === 200) {
+export const getCitiesWithCountry = (onSuccess, onFail) => async (dispatch) => {
+    const apiData = await commonApiService.callRequest(
+        {
+            action: LocationRequest.getCitiesWithCountry,
+            onSuccess,
+            onFail
+        }
+    )
+    if(apiData) {
         const data = apiData.data
         const countries = data.map(v => v.country)
         dispatch(setCountries(countries))
@@ -58,19 +65,31 @@ export const getCitiesWithCountry = () => async (dispatch) => {
     
 }
 
-export const getCountries = () => async (dispatch) => {
-    let data = await locationsAPI.getCountries()
-    if(data.status.code === 200) {
-        dispatch(setCountries(data.data))
+export const getCountries = (onSuccess, onFail) => async (dispatch) => {
+    const apiData = await commonApiService.callRequest(
+        {
+            action: LocationRequest.getCountries,
+            onSuccess,
+            onFail
+        }
+    )
+    if(apiData) {
+        dispatch(setCountries(apiData.data))
     }
     dispatch(countriesAreFetching(false))
     
 }
 
-export const getTimezones = () => async (dispatch) => {
-    let data = await locationsAPI.getTimezones()
-    if(data.status.code === 200) {
-        dispatch(setTimezones(data.data))
+export const getTimezones = (onSuccess, onFail) => async (dispatch) => {
+    const apiData = await commonApiService.callRequest(
+        {
+            action: LocationRequest.getTimezones,
+            onSuccess,
+            onFail
+        }
+    )
+    if(apiData) {
+        dispatch(setTimezones(apiData.data))
     }
     dispatch(timezonesAreFetching(false))
 }

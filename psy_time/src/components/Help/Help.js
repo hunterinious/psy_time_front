@@ -26,7 +26,7 @@ const Help = (props) => {
         const {email, name, country, selectTheme, theme, message} = values
         const themeValue = selectTheme === themeOptions[0] ? selectTheme : theme
 
-        helpService.callHelpRequest({payload: {email, name, country, theme: themeValue, message}, onFail, onSuccess})
+        helpService.callHelpRequest({email, name, country, theme: themeValue, message}, onSuccess, onFail)
     }
 
     const handleThemeChange = (option) => {

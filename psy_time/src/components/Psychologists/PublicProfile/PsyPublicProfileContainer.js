@@ -23,7 +23,7 @@ class PsyPublicProfileContainer extends Component {
     }
 
     componentDidMount(){
-        this.props.getPsyPublicProfile(this.props.match.params.id)
+        this.props.getPsyPublicProfile({id: this.props.match.params.id})
     }
 
     handleSectionClick = (e) => {

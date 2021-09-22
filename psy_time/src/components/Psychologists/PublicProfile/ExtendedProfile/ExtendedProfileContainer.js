@@ -6,7 +6,7 @@ import ExtendedProfile from './ExtendedProfile';
 
 class ExtendedProfileContainer extends Component {
     componentDidMount(){
-        this.props.getPsyExtendedPublicProfile(this.props.paramId)
+        this.props.getPsyExtendedPublicProfile({id: this.props.paramId})
     }
 
     render() {

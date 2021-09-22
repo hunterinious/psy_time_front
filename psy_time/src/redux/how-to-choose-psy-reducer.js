@@ -1,4 +1,5 @@
-import { psyUsersProfilesListNavAPI } from '../api/psyPublicProfilesAPI';
+import { PsyPublicProfilesRequest } from "../api";
+import commonApiService from "../services/commonApiService";
 
 
 const HOW_TO_CHOOSE_PSY = 'HOT_TO_CHOOSE_PSY';
@@ -21,10 +22,16 @@ const howToChoosePsyReducer = (state = initialState, action) => {
 
 export const howToChoosePsy = (howToChoosePsyText) =>  ({ type: HOW_TO_CHOOSE_PSY, howToChoosePsyText })
 
-export const getHowToChoosePsy = () => async (dispatch) => {
-    let data = await psyUsersProfilesListNavAPI.getHowToChoosePsy()
-    if(data.status.code === 200) {
-        dispatch(howToChoosePsy(data.data))
+export const getHowToChoosePsy = (onSuccess, onFail) => async (dispatch) => {
+    const apiData = await commonApiService.callRequest(
+        {
+            action: PsyPublicProfilesRequest.getHowToChoosePsy,
+            onSuccess,
+            onFail
+        }
+    )
+    if(apiData) {
+        dispatch(howToChoosePsy(apiData.data))
     }
 }
 

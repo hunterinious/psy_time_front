@@ -1,10 +1,12 @@
-import helpAPI from "./helpAPI";
+import HelpRequest from "./helpAPI";
+import PrivateProfileRequest from './privateProfileAPI';
+import PsyPublicProfilesRequest from './psyPublicProfilesAPI';
+import LocationRequest from './locationsAPI';
 
-const request = (payload) => {
-
-}
 
 export {
-    request,
-    helpAPI
+    HelpRequest,
+    PrivateProfileRequest,
+    PsyPublicProfilesRequest,
+    LocationRequest
 };

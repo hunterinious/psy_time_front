@@ -2,10 +2,10 @@ import axios from 'axios';
 
 const env = process.env
 const devMode = process.env.NODE_ENV === 'development';
-console.log(env, 'env')
 const baseUrl = devMode ? env.REACT_APP_API_DEV_BASE_URL : env.REACT_APP_API_PROD_BASE_URL
 
 
+// eslint-disable-next-line import/no-anonymous-default-export
 export default function (url, method, data = null, extraHeaders = null) {
     let headers = {};
     headers['Content-Type'] = 'application/json';
@@ -24,11 +24,7 @@ export default function (url, method, data = null, extraHeaders = null) {
         if (devMode && response.status >= 400) {
         console.log(`%c Response from ${method.toUpperCase()} /${url} `, 'background: #e6e6e6; color: #000; font-weight: bold;');
         console.log(`%c Error ${response.status} `, 'background: tomato; color: #fff; font-weight: bold;', response);
-        return {
-            data: response.data.error,
-        };
-        }
-        if (devMode) {
+        } else if (devMode) {
         console.log('-----------------------------------');
         console.log(`%c Response from ${method.toUpperCase()} /${url} `, 'background: #e6e6e6; color: #000; font-weight: bold;');
         console.log(response);
@@ -36,11 +32,13 @@ export default function (url, method, data = null, extraHeaders = null) {
         }
 
         return {
-            data: response.data || {},
-            status: {
-                text: response.statusText,
-                code: response.status,
-            }
+            response: {
+                data: response.data || {},
+                status: {
+                    text: response.statusText,
+                    code: response.status,
+                } 
+            }  
         };
     }).catch((error) => {
         if (error.response) {
