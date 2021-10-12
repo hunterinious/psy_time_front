@@ -14,15 +14,10 @@ const callRequest = async (config) => {
         }
         const url = path(payload);
 
-        const { response } = await apiCaller(url, method, payload || null, headers);
-        const { status } = response
-
-        if (status && status.code >= 400) {
-            if (onFail) { onFail(response); }
-        } else {
-            if (onSuccess) { onSuccess(response); }
-            return response
-        }
+        const response = await apiCaller(url, method, payload || null, headers);    
+        if (onSuccess) { onSuccess(response); }
+        return response
+        
     } catch (e) {
         if (onFail) { onFail(e); };
     }

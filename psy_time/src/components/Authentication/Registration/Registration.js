@@ -5,28 +5,26 @@ import FormikControl from '../../Common/FormControl/FormikControl';
 import * as Yup from 'yup';
 import { compose } from 'redux';
 import { connect } from 'react-redux';
-import { authAPI } from '../../../api/authAPI';
+import { registerUser } from '../../../redux/auth-reducer';
 
 
 const RegistrationForm = (props) => {
-    const onSubmit = async (values, { setSubmitting, setFieldError }) => {
-        const timeZoneName = Intl.DateTimeFormat().resolvedOptions().timeZone
-        const data = authAPI.registerUser(values.email, values.password, values.name, timeZoneName)
-                            .then(data => {
-                                data = data.data
-                                localStorage.setItem('access_token', data.access)
-                                localStorage.setItem('refresh_token', data.refresh)
-                                localStorage.setItem('refresh_expire', data.refresh_expire)
-                                props.handlePostSubmit()
-                            })
-                            .catch(error => {
-                                if(error.status.code === 400){
-                                    for (const [key, value] of Object.entries(error.data)) {
-                                        setFieldError(key, value[0])    
-                                    };
-                                }
-                            })
+    const onSubmit = async (values, actions) => {
+        const onFail = (error) => {
+            if(error.status === 400){
+                for (const [key, value] of Object.entries(error.data)) {
+                    actions.setFieldError(key, value[0])    
+                }
+            }
+        }
 
+        const onSuccess = (res) => {
+            props.handlePostSubmit()
+        }
+
+        const timezoneName = Intl.DateTimeFormat().resolvedOptions().timeZone
+        const {email, password, name} = values
+        registerUser({email, password, name, timezoneName}, onSuccess, onFail)
     }
 
     const initialValues = {

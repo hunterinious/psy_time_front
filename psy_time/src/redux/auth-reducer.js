@@ -1,4 +1,6 @@
-import { authAPI } from '../api/authAPI';
+import { AuthRequest } from '../api';
+import commonApiService from '../services/commonApiService';
+import storageService from '../services/storageService';
 
 const LOGIN_USER = 'LOGIN_USER';
 const SET_USER_LOGIN_DATA = 'SET_USER_LOGIN_DATA';
@@ -49,19 +51,60 @@ export const setUserLoginData = (userId, userType, isAuth) => ({ type: SET_USER_
 export const loginDataIsFetching = (isFetching, loginFailed) => ({ type: LOGIN_DATA_IS_FETCHING, isFetching, loginFailed})
 export const dropLoginStatus = ({isAuth, loginFailed, isFetching}) => ({ type: DROP_LOGIN_STATUS, isAuth, loginFailed, isFetching })
 
-export const getUserLoginData = () => async (dispatch) => {
-    try {
-        dispatch(loginDataIsFetching(true, false))
-        let data = await authAPI.getUserLoginData()
-        if(data.status.code === 200){
-            data = data.data
+
+export const loginUser = async (data, onSuccess, onFail) => {
+    const apiData = await commonApiService.callRequest(
+        {   
+            payload: data,
+            action: AuthRequest.loginUser,
+            onFail
+        }
+    )
+
+    if(apiData){
+        const data = apiData.data
+        storageService.setTokens(data.access, data.refresh)
+        onSuccess(apiData)
+    }
+}
+
+export const getUserLoginData = (onSuccess, onFail) => async (dispatch) => {
+        await dispatch(loginDataIsFetching(true, false))
+        const apiData = await commonApiService.callRequest(
+            {
+                action: AuthRequest.getUserLoginData,
+                onSuccess,
+                onFail
+            }
+        )
+
+        if(apiData){
+            const data = apiData.data
             dispatch(setUserLoginData(data.id, data.user_type, true))
             dispatch(loginDataIsFetching(false, false))
+        }else{
+            dispatch(loginDataIsFetching(false, true))
         }
-    } catch(error){
-        dispatch(loginDataIsFetching(false, true))
-    }
 };
+
+export const registerUser = async (data, onSuccess, onFail) => {
+    const {name, timezoneName} = data
+    data.profile = {'name' : name, 'timezone': {name: timezoneName}}
+
+    const apiData = await commonApiService.callRequest(
+        {   
+            payload: data,
+            action: AuthRequest.registerUser,
+            onFail
+        }
+    )
+    if(apiData){
+        const data = apiData.data
+        storageService.setTokens(data.access, data.refresh)
+        onSuccess(apiData)
+    }
+}
+
 
 
 export default authReducer;

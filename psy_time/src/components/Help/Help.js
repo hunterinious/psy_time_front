@@ -13,8 +13,10 @@ const Help = (props) => {
 
     const onSubmit = async (values, actions) => {
         const onFail = (error) => {
-            for (const [key, value] of Object.entries(error.data)) {
-                actions.setFieldError(key, value[0])    
+            if(error.status === 400){
+                for (const [key, value] of Object.entries(error.data)) {
+                    actions.setFieldError(key, value[0])    
+                }
             }
         }
 

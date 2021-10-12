@@ -6,33 +6,31 @@ import { Formik, Form} from 'formik';
 import FormikControl from '../../Common/FormControl/FormikControl';
 import * as Yup from 'yup';
 import { connect } from 'react-redux';
-import { authAPI } from '../../../api/authAPI';
 import style from './Login.module.css'
+import { loginUser } from '../../../redux/auth-reducer';
 
 
 const LoginForm = (props) => {
-    const onSubmit = async (values, { setStatus, setFieldError }) => {
-        const data = authAPI.loginUser(values.email, values.password)
-                            .then(data => {
-                                data = data.data
-                                localStorage.setItem('access_token', data.access)
-                                localStorage.setItem('refresh_token', data.refresh)
-                                localStorage.setItem('refresh_expire', data.refresh_expire)
-                                props.handlePostSubmit()
-                            })
-                            .catch(error => {
-                                const errorCode = error.status.code
+    const onSubmit = async (values, actions) => {
+        const onFail = (error) => {
+            const errorStatus = error.status
 
-                                if(errorCode === 400){
-                                    for (const [key, value] of Object.entries(error.data)) {
-                                        setFieldError(key, value[0])    
-                                    };
-                                }
-                                if(errorCode === 401){
-                                    setStatus(error.data.detail)
-                                }
-                            })
+            if(errorStatus === 400){
+                for (const [key, value] of Object.entries(error.data)) {
+                    actions.setFieldError(key, value[0])    
+                };
+            }
+            if(errorStatus === 401){
+                actions.setStatus(error.data.detail)
+            }
+        }
 
+        const onSuccess = (res) => {
+            props.handlePostSubmit()
+        }
+
+        const {email, password} = values
+        loginUser({email, password}, onSuccess, onFail)
     }
 
     const initialValues = {
@@ -151,7 +149,7 @@ const mapStateToProps = (state) => ({
 })
 
 export default compose(
-    connect(mapStateToProps, {}),
+    connect(mapStateToProps, {loginUser}),
     withRouter,
 )(LoginContainer);
 

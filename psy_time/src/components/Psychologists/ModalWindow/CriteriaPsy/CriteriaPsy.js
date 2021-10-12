@@ -1,5 +1,4 @@
 import React, { useEffect, useState, useReducer, useRef} from 'react';
-import { Fade } from 'react-bootstrap';
 import Buttons from './Buttons';
 import RangeSlider from './RangeSlider';
 

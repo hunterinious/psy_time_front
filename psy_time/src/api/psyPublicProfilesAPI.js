@@ -1,4 +1,4 @@
-import Axios, * as axios from "axios";
+import axios from "axios";
 import querystring from 'querystring';
 
 const axiosInstance = axios.create({
