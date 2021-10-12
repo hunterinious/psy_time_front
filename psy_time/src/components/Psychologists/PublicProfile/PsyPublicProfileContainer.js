@@ -27,7 +27,9 @@ class PsyPublicProfileContainer extends Component {
     }
 
     handleSectionClick = (e) => {
-        const id = e.target.id
+        const target = e.target
+        const id = target.id || target.firstChild?.id || target.closest('li')?.id
+  
         if(id === this.state.currentSectionId){
             this.setState({
                 currentSectionId: null,
@@ -53,13 +55,14 @@ class PsyPublicProfileContainer extends Component {
     }
 
     render() {
+        const currentSectionId = this.currentSectionId
         let reviews_count = this.props.profile ? this.props.profile.reviews_count : null
         return (
             <div className="container">
                 { this.props.profile
                     ? <>
                     <PsyPublicProfile profile={this.props.profile} />
-                    <div className="d-flex flex-row" onClick={this.handleSectionClick}>
+                    <div id={currentSectionId} className="d-flex flex-row" onClick={this.handleSectionClick}>
                         <ul className={"nav nav-tabs "} role="tablist">
                             <div className={"p-2 ml-20 " + styles.navsCustom}> 
                                 <li id={POSTS} className="nav-item">
@@ -68,7 +71,7 @@ class PsyPublicProfileContainer extends Component {
                             </div>
                             <div className={"p-2 ml-20 " + styles.navsCustom}>
                                 <li id={REVIEWS} className="nav-item ml-10">
-                                Reviews
+                                    Reviews
                                     <span className={styles.counter}>
                                         {reviews_count}
                                     </span>

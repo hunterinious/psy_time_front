@@ -7,7 +7,7 @@ const baseUrl = devMode ? env.REACT_APP_API_DEV_BASE_URL : env.REACT_APP_API_PRO
 
 
 // eslint-disable-next-line import/no-anonymous-default-export
-export default function (url, method, data = null, extraHeaders = null) {
+export default function (url, method, data = null, extraHeaders = null, extraConfig = null) {
     let headers = {};
     headers['Content-Type'] = 'application/json';
     if (extraHeaders) {
@@ -28,6 +28,7 @@ export default function (url, method, data = null, extraHeaders = null) {
         method,
         data,
         headers,
+        ...extraConfig
     }).then((response) => {
         if (devMode) {
         console.log('-----------------------------------');

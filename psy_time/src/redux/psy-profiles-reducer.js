@@ -122,9 +122,30 @@ export const getRandomPsyUserProfile = (onSuccess, onFail) => async (dispatch) =
 
 export const getPsysByCriteria = (criteria, onSuccess, onFail) => async (dispatch) => {
     dispatch(profilesAreFetching(true))
-    let data = await psyUsersProfilesListNavAPI.getPsysByCriteria(criteria)
-    if(data.status.code === 200) {
-        let results = data.data.results
+
+    let c = criteria
+    const apiData = await commonApiService.callRequest(
+        {
+            action: PsyPublicProfilesRequest.getPsysByCriteria,
+            params: {
+                ages: c.ages.length ? c.ages[0] : [],
+                genders: c.genders,
+                statuses: c.statuses,
+                formats: c.formats,
+                themes: c.themes,
+                approaches: c.approaches,
+                specializations: c.specializations,
+                educations: c.educations,
+                secondary_educations: c.secondary_educations,
+                languages: c.languages
+            },
+            onSuccess,
+            onFail
+        }
+    )
+
+    if(apiData) {
+        let results = apiData.data.results
         
         if(results.length){
             dispatch(setPsyUsersProfiles(results))
