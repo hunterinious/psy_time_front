@@ -15,7 +15,7 @@
     text-decoration: none;
 }
   
-.item a.activeLink {
+.item a:active {
     color: darkred;
 }
   

@@ -6,6 +6,7 @@ import * as Yup from 'yup';
 import { compose } from 'redux';
 import { connect } from 'react-redux';
 import { registerUser } from '../../../redux/auth-reducer';
+import appRouterService from '../../../services/appRouterService';
 
 
 const RegistrationForm = (props) => {
@@ -87,7 +88,7 @@ const RegistrationForm = (props) => {
 
 const Registration = (props) => {
     const redirectToProfile = () => {
-        props.history.push('/profile')
+        appRouterService.forwardToPrivateProfilePage()
     }
 
     const handlePostSubmit = () => {

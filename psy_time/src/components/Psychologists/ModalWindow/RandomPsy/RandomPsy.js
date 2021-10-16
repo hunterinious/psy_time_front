@@ -1,6 +1,7 @@
 import React from 'react';
-import { NavLink } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import styles from '../../Psychologists.module.css';
+import * as routePaths from '../../../../consts/routePaths'
 
 const RandomPsy = (props) => {
     const profile = props.random_profile
@@ -12,9 +13,9 @@ const RandomPsy = (props) => {
     return (
         <div>
             <div>
-                <NavLink to={'/public-profile/' + profile.id}>
+                <Link to={routePaths.PSY_PUBLIC_PROFILE + `/${profile.id}`}>
                     <img src={profile.avatar} className={styles.userPhoto}/>   
-                </NavLink> 
+                </Link> 
             </div>
             <div>
                 {profile.name}

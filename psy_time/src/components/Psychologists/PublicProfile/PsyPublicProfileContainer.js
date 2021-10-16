@@ -23,10 +23,10 @@ class PsyPublicProfileContainer extends Component {
     }
 
     componentDidMount(){
-        this.props.getPsyPublicProfile({id: this.props.match.params.id})
+        this.props.getPsyPublicProfile({id: this.props.match.params.publicProfileId})
     }
 
-    handleSectionClick = (e) => {
+    handleSectionClick(e){
         const target = e.target
         const id = target.id || target.firstChild?.id || target.closest('li')?.id
   
@@ -43,7 +43,7 @@ class PsyPublicProfileContainer extends Component {
     }
 
     renderSectionComponent(sectionId){
-        const paramId = this.props.match.params.id
+        const paramId = this.props.match.params.publicProfileId
         switch(sectionId) {
             case POSTS:
                 return 
@@ -56,12 +56,13 @@ class PsyPublicProfileContainer extends Component {
 
     render() {
         const currentSectionId = this.currentSectionId
-        let reviews_count = this.props.profile ? this.props.profile.reviews_count : null
+        const profile = this.props.profile
+        let reviews_count = profile ? profile.reviews_count : null
         return (
             <div className="container">
-                { this.props.profile
+                { profile
                     ? <>
-                    <PsyPublicProfile profile={this.props.profile} />
+                    <PsyPublicProfile profile={profile} />
                     <div id={currentSectionId} className="d-flex flex-row" onClick={this.handleSectionClick}>
                         <ul className={"nav nav-tabs "} role="tablist">
                             <div className={"p-2 ml-20 " + styles.navsCustom}> 

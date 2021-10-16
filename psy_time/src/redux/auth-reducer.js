@@ -47,10 +47,15 @@ const authReducer = (state = initialState, action) => {
 
 }
 
+
 export const setUserLoginData = (userId, userType, isAuth) => ({ type: SET_USER_LOGIN_DATA, data: {userId, userType, isAuth}});
 export const loginDataIsFetching = (isFetching, loginFailed) => ({ type: LOGIN_DATA_IS_FETCHING, isFetching, loginFailed})
 export const dropLoginStatus = ({isAuth, loginFailed, isFetching}) => ({ type: DROP_LOGIN_STATUS, isAuth, loginFailed, isFetching })
 
+export const logoutUser = (onSuccess, onFail) => {
+    storageService.removeTokens()
+    onSuccess()
+}
 
 export const loginUser = async (data, onSuccess, onFail) => {
     const apiData = await commonApiService.callRequest(

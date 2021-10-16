@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import './App.css';
-import {Route} from 'react-router-dom';
+import {Route, Switch} from 'react-router-dom';
 import HeaderContainer from './components/Header/HeaderContainer';
 import Footer from './components/Footer/Footer';
 import Home from './components/Home/Home';
@@ -9,25 +9,44 @@ import PsyPublicProfileContainer from './components/Psychologists/PublicProfile/
 import ProfilesContainer from './components/PrivateProfiles/ProfilesContainer';
 import Registration from './components/Authentication/Registration/Registration';
 import LoginContainer from './components/Authentication/Login/Login';
+import * as routePaths from './consts/routePaths';
+import { connect } from 'react-redux';
+import { getUserLoginData } from './redux/auth-reducer';
+
 
 require('dotenv').config()
+
 class App extends Component {
+  componentDidMount(){
+    if (!this.props.isAuth && !this.props.loginFailed){
+		this.props.getUserLoginData()
+    }
+  }
   render() {
       return (
         <div className="app-wrapper">
-          <HeaderContainer />
-          <div className="app-wrapper-content">
-            <Route exact path='/' render={ () => <Home />} />
-            <Route exact path='/psychologists' render={ () => <PsyProfilesContainer />} />
-            <Route path="/public-profile/:id" render={ () => <PsyPublicProfileContainer/>} />
-            <Route path='/profile' render={ () => <ProfilesContainer />} />
-            <Route path='/registration' render={ () => <Registration />} />
-            <Route path='/login' render={ () => <LoginContainer modal={false} />} />
-          </div>
-          <Footer />
+			<HeaderContainer />
+			<div className="app-wrapper-content">
+				<Switch>
+					<Route exact path={routePaths.HOME} render={ () => <Home />} />
+					<Route exact path={routePaths.PSYCHOLOGISTS} render={ () => <PsyProfilesContainer />} />
+					<Route path={routePaths.PSY_PUBLIC_PROFILE_PARAMETERIZED} render={ () => <PsyPublicProfileContainer/>} />
+					<Route path={routePaths.PRIVATE_PROFILE} render={ () => <ProfilesContainer />} />
+					<Route path={routePaths.REGISTRATION} render={ () => <Registration />} />
+					<Route path={routePaths.LOGIN} render={ () => <LoginContainer modal={false} />} />
+				</Switch>
+			</div>
+			<Footer />
         </div>
       )
   }
 }
 
-export default App;
+let mapStateToProps = (state) => {
+    return {
+        isAuth: state.auth.isAuth,
+		loginFailed: state.auth.loginFailed
+    }
+}
+
+export default connect(mapStateToProps, {getUserLoginData})(App);

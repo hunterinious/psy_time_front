@@ -3,6 +3,8 @@ import { withRouter } from 'react-router-dom';
 import { compose } from 'redux';
 import { connect } from 'react-redux';
 import Header from './Header';
+import * as routePaths from '../../consts/routePaths';
+import { getUserLoginData } from '../../redux/auth-reducer';
 
 class HeaderContainer extends Component {
     constructor(props){
@@ -13,7 +15,7 @@ class HeaderContainer extends Component {
     }
 
     handleOpenModal() {
-        if(this.props.location.pathname !== '/login'){
+        if(this.props.location.pathname !== routePaths.LOGIN){
             this.setState({showModal: true})
         }
     }
@@ -28,13 +30,16 @@ class HeaderContainer extends Component {
             handleOpenModal={this.handleOpenModal}
             handleCloseModal={this.handleCloseModal}
             showModal={this.state.showModal}
-            isAuth={this.props.isAuth}/>
+            isLoginFailed={this.props.isLoginFailed}
+            isLoginDataFetching={this.props.isLoginDataFetching}
+            />
         )
     }
 }
 
 const mapStateToProps = (state) => ({
-    isAuth: state.auth.isAuth,
+    isLoginFailed: state.auth.loginFailed,
+    isLoginDataFetching: state.auth.isLoginDataFetching
 })
 
-export default compose(connect(mapStateToProps, {}), withRouter)(HeaderContainer);
+export default compose(connect(mapStateToProps, {getUserLoginData}), withRouter)(HeaderContainer);

@@ -1,10 +1,10 @@
 import React from 'react';
-import { withRouter } from 'react-router-dom';
-import { compose } from 'redux';
 import style from './Header.module.css';
 import Navbar from '../../components/Navbar/Navbar';
 import logo from '../../images/logo.png';
 import LoginContainer from '../Authentication/Login/Login';
+import { Link } from 'react-router-dom';
+import * as routePaths from '../../consts/routePaths';
 
 const Header = (props) => {
     return (
@@ -18,17 +18,23 @@ const Header = (props) => {
                 <div className={style.menu}>
                     <Navbar />
                 </div>
+
                 <div className={style.loginBlock}>
-                    { props.isAuth
-                        ? <div><button onClick={props.logout}>Log out</button></div>
-                        : <div>
-                            <div onClick={props.handleOpenModal}>Login</div>
-                            { props.showModal ? <LoginContainer modal={true} handleClose={props.handleCloseModal} /> : null }
-                        </div> }
+                    { !props.isLoginDataFetching
+                        ? props.isLoginFailed
+                            ?
+                            <div>
+                                <div onClick={props.handleOpenModal}>Login</div>
+                                { props.showModal ? <LoginContainer modal={true} handleClose={props.handleCloseModal} /> : null }
+                            </div>
+                            :
+                            <Link to={routePaths.PRIVATE_PROFILE}>Profile</Link>
+                        : null
+                    }
                 </div>
             </header>
         </div>
     );
 }
 
-export default compose(withRouter)(Header);
+export default Header;

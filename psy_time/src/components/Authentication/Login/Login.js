@@ -1,13 +1,15 @@
 import React from 'react';
-import { NavLink, withRouter } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 import { compose } from 'redux';
 import { Modal } from 'react-bootstrap';
 import { Formik, Form} from 'formik';
 import FormikControl from '../../Common/FormControl/FormikControl';
+import * as routePaths from '../../../consts/routePaths';
 import * as Yup from 'yup';
 import { connect } from 'react-redux';
 import style from './Login.module.css'
 import { loginUser } from '../../../redux/auth-reducer';
+import appRouterService from '../../../services/appRouterService';
 
 
 const LoginForm = (props) => {
@@ -86,7 +88,7 @@ const LoginForm = (props) => {
 const SingUpBlock = (props) => {
     return (
         <div> 
-            Not registered yet? - <NavLink to={'/registration'} onClick={props.handleClose}>Sign Up</NavLink> 
+            Not registered yet? - <Link to={routePaths.REGISTRATION} onClick={props.handleClose}>Sign Up</Link> 
         </div> 
     )
 }
@@ -94,7 +96,7 @@ const SingUpBlock = (props) => {
 
 const LoginContainer = (props) => {
     const redirectToProfile = () => {
-        props.history.push('/profile')
+        appRouterService.forwardToPrivateProfilePage()
     }
     
     const handleClose = () => {

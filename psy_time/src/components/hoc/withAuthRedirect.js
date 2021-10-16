@@ -14,10 +14,6 @@ export const withAuthRedirect = (Component) => {
     class RedirectComponent extends React.Component {
         render() {
             let props = this.props
-            if (!props.isAuth && !props.loginFailed){
-                props.getUserLoginData()
-            }
-
             if (!props.isAuth && !props.loginDataIsFetching){
                 props.dropLoginStatus({isAuth:false, loginFailed:false, isFetching:true})
                 return <Redirect to='/login' />

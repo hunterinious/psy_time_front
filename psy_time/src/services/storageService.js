@@ -3,6 +3,12 @@ const setTokens = (access, refresh) => {
     localStorage.setItem('refresh_token', refresh)
 }
 
+const removeTokens = () => {
+    localStorage.removeItem('access_token')
+    localStorage.removeItem('refresh_token')
+}
+
 export default {
-    setTokens
+    setTokens,
+    removeTokens
 }
