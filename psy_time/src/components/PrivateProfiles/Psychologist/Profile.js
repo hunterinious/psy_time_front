@@ -5,13 +5,14 @@ import * as Yup from 'yup';
 
 
 const ProfileForm = (props) => {
-    const {user, cities, countries, timezones, updatePrivatePsyUserProfile} = props
+    const {user, cities, countries, timezones, updateProfile} = props
     const profile = user.profile
     const [currentCityName, setCurrentCityName] = useState(profile.city.name)
     const [currentCountryName, setCurrentCountryName] = useState(profile.city?.country?.name)
     const [countryCities, setCountryCities] = useState(cities.filter(c => c.country.name === currentCountryName))
     const timezone = profile.timezone
     const timezoneName = timezone.name
+    const [isProfileUpdateSuccess, setIsProfileUpdateSuccess] = useState(false)
 
 
     const onSubmit = async (values, actions) => {
@@ -23,9 +24,13 @@ const ProfileForm = (props) => {
             }
         }
 
+        const onSuccess = () => {
+            setIsProfileUpdateSuccess(true)
+        }
+
         const {email, password, name, city, country, timezone} = values
-        updatePrivatePsyUserProfile({id: user.id, email, password, name, city,
-                                     country, timezone}, null, onFail)
+        updateProfile({id: user.id, email, password, name, city,
+                                     country, timezone}, onSuccess, onFail)
     }
 
     const onCountryChange = (option, formik) => {
@@ -53,6 +58,11 @@ const ProfileForm = (props) => {
 
     return (
         <div>
+            {isProfileUpdateSuccess ? (
+                <div className="alert alert-success" role="alert">
+                    Profile has been successfully updated
+                </div>
+            ) : null}
             <Formik
             initialValues={initialValues}
             validationSchema={validationSchema}
@@ -122,7 +132,7 @@ const ProfileForm = (props) => {
 }
 
 const Profile = (props) => {
-  const {user, cities, countries, timezones, updatePrivatePsyUserProfile} = props
+  const {user, cities, countries, timezones, updateProfile} = props
 
   return (
       <div className="container">
@@ -131,7 +141,7 @@ const Profile = (props) => {
               cities={cities}
               countries={countries}
               timezones={timezones}
-              updatePrivatePsyUserProfile={updatePrivatePsyUserProfile} />
+              updateProfile={updateProfile} />
       </div>
       
   )

@@ -11,7 +11,7 @@ class PsyProfileContainer extends Component {
     }
 
     render () {
-        const {user, cities, countries, timezones, updatePrivatePsyUserProfile} = this.props
+        const {user, cities, countries, timezones, updateProfile} = this.props
 
         if(!this.props.countriesAreFetching && !this.props.citiesAreFetching){
             return (
@@ -21,7 +21,7 @@ class PsyProfileContainer extends Component {
                         cities={cities}
                         countries={countries}
                         timezones={timezones}
-                        updatePrivatePsyUserProfile={updatePrivatePsyUserProfile}
+                        updateProfile={updateProfile}
                         />
                 </div>
             );

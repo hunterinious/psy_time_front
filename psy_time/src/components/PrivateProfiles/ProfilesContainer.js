@@ -30,13 +30,13 @@ class ProfilesContainer extends Component {
                     <RegularProfileContainer
                         user={user}
                         timezones={timezones}
-                        updatePrivateRegularUserProfile={updatePrivateRegularUserProfile}/>
+                        updateProfile={updatePrivateRegularUserProfile}/>
                     )
                     :
                     <PsyProfileContainer
                         user={user}
                         timezones={timezones}
-                        updatePrivatePsyUserProfile={updatePrivatePsyUserProfile}/>
+                        updateProfile={updatePrivatePsyUserProfile}/>
                     }
                 </div>                
                 :

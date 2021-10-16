@@ -1,14 +1,15 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Formik, Form} from 'formik';
 import FormikControl from '../../Common/FormControl/FormikControl';
 import * as Yup from 'yup';
 
 
 const ProfileForm = (props) => {
-    const { user, timezones, updatePrivateRegularUserProfile } = props
+    const { user, timezones, updateProfile} = props
     const profile = user.profile
 	const timezone = profile.timezone
 	const timezoneName = timezone.name
+    const [isProfileUpdateSuccess, setIsProfileUpdateSuccess] = useState(false)
 
 
     const onSubmit = async (values, actions) => {
@@ -20,8 +21,12 @@ const ProfileForm = (props) => {
 			}
         }
 
+        const onSuccess = () => {
+            setIsProfileUpdateSuccess(true)
+        }
+
         const {email, password, name, timezone} = values
-        updatePrivateRegularUserProfile({id: user.id, email, password, name, timezone}, null, onFail)
+        updateProfile({id: user.id, email, password, name, timezone}, onSuccess, onFail)
     }
 
     let initialValues = {
@@ -38,6 +43,11 @@ const ProfileForm = (props) => {
 
     return (
         <div>
+             {isProfileUpdateSuccess ? (
+                <div className="alert alert-success" role="alert">
+                    Profile has been successfully updated
+                </div>
+            ) : null}
             <Formik
             initialValues={initialValues}
             validationSchema={validationSchema}
@@ -88,18 +98,17 @@ const ProfileForm = (props) => {
 }
 
 const Profile = (props) => {
-  const {user, timezones, updatePrivateRegularUserProfile} = props
+  const {user, timezones, updateProfile} = props
 
   return (
       <div className="container">
           <ProfileForm
               user={user}
               timezones={timezones}
-              updatePrivateRegularUserProfile={updatePrivateRegularUserProfile} />
+              updateProfile={updateProfile} />
       </div>
       
   )
-   
 }
 
 export default Profile;
