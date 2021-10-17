@@ -3,16 +3,6 @@
     height: auto;
 }
 
-.loginBlock a {
-    text-decoration: none;
-}
-
-.loginBlock h2 {
-    color: black;
-    font-weight: bold;
-    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
-}
-
 .textPart {
     color: crimson;
 }

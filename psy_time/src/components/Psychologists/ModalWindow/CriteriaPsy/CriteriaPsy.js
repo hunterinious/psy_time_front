@@ -204,7 +204,7 @@ const CriteriaPsy = (props) => {
                     </label>
                 </div>
                 <div id={k} >
-                    <div class="form-group">
+                    <div class="mb-3">
                         {k === "ages" 
                         ?   
                         <RangeSlider value={ageRange}
@@ -221,7 +221,7 @@ const CriteriaPsy = (props) => {
                 </>
             ))
             }
-            <div className="form-group form-submit">
+            <div className="mb-3 form-submit">
                 <button id="submit-button" className='btn btn-primary' onClick={handleSubmit}>
                     Apply
                 </button>

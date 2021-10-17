@@ -2,9 +2,7 @@ import React from 'react';
 import style from './Header.module.css';
 import Navbar from '../../components/Navbar/Navbar';
 import logo from '../../images/logo.png';
-import LoginContainer from '../Authentication/Login/Login';
-import { Link } from 'react-router-dom';
-import * as routePaths from '../../consts/routePaths';
+
 
 const Header = (props) => {
     return (
@@ -16,21 +14,7 @@ const Header = (props) => {
                     </div>
                 </nav>
                 <div className={style.menu}>
-                    <Navbar />
-                </div>
-
-                <div className={style.loginBlock}>
-                    { !props.isLoginDataFetching
-                        ? props.isLoginFailed
-                            ?
-                            <div>
-                                <div onClick={props.handleOpenModal}>Login</div>
-                                { props.showModal ? <LoginContainer modal={true} handleClose={props.handleCloseModal} /> : null }
-                            </div>
-                            :
-                            <Link to={routePaths.PRIVATE_PROFILE}>Profile</Link>
-                        : null
-                    }
+                    <Navbar {...props}/>
                 </div>
             </header>
         </div>

@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import styles from '../../Psychologists.module.css';
 import * as routePaths from '../../../../consts/routePaths'
+import appRouterService from '../../../../services/appRouterService';
 
 const RandomPsy = (props) => {
     const profile = props.random_profile
@@ -10,14 +11,18 @@ const RandomPsy = (props) => {
         props.getRandomPsyUserProfile()
     }
 
+    const onAvatarClick = () => {
+        appRouterService.forwardToPsyPublicProfilePage(profile.id)
+    }
+
     return (
         <div>
             <div>
-                <Link to={routePaths.PSY_PUBLIC_PROFILE + `/${profile.id}`}>
+                <Link onClick={onAvatarClick}>
                     <img src={profile.avatar} className={styles.userPhoto}/>   
                 </Link> 
             </div>
-            <div>
+            <div className='mb-3'>
                 {profile.name}
             </div>
             <div>

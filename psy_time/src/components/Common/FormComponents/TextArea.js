@@ -6,8 +6,8 @@ function TextArea (props) {
   const { name, label, className, ...rest } = props
 
   return (
-    <div className="form-group">
-       <label htmlFor={name}>{label}</label>
+    <div className="mb-3">
+       <label htmlFor={name} className="form-label">{label}</label>
       <Field as='textarea' {...rest} name={name} rows="10" className={className}/>
       <ErrorMessage component={"div"} name={name} className="invalid-feedback"/>
     </div>

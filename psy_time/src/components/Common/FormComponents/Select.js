@@ -45,8 +45,8 @@ export function RSelect (props) {
 	}
 
 	return (
-		<div className="form-group">
-		<label htmlFor={name}>{label}</label>
+		<div className="mb-3">
+		<label htmlFor={name} className="form-label">{label}</label>
 		<SelectComponent
 			ref={setSelectRef}
 			placeholder={placeholder}

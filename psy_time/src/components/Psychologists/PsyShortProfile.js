@@ -2,14 +2,19 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import styles from './Psychologists.module.css';
 import * as routePaths from '../../consts/routePaths'
+import appRouterService from '../../services/appRouterService';
 
 
 const PsyProfiles = (props) => {
     const statuses_length = props.statuses.length
 
+    const onAvatarClick = () => {
+        appRouterService.forwardToPsyPublicProfilePage(props.id)
+    }
+
     return <div className={"mx-3 my-3"}>
         <div>
-            <Link to={routePaths.PSY_PUBLIC_PROFILE + `/${props.id}`}>
+            <Link onClick={onAvatarClick}>
                 <img src={props.avatar} className={styles.userPhoto}/>    
             </Link>
         </div>

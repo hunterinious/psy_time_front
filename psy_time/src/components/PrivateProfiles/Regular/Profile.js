@@ -88,8 +88,8 @@ const ProfileForm = (props) => {
 							isTimezone
 						/>  
 					</div>
-              </div>
-              <button type='submit' className='btn btn-primary'>Submit</button>
+                </div>
+                <button type='submit' className='btn btn-primary mb-3'>Submit</button>
             </Form>
             )}
           </Formik>

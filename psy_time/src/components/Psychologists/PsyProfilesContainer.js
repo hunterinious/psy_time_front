@@ -112,13 +112,12 @@ class PsyProfilesContainer extends Component {
 
             <Modal size="lg" show={this.state.show} onHide={this.handleClose} animation={false}>
                 <Modal.Header closeButton>
-                        <Modal.Title>{this.state.headerText}</Modal.Title>
+                    <Modal.Title>{this.state.headerText}</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
                     { this.renderModalWindowComponent(this.state.currentSectionId) }
                 </Modal.Body>
             </Modal>
-            
         </>
     }
 }

@@ -4,7 +4,7 @@ import { compose } from 'redux';
 import { connect } from 'react-redux';
 import Header from './Header';
 import * as routePaths from '../../consts/routePaths';
-import { getUserLoginData } from '../../redux/auth-reducer';
+import { getUserLoginData, logoutUser } from '../../redux/auth-reducer';
 
 class HeaderContainer extends Component {
     constructor(props){
@@ -32,6 +32,7 @@ class HeaderContainer extends Component {
             showModal={this.state.showModal}
             isLoginFailed={this.props.isLoginFailed}
             isLoginDataFetching={this.props.isLoginDataFetching}
+            logoutUser={logoutUser}
             />
         )
     }
@@ -42,4 +43,4 @@ const mapStateToProps = (state) => ({
     isLoginDataFetching: state.auth.isLoginDataFetching
 })
 
-export default compose(connect(mapStateToProps, {getUserLoginData}), withRouter)(HeaderContainer);
+export default compose(connect(mapStateToProps, {getUserLoginData, logoutUser}), withRouter)(HeaderContainer);

@@ -6,8 +6,8 @@ const Input = (props) => {
   const { name, label, className } = props
 
   return (
-    <div className="form-group">
-      <label htmlFor={name}>{label}</label>
+    <div className="mb-3">
+      <label htmlFor={name} className="form-label">{label}</label>
       <Field {...props} name={name} className={className}/>
       <ErrorMessage component={"div"} name={name} className="invalid-feedback" />
     </div>

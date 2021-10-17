@@ -77,7 +77,7 @@ const RegistrationForm = (props) => {
                       />  
                   </div>
               </div>
-              <button type='submit' className='btn btn-primary'>Submit</button>
+              <button type='submit' className='btn btn-primary mb-3'>Submit</button>
             </Form>
             )}
           </Formik>
