@@ -1,4 +1,4 @@
-import history from './history';
+import history from './historyService';
 
 const forwardTo = (location) => {
     history.getHistory().push(location)

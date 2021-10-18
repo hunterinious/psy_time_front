@@ -1,6 +1,5 @@
 import { PsyPublicProfilesRequest } from '../api';
 import commonApiService from '../services/commonApiService';
-import { psyUsersProfilesListNavAPI } from '../api/psyPublicProfilesAPI';
 
 
 const SET_PSY_USERS_PROFILES = 'SET_PSY_USERS_PROFILE';
