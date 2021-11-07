@@ -6,6 +6,7 @@ import PsyPublicProfileContainer from './components/Psychologists/PublicProfile/
 import ProfilesContainer from './components/PrivateProfiles/ProfilesContainer';
 import Registration from './components/Authentication/Registration/Registration';
 import LoginContainer from './components/Authentication/Login/Login';
+import About from './components/About/About';
 import * as routePaths from './consts/route/routePaths';
 
 const Routes = () => {
@@ -17,6 +18,7 @@ const Routes = () => {
             <Route path={routePaths.PRIVATE_PROFILE} render={ () => <ProfilesContainer />} />
             <Route path={routePaths.REGISTRATION} render={ () => <Registration />} />
             <Route path={routePaths.LOGIN} render={ () => <LoginContainer modal={false} />} />
+            <Route path={routePaths.ABOUT} render={ () => <About />} />
         </Switch>
     );
 };

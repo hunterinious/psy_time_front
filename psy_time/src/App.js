@@ -21,11 +21,11 @@ const App = (props) => {
 	return (
 		<div className="app-wrapper">
 			<WindowResizeChecker />
-			<div  className="app-wrapper-content">
-				<HeaderContainer/>
+			<HeaderContainer/>
+			<main className="app-wrapper-content">
 				<Routes />
-				<Footer />
-			</div>
+			</main>
+			<Footer />
 		</div>
 	)
 }

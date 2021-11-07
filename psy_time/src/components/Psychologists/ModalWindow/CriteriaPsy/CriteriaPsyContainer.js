@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { compose } from 'redux';
 import { connect } from 'react-redux';
 import { getPsysByCriteria, getPsyUsersProfiles } from '../../../../redux/psy-profiles-reducer';
 import { 
@@ -74,5 +73,3 @@ export default connect(mapStateToProps,
                 getPsyUsersProfiles 
             }
 )(CriteriaPsyContainer)
-
-

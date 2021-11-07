@@ -1,4 +1,5 @@
 import React from 'react';
+import * as routePaths from '../../consts/route/routePaths'
 import styles from './Footer.module.scss';
 
 const Header = (props) => {
@@ -11,7 +12,9 @@ const Header = (props) => {
                     </p>
                     <ul className={styles.FooterItemTitleList}>
                         <li>
-                            About project
+                            <a href={routePaths.ABOUT}>
+                                About project
+                            </a>
                         </li>
                     </ul>
                 </div>

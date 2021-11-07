@@ -19,7 +19,6 @@ const WindowResizeChecker = (props) => {
     useWindowResize(onResize);
 
     const currentLayout = getLayout(windowSize.width);
-    console.log(currentLayout, layoutType, 'layout')
 
     useEffect(() => {
         if (layoutType !== currentLayout) {

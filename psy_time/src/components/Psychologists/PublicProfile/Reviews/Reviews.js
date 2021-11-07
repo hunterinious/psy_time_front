@@ -1,5 +1,5 @@
 import React from 'react';
-import style from './Reviews.module.scss'
+import styles from './Reviews.module.scss'
 
 
 const Reviews = (props) => {
@@ -8,7 +8,7 @@ const Reviews = (props) => {
             {
                 props.reviews.map(elem => (
                     <div className="card">
-                        <div className={"row " + style.reviewsMargin}>
+                        <div className={"row " + styles.reviewsMargin}>
                             <div className="col-sm-2">
                                 {elem.name}
                             </div>

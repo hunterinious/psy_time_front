@@ -1,6 +1,6 @@
 import * as layoutTypes from '../consts/layout/layoutTypes';
 
-const isDesktopLayout = (layout) => {console.log(layout, layoutTypes.DESKTOP,layout === layoutTypes.DESKTOP); return layout === layoutTypes.DESKTOP}
+const isDesktopLayout = (layout) => layout === layoutTypes.DESKTOP;
 
 const isMobileLayout = (layout) => layout === layoutTypes.MOBILE;
 

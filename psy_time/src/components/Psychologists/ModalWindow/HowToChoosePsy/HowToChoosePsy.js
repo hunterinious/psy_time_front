@@ -1,17 +1,20 @@
-import React from 'react';
+import React, {useEffect} from 'react'
+import { connect } from 'react-redux'; 
+import { getHowToChoosePsy }  from '../../../../redux/app-reducer';
 
 const HowToChoosePsy = (props) => {
+    const {getHowToChoosePsy, handleClose, text} = props
 
-    const handleClose = () => {
-        props.handleClose()
-    }
+    useEffect(() => {
+        getHowToChoosePsy()
+    }, []);
 
     return (
         <div>
             <div>
-                { props.text }
+                { text }
             </div>
-          
+        
             <div>
                 <button className="btn btn-warning" onClick={handleClose}>
                     Choose Psychologist
@@ -21,4 +24,12 @@ const HowToChoosePsy = (props) => {
     )
 }
 
-export default HowToChoosePsy;
+let mapStateToProps = (state) => {
+    return {
+        text: state.app.howToChoosePsyText
+    }
+}
+
+
+export default connect(mapStateToProps, { getHowToChoosePsy })(HowToChoosePsy)
+

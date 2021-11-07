@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Formik, Form} from 'formik';
 import * as Yup from 'yup';
 import FormikControl from '../Common/FormControl/FormikControl';
-import style from './Help.module.css'
+import styles from './Help.module.scss'
 import helpService from '../../services/helpService';
 
 
@@ -111,7 +111,7 @@ const Help = (props) => {
                     </div>
                     <div className="col">
                         <FormikControl
-                            className={"form-control " + style.message}
+                            className={"form-control " + styles.message}
                             control='textarea'
                             name='message'
                             label='Text message'

@@ -1,7 +1,7 @@
 import { useField } from 'formik';
 import React, { useState, useEffect } from 'react';
 import selectHelper from '../../../utils/selectHelper';
-import style from './FormComponents.module.scss';
+import styles from './FormComponents.module.scss';
 
 export function RSelect (props) {
 	const {SelectComponent, required, name, label, value, placeholder, options, isTimezone} = props
@@ -59,7 +59,7 @@ export function RSelect (props) {
 			<input
 				tabIndex={-1}
 				autoComplete="off"
-				className={style.SelectError}
+				className={styles.SelectError}
 				value={currentValue?.value}
 				onFocus={() => selectRef.focus()}
 				required={required}

@@ -7,7 +7,7 @@ import FormikControl from '../../Common/FormControl/FormikControl';
 import * as routePaths from '../../../consts/route/routePaths';
 import * as Yup from 'yup';
 import { connect } from 'react-redux';
-import style from './Login.module.scss'
+import styles from './Login.module.scss'
 import { loginUser } from '../../../redux/auth-reducer';
 import appRouterService from '../../../services/appRouterService';
 
@@ -54,7 +54,7 @@ const LoginForm = (props) => {
             >
             {formik => (
             <Form>
-                <div className={style.invalidFeedback}>
+                <div className={styles.invalidFeedback}>
                     {formik.status}
                 </div>
                 <div className="row">

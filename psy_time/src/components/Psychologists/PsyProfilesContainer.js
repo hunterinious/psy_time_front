@@ -5,7 +5,7 @@ import { getPsyUsersProfiles } from '../../redux/psy-profiles-reducer';
 import Preloader from '../Common/Preloader/Preloader';
 import PsyProfiles from './PsyProfiles';
 import CriteriaPsyContainer from './ModalWindow/CriteriaPsy/CriteriaPsyContainer';
-import HowToChoosePsyContainer from './ModalWindow/HowToChoosePsy/HowToChoosePsyContainer';
+import HowToChoosePsy from './ModalWindow/HowToChoosePsy/HowToChoosePsy';
 import RandomPsyContainer from './ModalWindow/RandomPsy/RandomPsyContainer';
 import HelpContainer from '../Help/HelpContainer';
 
@@ -70,7 +70,7 @@ class PsyProfilesContainer extends Component {
     renderModalWindowComponent(sectionId){
         switch(sectionId) {
             case HOW_TO_CHOOSE_PSY:
-                return <HowToChoosePsyContainer handleClose={this.handleClose}/>
+                return <HowToChoosePsy handleClose={this.handleClose}/>
             case RANDOM_PSY:
                 return <RandomPsyContainer/>
             case HELP:
