@@ -1,21 +1,54 @@
-import React from 'react';
-import style from './Header.module.css';
+import React, { useEffect, useState } from 'react';
+import cn from 'classnames';
+import styles from './Header.module.scss';
 import Navbar from '../../components/Navbar/Navbar';
-import logo from '../../images/logo.png';
+import SlidingMenu from '../SlidingMenu/SlidingMenu';
+import layoutService from '../../services/layoutService';
+
 
 
 const Header = (props) => {
+    const {layoutType, isLoginFailed, isLoginDataFetching, logoutUser} = props
+    const isMobileLayout = layoutService.isMobileLayout(layoutType)
+    const [isScrolled, setIsScrolled] = useState(false)
+
+    const listenScrollEvent = e => {
+        if(window.scrollY > 0){
+            setIsScrolled(true)
+        }else{
+            setIsScrolled(false)
+        }
+    }
+    
+    useEffect(() => {
+        window.addEventListener('scroll', listenScrollEvent)
+    }, []);
+
+
+    
+    const headerContainerClassName = isScrolled
+        ? cn(styles.HeaderContainer, styles.OnScroll)
+        : styles.HeaderContainer
+
+
     return (
-        <div className="container">
-            <header className={"d-flex p-2 justify-content-between"}>
-                <nav>
-                    <div>
-                        <img src={logo}/>
-                    </div>
-                </nav>
-                <div className={style.menu}>
-                    <Navbar {...props}/>
+        <div className={headerContainerClassName}>
+            <header className={styles.Header}>
+                <div className={styles.LogoContainer}>
+                    <span className={styles.Logo}>
+                        Psy Time
+                    </span>
                 </div>
+                {isMobileLayout
+                    ? 
+                    <SlidingMenu
+                        layoutType={layoutType}
+                        isLoginDataFetching={isLoginDataFetching}
+                        isLoginFailed={isLoginFailed}
+                        logoutUser={logoutUser}
+                    />
+                    : <Navbar {...props}/>
+                }  
             </header>
         </div>
     );

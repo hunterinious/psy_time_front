@@ -3,7 +3,7 @@ import { withRouter } from 'react-router-dom';
 import { compose } from 'redux';
 import { connect } from 'react-redux';
 import { getPsyPublicProfile } from '../../../redux/psy-profiles-reducer';
-import styles from './PsyPublicProfile.module.css';
+import styles from './PsyPublicProfile.module.scss';
 import PsyPublicProfile from './PsyPublicProfile';
 import ExtendedProfileContainer from './ExtendedProfile/ExtendedProfileContainer';
 import ReviewsContainer from './Reviews/ReviewsContainer';

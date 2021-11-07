@@ -4,10 +4,10 @@ import { compose } from 'redux';
 import { Modal } from 'react-bootstrap';
 import { Formik, Form} from 'formik';
 import FormikControl from '../../Common/FormControl/FormikControl';
-import * as routePaths from '../../../consts/routePaths';
+import * as routePaths from '../../../consts/route/routePaths';
 import * as Yup from 'yup';
 import { connect } from 'react-redux';
-import style from './Login.module.css'
+import style from './Login.module.scss'
 import { loginUser } from '../../../redux/auth-reducer';
 import appRouterService from '../../../services/appRouterService';
 

@@ -1,6 +1,7 @@
 import { AuthRequest } from '../api';
 import commonApiService from '../services/commonApiService';
 import storageService from '../services/storageService';
+import appRouterService from '../services/appRouterService';
 
 const LOGIN_USER = 'LOGIN_USER';
 const SET_USER_LOGIN_DATA = 'SET_USER_LOGIN_DATA';
@@ -54,7 +55,7 @@ export const dropLoginStatus = ({isAuth, loginFailed, isFetching}) => ({ type: D
 
 export const logoutUser = (onSuccess, onFail) => {
     storageService.removeTokens()
-    onSuccess()
+    appRouterService.forwardToHomePage()
 }
 
 export const loginUser = async (data, onSuccess, onFail) => {

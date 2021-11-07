@@ -6,7 +6,7 @@ import PsyPublicProfileContainer from './components/Psychologists/PublicProfile/
 import ProfilesContainer from './components/PrivateProfiles/ProfilesContainer';
 import Registration from './components/Authentication/Registration/Registration';
 import LoginContainer from './components/Authentication/Login/Login';
-import * as routePaths from './consts/routePaths';
+import * as routePaths from './consts/route/routePaths';
 
 const Routes = () => {
     return (

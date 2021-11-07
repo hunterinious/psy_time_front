@@ -3,7 +3,7 @@ import { withRouter } from 'react-router-dom';
 import { compose } from 'redux';
 import { connect } from 'react-redux';
 import Header from './Header';
-import * as routePaths from '../../consts/routePaths';
+import * as routePaths from '../../consts/route/routePaths';
 import { getUserLoginData, logoutUser } from '../../redux/auth-reducer';
 
 class HeaderContainer extends Component {
@@ -13,6 +13,7 @@ class HeaderContainer extends Component {
         this.handleOpenModal = this.handleOpenModal.bind(this)
         this.handleCloseModal = this.handleCloseModal.bind(this)
     }
+
 
     handleOpenModal() {
         if(this.props.location.pathname !== routePaths.LOGIN){
@@ -25,14 +26,18 @@ class HeaderContainer extends Component {
     }
 
     render() {
+        const {isLoginFailed, isLoginDataFetching, layoutType, location} = this.props
+
         return (
             <Header
-            handleOpenModal={this.handleOpenModal}
-            handleCloseModal={this.handleCloseModal}
-            showModal={this.state.showModal}
-            isLoginFailed={this.props.isLoginFailed}
-            isLoginDataFetching={this.props.isLoginDataFetching}
-            logoutUser={logoutUser}
+                handleOpenModal={this.handleOpenModal}
+                handleCloseModal={this.handleCloseModal}
+                showModal={this.state.showModal}
+                isLoginFailed={isLoginFailed}
+                isLoginDataFetching={isLoginDataFetching}
+                logoutUser={logoutUser}
+                layoutType={layoutType}
+                location={location}
             />
         )
     }
@@ -40,7 +45,8 @@ class HeaderContainer extends Component {
 
 const mapStateToProps = (state) => ({
     isLoginFailed: state.auth.loginFailed,
-    isLoginDataFetching: state.auth.isLoginDataFetching
+    isLoginDataFetching: state.auth.isLoginDataFetching,
+    layoutType: state.app.layoutType
 })
 
 export default compose(connect(mapStateToProps, {getUserLoginData, logoutUser}), withRouter)(HeaderContainer);

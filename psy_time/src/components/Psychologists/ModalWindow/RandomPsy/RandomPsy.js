@@ -1,7 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import styles from '../../Psychologists.module.css';
-import * as routePaths from '../../../../consts/routePaths'
+import styles from '../../Psychologists.module.scss';
 import appRouterService from '../../../../services/appRouterService';
 
 const RandomPsy = (props) => {
@@ -19,7 +18,7 @@ const RandomPsy = (props) => {
         <div>
             <div>
                 <Link onClick={onAvatarClick}>
-                    <img src={profile.avatar} className={styles.userPhoto}/>   
+                    <img src={profile.avatar} className={styles.userPhoto} alt='therapist avatar'/>   
                 </Link> 
             </div>
             <div className='mb-3'>

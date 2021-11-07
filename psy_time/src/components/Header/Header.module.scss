@@ -1,0 +1,42 @@
+@import '../../assets/scss/medias';
+
+
+.HeaderContainer {
+    position: relative;
+    width: 100%;
+    height: 70px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    box-shadow: none;
+    background: #33CEA5;
+}
+
+.OnScroll {
+    z-index: 10;
+    position: fixed;
+    box-shadow: 0 4px 8px -2px grey;
+}
+
+.Header {
+    display: flex;
+    justify-content: space-between;
+    margin: auto 30px;
+}
+
+.LogoContainer {
+    margin: auto 0;
+}
+
+.Logo {
+    width: 100%;
+    height: auto;
+    font-family: "Montserrat", Sans-serif;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+.textPart {
+    color: crimson;
+}

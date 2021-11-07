@@ -1,7 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import styles from './Psychologists.module.css';
-import * as routePaths from '../../consts/routePaths'
+import styles from './Psychologists.module.scss';
 import appRouterService from '../../services/appRouterService';
 
 
@@ -15,7 +14,7 @@ const PsyProfiles = (props) => {
     return <div className={"mx-3 my-3"}>
         <div>
             <Link onClick={onAvatarClick}>
-                <img src={props.avatar} className={styles.userPhoto}/>    
+                <img src={props.avatar} className={styles.userPhoto} alt='therapist avatar'/>    
             </Link>
         </div>
         <div>

@@ -1,5 +1,5 @@
 import React from 'react';
-import style from './Reviews.module.css'
+import style from './Reviews.module.scss'
 
 
 const Reviews = (props) => {

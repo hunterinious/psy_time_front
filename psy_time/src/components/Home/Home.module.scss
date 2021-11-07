@@ -1,0 +1,160 @@
+@import '../../assets/scss/medias';
+
+
+.IntroBlock {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-grow: 1;
+    position: relative;
+    width: 100%;
+    height: auto;
+    min-height: 440px;
+    background: #ECECEC;
+
+
+    @include media_desktop {
+        min-height: 550px; 
+        justify-content: space-evenly; 
+    }
+}
+
+.IntroBlockText {
+    height: 50%;
+    color: black;
+    text-align: center;
+
+    @include media_desktop {
+        padding-left: 20px;
+        text-align: left;
+    }
+}
+
+.IntroBlockMainText, .IntroBlockAdditionalText{
+    margin: 0 auto;
+    font-family: "Poppins", Sans-serif;
+
+    @include media_desktop {
+        margin: unset;
+    }
+}
+
+.IntroBlockMainText {
+    width: 100%;
+    font-size: 40px;
+    line-height: 40px;
+    font-weight: 700;
+
+    @include media_desktop {
+        width: 475px;
+    }
+
+}
+
+.IntroBlockAdditionalText {
+    width: 95%;
+    font-size: 18px;
+    font-weight: 400;
+    margin-top: 27px;
+
+    @include media_desktop {
+        width: 420px;
+    }
+}
+
+.Button {
+    width: 90%;
+    height: 60px;
+    margin-top: 27px;
+    padding: 0 20px;
+    color: white;
+    background: #FDB44B;
+    border: 1px solid #FDB44B;
+    font-size: 24px;
+
+    @include media_tablet {
+        width: 330px;
+    }
+}
+
+.IntroBlockImage {
+    width: 500px;
+    height: 500px;
+}
+
+.AdvantagesBlock {
+    padding: 0 10px;
+    text-align: center;
+    background: #F5F5F5;
+}
+
+.AdvantagesBlockTitle {
+    display: inline-block;
+    font-size: 28px;
+    font-family: "Poppins", Sans-serif;
+    font-weight: 700;
+    margin: 20px auto;
+}
+
+.Advantages {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    margin: 0 10px;
+
+    @include media_desktop {
+        flex-direction: row;
+    }
+}
+
+.Advantage {
+    margin: 20px 10px;
+    flex: 1 0 26%;
+}
+
+.AdvantageCircle {
+    position: relative;
+    width: 175px;
+    height: 175px;
+    margin: 0 auto;
+    border-radius: 100%;
+    background: white;
+}
+
+.AdvantageCircleText {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-family: "Poppins", Sans-serif;
+    font-weight: 700;
+    font-size: 60px;
+}
+
+.Advantage:first-child .AdvantageCircle .AdvantageCircleText{
+    color: #33CEA5
+}
+
+.Advantage:nth-child(2) .AdvantageCircle .AdvantageCircleText{
+    color: #1E90FF
+}
+
+.Advantage:nth-child(3) .AdvantageCircle .AdvantageCircleText{
+    color: #FDB44B
+}
+
+.AdvantageTitle {
+    width: 100%;
+    margin: 20px auto 0;
+    font-size: 22px;
+    font-family: "Poppins", Sans-serif;
+    font-weight: 700;
+}
+
+.AdvantageDescription {
+    width: 100%;
+    margin: 10px auto 0;
+    font-size: 18px;
+    font-family: "Poppins", Sans-serif;
+    font-weight: 400;
+}

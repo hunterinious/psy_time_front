@@ -1,5 +1,4 @@
-import * as routeParams from './routeParams';
-
+import * as routeParams from '../route/routeParams';
 
 export const HOME = '/';
 export const PSYCHOLOGISTS = '/psychologists';

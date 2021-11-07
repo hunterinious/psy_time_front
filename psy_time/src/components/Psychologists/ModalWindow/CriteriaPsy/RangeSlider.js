@@ -10,7 +10,7 @@ const { Handle } = Slider;
 
 
 const handle = props => {
-    const { value, dragging, index, overlayStyle, ...restProps } = props;
+    const { value, dragging, index, overlayClassName, ...restProps} = props;
     return (
       <Tooltip
         prefixCls="rc-slider-tooltip"

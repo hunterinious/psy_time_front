@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { compose } from 'redux';
 import { connect } from 'react-redux';
 import { getPsyExtendedPublicProfile } from '../../../../redux/psy-profiles-reducer';
 import ExtendedProfile from './ExtendedProfile';

@@ -1,4 +1,4 @@
-import * as routePaths  from '../consts/routePaths';
+import * as routePaths  from '../consts/route/routePaths';
 import urlUtils from '../utils/urlUtils';
 import routerService from './routerService';
 

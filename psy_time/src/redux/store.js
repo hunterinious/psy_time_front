@@ -1,4 +1,5 @@
 import { combineReducers, createStore, applyMiddleware } from 'redux';
+import appReducer from './app-reducer';
 import criteriaReducer from './criteria-reducer';
 import howToChoosePsyReducer from './how-to-choose-psy-reducer'
 import psyUsersProfilesReducer from './psy-profiles-reducer';
@@ -9,6 +10,7 @@ import privateProfileReducer from './private-profile-reducer';
 import thunkMiddleware from 'redux-thunk';
 
 let reducers = combineReducers({
+    app: appReducer,
     psychologistsPage: psyUsersProfilesReducer,
     locations: locationsReducer,
     criteria: criteriaReducer,

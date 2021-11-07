@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import styles from './Psychologists.module.css';
+import styles from './Psychologists.module.scss';
 import PsyShortProfile from './PsyShortProfile'
 
 
