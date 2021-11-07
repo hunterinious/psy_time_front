@@ -1,0 +1,21 @@
+
+@import '../../assets/scss/medias';
+
+.AboutPage {
+    width: auto;
+    padding: 20px 0;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 400;
+    line-height: 30px;
+
+    @include media_tablet {
+        padding-left: 50px;
+        padding-right: 50px;
+    }
+}
+
+.AboutText {
+    width: 80%;
+    text-align: justify;
+    margin: 0 auto;
+}
