@@ -1,0 +1,47 @@
+@import '../../assets/scss/medias';
+
+.Footer {
+    display: block;
+    height: 192px;
+    background: #33CEA5;
+}
+
+.FooterContent {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    text-align: center;
+    font-family: "Poppins", sans-serif;
+    color: white;
+    background: #33CEA5;
+
+    @include media_tablet {
+        flex-direction: row;
+        text-align: left;
+    }
+}
+
+.FooterItem {
+    margin-top: 15px;
+}
+
+.FooterItemTitle {
+    font-weight: 700;
+    text-transform: uppercase;
+}
+
+.FooterItemTitleList{
+    list-style: none;
+    text-align: left;
+    padding-left: 50px;
+    font-weight: 400;
+
+    @include media_tablet {
+        padding-left: unset;
+    }
+
+    li a {
+        text-decoration: none;
+        color: white
+    }
+}

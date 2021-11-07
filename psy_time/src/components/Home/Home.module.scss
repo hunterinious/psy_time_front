@@ -99,7 +99,6 @@
 .Advantages {
     display: flex;
     flex-direction: column;
-    justify-content: space-evenly;
     margin: 0 10px;
 
     @include media_desktop {
