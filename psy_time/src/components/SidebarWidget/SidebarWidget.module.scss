@@ -1,0 +1,37 @@
+@import '../../assets/scss/medias';
+
+.SidebarWidget {
+    display: flex;
+    top: 110px;
+    flex-direction: column;
+    width: 40px;
+    height: 40px;
+    border-radius: 100%;
+    background-color: #33CEA5;
+
+
+    @include media_tablet {
+        color: white;
+        position: fixed;
+        top: 110px;
+        left: 1%;
+    }
+}
+
+.SidebarWidgetItem {
+    position: relative;
+    width: 20px;
+    height: 20px;
+    margin: auto 5px;
+
+    border: solid black;
+    border-width: 0 3px 3px 0;
+    transform: rotate(-45deg);
+    -webkit-transform: rotate(-45deg);
+
+    @include media_tablet {
+        border: solid white;
+        border-width: 0 3px 3px 0;
+    }
+    
+}

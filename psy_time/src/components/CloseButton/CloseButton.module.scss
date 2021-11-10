@@ -1,0 +1,23 @@
+.CloseButton {
+    position: absolute;
+    top: 0;
+    right: 10px;
+    height: 30px;
+    width: 30px;
+    cursor: pointer;
+    display: block;
+    background: none;
+    border: none;
+
+    span {
+        position: absolute;
+        display: block;
+        width: inherit;
+        height: inherit;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        font-size: 25px;
+        font-weight: bold;
+    }
+}

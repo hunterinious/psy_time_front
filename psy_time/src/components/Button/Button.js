@@ -7,7 +7,6 @@ const Button = (props) => {
     const {onClick, className, children} = props
     const buttonClassName = className ? cn(styles.Button, className) : styles.Button
     
-
     return (
         <>
             <button className={buttonClassName} onClick={onClick}>

@@ -8,18 +8,18 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
-    box-shadow: none;
-    background: #33CEA5;
-}
-
-.OnScroll {
     box-shadow: 0 4px 8px -2px grey;
+    background: #33CEA5;
 }
 
 .Header {
     display: flex;
     justify-content: space-between;
     margin: auto 30px;
+}
+
+.HeaderNavigationWrapper {
+    display: flex;
 }
 
 .LogoContainer {

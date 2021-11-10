@@ -1,9 +1,171 @@
-.userPhoto {
-    width: 250px;
-    height: 250px;
+@import '../../assets/scss/medias';
+
+.ProfilesPage {
+    display: flex;
+    font-family: 'Poppins', sans-serif;
+    background: #E5E5E5;
 }
 
-.profilesMargin {
-    margin-left: 25px;
-    margin-right: 25px;
+.ProfilesSidebar {
+    position: fixed;
+    height: 100%;
+    width: 200px;
+    box-shadow: 5px 0 10px -5px black;
+    background: white;
+}
+
+.ProfilesSidebarHide {
+    display: none;
+}
+
+.ProfilesSidebarList {
+    padding: 25px 15px 0;
+    list-style: none;
+    font-weight: 400;
+}
+
+.ProfilesSidebarListItem {
+    display: block;
+    margin-top: 15px;
+    border-bottom: 2px solid #33CEA5;
+}
+
+.PsyProfilesContainer {
+    max-width: 1800px;
+    margin: 20px auto;
+
+    @include media_tablet {
+        padding-left: 50px;
+    }
+}
+
+.PsyProfilesContainerWithSidebar {
+    @include media_desktop {
+        padding-left: 10%;
+    }
+}
+
+.PsyProfiles {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.ShortProfile {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    max-width: 300px;
+    margin: 20px 15px auto;
+    border-radius: 20px;
+    background: white;
+}
+
+.ShortProfileAvatarContainer {
+    margin: 20px auto auto;
+}
+
+.ShortProfileAvatar {
+    text-align: center;
+    width: 180px;
+    height: 180px;
+    border-radius: 50%;
+}
+
+.ShortProfileName, .ShortProfileStatus {
+    text-align: center;
+    margin-top: 10px;
+}
+
+.ShortProfileName {
+    font-size: 21px;
+    font-weight: 700;
+    color: #33CEA5;
+}
+
+.ShortProfileStatus {
+    font-weight: 500;
+    font-style: italic;
+    color: #808080;
+}
+
+.ShortProfileWrapper {
+    width: 100%;
+    height: 1px;
+    margin-top: auto;
+    background: #C4C4C4;
+}
+
+.ShortProfileInfoWrapper {
+    display: flex;
+    flex-direction: column;
+    margin-top: 10px;
+}
+
+.ShortProfilePriceTitle, .ShortProfileThemesTitle  {
+    font-weight: 700;
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+.ShortProfilePriceTitle {
+    p{ 
+        display: inline-block;
+        margin-bottom: 0;
+    }
+
+    span:nth-child(even) {
+        color: #33CEA5;
+    }
+
+    span:nth-child(odd){
+        font-weight: 500;
+    }
+}
+
+.ShortProfileThemesTitle {
+    margin-top: 5px;
+    font-weight: 700;
+
+    p {
+        margin-bottom: 5px;
+    }
+}
+
+.ShortProfileThemeList {
+    font-weight: 500;
+    padding-top: 0px;
+
+    li {
+        color: #33CEA5;
+
+        span {
+            color: black
+        }
+    }
+}
+
+.ShortProfilesButtonsWrapper {
+    margin: 15px auto;
+    text-align: center;
+}
+
+.ShortProfileAboutButton, .ShortProfileAppoinmentButton {
+    width: 80%;
+    height: 40px;
+    padding: 0 20px;
+    font-weight: 500;
+}
+
+.ShortProfileAboutButton {
+    background: white;
+    border: 1px solid #33CEA5;
+    color: #33CEA5;
+}
+
+.ShortProfileAppoinmentButton {
+    margin-top: 10px;
+    background: #FDB44B;
+    border: 1px solid #FDB44B;
+    color: white;
 }

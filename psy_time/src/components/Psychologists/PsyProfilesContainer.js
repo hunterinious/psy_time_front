@@ -1,13 +1,19 @@
 import React, { Component } from 'react';
+import cn from 'classnames';
 import { connect } from 'react-redux';
 import { Modal } from 'react-bootstrap';
+import {setShowSidebar} from '../../redux/app-reducer';
 import { getPsyUsersProfiles } from '../../redux/psy-profiles-reducer';
 import Preloader from '../Common/Preloader/Preloader';
-import PsyProfiles from './PsyProfiles';
+import CloseButton from '../CloseButton/CloseButton';
+import SidebarWidget from '../SidebarWidget/SidebarWidget';
+import PsyShortProfile from './PsyShortProfile';
 import CriteriaPsyContainer from './ModalWindow/CriteriaPsy/CriteriaPsyContainer';
 import HowToChoosePsy from './ModalWindow/HowToChoosePsy/HowToChoosePsy';
 import RandomPsyContainer from './ModalWindow/RandomPsy/RandomPsyContainer';
 import HelpContainer from '../Help/HelpContainer';
+import layoutService from '../../services/layoutService';
+import styles from './Psychologists.module.scss';
 
 
 const HOW_TO_CHOOSE_PSY = 'HOW_TO_CHOOSE_PSY';
@@ -19,17 +25,18 @@ const HELP = 'HELP';
 class PsyProfilesContainer extends Component {
     constructor(props) {
         super()
-        this.state = {show: false, currentSectionId: null, headerText: ''}
-        this.handleOpen = this.handleOpen.bind(this)
-        this.handleClose = this.handleClose.bind(this)
-        this.renderModalWindowComponent = this.renderModalWindowComponent.bind(this)
+        this.state = {
+            showModal: false,
+            currentSectionId: null,
+            modalHeaderText: '',
+        }
     }
 
     componentDidMount() {
         this.props.getPsyUsersProfiles()
     }
 
-    getHeaderText(id) {
+    getModalHeaderText(id) {
         let text = ''
 
         switch(id) {
@@ -50,24 +57,26 @@ class PsyProfilesContainer extends Component {
         return text
     }
 
-    handleOpen = (e) => {
-        const id = e.target.id
-        const text = this.getHeaderText(id)
+    handleOpenModal = (e) => {
+        const id = e.target.id || e.target.parentNode.id
+        const text = this.getModalHeaderText(id)
 
         this.setState({
-            show: true,
-            currentSectionId: e.target.id,
-            headerText: text
+            showModal: true,
+            currentSectionId: id,
+            modalHeaderText: text
         })
     }
 
-    handleClose() {
-        this.setState({
-            show: false
-        })
+    handleClose = () => {
+        this.setState({showModal: false})
     }
 
-    renderModalWindowComponent(sectionId){
+    handleSidebarOpenClose = () => {
+        this.props.setShowSidebar()
+    }
+
+    renderModalWindowComponent = (sectionId) => {
         switch(sectionId) {
             case HOW_TO_CHOOSE_PSY:
                 return <HowToChoosePsy handleClose={this.handleClose}/>
@@ -80,39 +89,69 @@ class PsyProfilesContainer extends Component {
           }
     }
 
+    // просто прятать sidebar widget, а не убирать с dom
     render() {
+        const {layoutType, showSidebar, profiles, profilesAreFetching, profilesNotFound} = this.props
+    
+        const isMobileLayout = layoutService.isMobileLayout(layoutType)
+
+
+        const sidebarClassName = showSidebar
+            ? styles.ProfilesSidebar
+            : cn(styles.ProfilesSidebar, styles.ProfilesSidebarHide)
+
+        const psyProfilesContainerClassName = showSidebar
+            ? cn(styles.PsyProfilesContainer, styles.PsyProfilesContainerWithSidebar)
+            : styles.PsyProfilesContainer
+
         return <>
-            { this.props.profilesAreFetching ? <Preloader /> : null}
-            <div className="container">
-                <div className="row">
-                    <div className="col-2">
-                        <ul className="nav nav-pills flex-column" onClick={this.handleOpen}>
-                            <li className="nav-item">
-                                <a id={HOW_TO_CHOOSE_PSY} className="nav-link">How to choose Psychologist</a>
-                            </li>
-                            <li className="nav-item">
-                                <a  id={RANDOM_PSY} className="nav-link">Random Psychologist</a>
-                            </li>
-                            <li className="nav-item">
-                                <a id={HELP} className="nav-link">Help in Choosing</a>
-                            </li>
-                            <li className="nav-item">
-                                <a id={CRITERIA_PSY} className="nav-link">Filter</a>
-                            </li>
-                        </ul>
-                    </div>
-                    <div className="col-10">
-                        {this.props.profilesNotFound
-                         ? <div>Nothing found matching your criteria</div>
-                         : <PsyProfiles profiles={this.props.profiles} /> }
-                        
-                    </div>
+            {profilesAreFetching ? <Preloader /> : null}
+            <div className={styles.ProfilesPage}>
+                {!isMobileLayout &&
+                    <SidebarWidget
+                        onClick={this.handleSidebarOpenClose}
+                    />
+                }
+                <div className={sidebarClassName}>
+                    <CloseButton onClick={this.handleSidebarOpenClose} />
+                    <ul className={styles.ProfilesSidebarList} onClick={this.handleOpenModal}>
+                        <li id={HOW_TO_CHOOSE_PSY} className={styles.ProfilesSidebarListItem}>
+                            <a>How to choose Psychologist</a>
+                        </li>
+                        <li id={RANDOM_PSY} className={styles.ProfilesSidebarListItem}>
+                            <a>Random Psychologist</a>
+                        </li>
+                        <li id={HELP} className={styles.ProfilesSidebarListItem}>
+                            <a>Help in Choosing</a>
+                        </li>
+                        <li id={CRITERIA_PSY } className={styles.ProfilesSidebarListItem}>
+                            <a>Filter</a>
+                        </li>
+                    </ul>
+                </div>
+                <div className={psyProfilesContainerClassName}>
+                    {profilesNotFound
+                        ? <p>Nothing found matching your criteria</p>
+                        : 
+                        <div className={styles.PsyProfiles}>
+                            { profiles.map(p => <PsyShortProfile 
+                                id={p.id}
+                                avatar={p.avatar}
+                                price={p.price}
+                                duration={p.duration}
+                                statuses={p.statuses}
+                                themes={p.themes}
+                                name={p.name}
+                                key={p.id} />)
+                            }
+                        </div>
+                    }
                 </div>
             </div>
 
-            <Modal size="lg" show={this.state.show} onHide={this.handleClose} animation={false}>
+            <Modal size="lg" show={this.state.showModal} onHide={this.handleClose} animation={false}>
                 <Modal.Header closeButton>
-                    <Modal.Title>{this.state.headerText}</Modal.Title>
+                    <Modal.Title>{this.state.modalHeaderText}</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
                     { this.renderModalWindowComponent(this.state.currentSectionId) }
@@ -124,12 +163,14 @@ class PsyProfilesContainer extends Component {
 
 let mapStateToProps = (state) => {
     return {
+        layoutType: state.app.layoutType,
+        showSidebar: state.app.showSidebar,
         profiles: state.psychologistsPage.profiles,
         profilesAreFetching: state.psychologistsPage.profilesAreFetching,
-        profilesNotFound: state.psychologistsPage.profilesNotFound
+        profilesNotFound: state.psychologistsPage.profilesNotFound,
     }
 }
 
-export default connect(mapStateToProps, {getPsyUsersProfiles})(PsyProfilesContainer)
+export default connect(mapStateToProps, {getPsyUsersProfiles, setShowSidebar})(PsyProfilesContainer)
 
 

@@ -1,32 +1,56 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import Button from '../Button/Button';
 import styles from './Psychologists.module.scss';
 import appRouterService from '../../services/appRouterService';
 
 
-const PsyProfiles = (props) => {
-    const statuses_length = props.statuses.length
+const PsyShortProfile = (props) => {
+    const {id, avatar, price, duration, statuses, themes, name} = props
+    const statuses_length = statuses.length
 
-    const onAvatarClick = () => {
-        appRouterService.forwardToPsyPublicProfilePage(props.id)
+    const onProfileButtonClick = () => {
+        appRouterService.forwardToPsyPublicProfilePage(id)
     }
 
-    return <div className={"mx-3 my-3"}>
-        <div>
-            <Link onClick={onAvatarClick}>
-                <img src={props.avatar} className={styles.userPhoto} alt='therapist avatar'/>    
-            </Link>
+    return <div className={styles.ShortProfile}>
+        <div className={styles.ShortProfileAvatarContainer}>
+            <img src={avatar} className={styles.ShortProfileAvatar} alt='therapist avatar'/>    
         </div>
-        <div>
-            {props.name}
+        <div className={styles.ShortProfileName}>
+            {name}
         </div>
-        <div>
-        {props.statuses.map((st, i) => (
-            statuses_length - 1 == i ? st.name : st.name + ", " 
-        ))}
+        <p className={styles.ShortProfileStatus}>
+            {statuses.map((st, i) => (
+                statuses_length - 1 == i ? st.name : st.name + ", " 
+            ))}
+        </p>
+        <div className={styles.ShortProfileWrapper}></div>
+        <div className={styles.ShortProfileInfoWrapper}>
+            <div className={styles.ShortProfilePriceTitle}>
+                <p>Price:</p>
+                <span>{` ${price}`}</span>
+                <span>$/</span>
+                <span>{duration}</span><span>min</span>
+            </div>
+            <div className={styles.ShortProfileThemesTitle}>
+                <p>Work with themes:</p>
+            </div>
+            <div className={styles.ShortProfileThemes}>
+                <ul className={styles.ShortProfileThemeList}>
+                    {themes.map(t => (
+                        <li>
+                            <span>{t.name}</span>
+                        </li>
+                    ))}
+                </ul>
+            </div>
+        </div>
+        <div className={styles.ShortProfilesButtonsWrapper}>
+            <Button className={styles.ShortProfileAboutButton} onClick={onProfileButtonClick}>About</Button>
+            <Button className={styles.ShortProfileAppoinmentButton}>Make an appoinment</Button>
         </div>
     </div>   
     
 }
 
-export default PsyProfiles;
+export default PsyShortProfile;

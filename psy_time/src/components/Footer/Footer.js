@@ -2,7 +2,7 @@ import React from 'react';
 import * as routePaths from '../../consts/route/routePaths'
 import styles from './Footer.module.scss';
 
-const Header = (props) => {
+const Footer = (props) => {
     return (
         <footer className={styles.Footer}>
             <div className={styles.FooterContent}>
@@ -33,4 +33,4 @@ const Header = (props) => {
     );
 }
 
-export default Header;
+export default Footer;
