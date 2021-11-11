@@ -1,4 +1,5 @@
-import React from 'react'
+import React from 'react';
+import Card from '../../../Card/Card';
 
 const ExtendedProfile = (props) => {
     const profile = props.profile
@@ -12,105 +13,20 @@ const ExtendedProfile = (props) => {
     
     return (
         <>
-        <div className="card">
-            <div className="card-body">
-                <h5 className="card-title">Age</h5>
-                <p className="card-text">
-                    {profile.age}
-                </p>            
-            </div>
-        </div>
-        <div className="card">
-            <div className="card-body">
-                <h5 className="card-title">Location</h5>
-                <p className="card-text">
-                    {profile.city.name + ", " + profile.city.country.name}
-                </p>
-            
-            </div>
-        </div>
-        <div className="card">
-            <div className="card-body">
-                <h5 className="card-title">Statuses</h5>
-                <p className="card-text">
-                    {renderPropsArrays(profile.statuses)}
-                </p>
-            
-            </div>
-        </div>
-        <div className="card">
-            <div className="card-body">
-                <h5 className="card-title">Fromats</h5>
-                <p className="card-text">
-                    {renderPropsArrays(profile.formats)}
-                </p>
-            
-            </div>
-        </div>
-        <div className="card">
-            <div className="card-body">
-                <h5 className="card-title">Works with themes</h5>
-                <p className="card-text">
-                    {renderPropsArrays(profile.themes)}
-                </p>
-            
-            </div>
-        </div>
-        <div className="card">
-            <div className="card-body">
-                <h5 className="card-title">Approaches</h5>
-                <p className="card-text">
-                    {renderPropsArrays(profile.approaches)}
-                </p>
-            </div>
-        </div>
-        <div className="card">
-            <div className="card-body">
-                <h5 className="card-title">Specializations</h5>
-                <p className="card-text">
-                    {renderPropsArrays(profile.specializations)}
-                </p>
-            </div>
-        </div>
-        <div className="card">
-            <div className="card-body">
-                <h5 className="card-title">Educations</h5>
-                <p className="card-text">
-                    {renderPropsArrays(profile.educations)}
-                </p>
-            
-            </div>
-        </div>
-        <div className="card">
-            <div className="card-body">
-                <h5 className="card-title">Secondary educations</h5>
-                <p className="card-text">
-                    {renderPropsArrays(profile.secondary_educations)}
-                </p>
-            
-            </div>
-        </div>
-        <div className="card">
-            <div className="card-body">
-                <h5 className="card-title">Languages</h5>
-                <p className="card-text">
-                    {renderPropsArrays(profile.languages)}
-                </p>
-            
-            </div>
-        </div>
-        <div className="card">
-            <div className="card-body">
-                <h5 className="card-title">Work experience</h5>
-                <p className="card-text">
-                    {profile.work_experience}
-                </p>
-            
-            </div>
-        </div>
+            <Card title={'Age'} text={profile.age} />
+            <Card title={'Location'} text={profile.city.name + ", " + profile.city.country.name} />
+            <Card title={'Statuses'} text={renderPropsArrays(profile.statuses)} />
+            <Card title={'Formats'} text={renderPropsArrays(profile.formats)} />
+            <Card title={'Work with themes'} text={renderPropsArrays(profile.themes)} />
+            <Card title={'Approcahes'} text={renderPropsArrays(profile.approaches)} />
+            <Card title={'Specializations'} text={renderPropsArrays(profile.specializations)} />
+            <Card title={'Educations'} text={renderPropsArrays(profile.educations)} />
+            <Card title={'Secondary educations'} text={renderPropsArrays(profile.secondary_educations)} />
+            <Card title={'Languages'} text={renderPropsArrays(profile.languages)} />
+            <Card title={'Work experience'} text={profile.work_experience} />
         </>
     )
     
 }
 
-export default ExtendedProfile
+export default ExtendedProfile;

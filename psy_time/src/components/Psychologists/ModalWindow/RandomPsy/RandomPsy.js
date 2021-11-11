@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import Avatar from '../../../Avatar/Avatar';
 import styles from '../../Psychologists.module.scss';
 import appRouterService from '../../../../services/appRouterService';
 
@@ -16,11 +16,12 @@ const RandomPsy = (props) => {
 
     return (
         <div>
-            <div>
-                <Link onClick={onAvatarClick}>
-                    <img src={profile.avatar} className={styles.userPhoto} alt='therapist avatar'/>   
-                </Link> 
-            </div>
+            <Avatar 
+                onClick={onAvatarClick}
+                src={profile.avatar}
+                className={styles.userPhoto}
+                alt='therapist avatar'
+            /> 
             <div className='mb-3'>
                 {profile.name}
             </div>

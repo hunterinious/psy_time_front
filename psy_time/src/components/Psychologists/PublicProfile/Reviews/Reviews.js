@@ -1,25 +1,16 @@
 import React from 'react';
-import styles from './Reviews.module.scss'
+import Card from '../../../Card/Card';
 
 
 const Reviews = (props) => {
     return (
-        <div>
+        <>
             {
-                props.reviews.map(elem => (
-                    <div className="card">
-                        <div className={"row " + styles.reviewsMargin}>
-                            <div className="col-sm-2">
-                                {elem.name}
-                            </div>
-                            <div className="col-sm-8">
-                                {elem.text}
-                            </div>
-                        </div>
-                    </div>
+                props.reviews.map(r => (
+                    <Card title={r.name} text={r.text} />
                 ))
             }
-        </div>
+        </>
     )
   
 }

@@ -1,27 +1,31 @@
 import React from 'react';
 import Button from '../Button/Button';
+import Avatar from '../Avatar/Avatar';
 import styles from './Psychologists.module.scss';
 import appRouterService from '../../services/appRouterService';
 
 
 const PsyShortProfile = (props) => {
     const {id, avatar, price, duration, statuses, themes, name} = props
-    const statuses_length = statuses.length
+    const statusesLength = statuses.length
 
-    const onProfileButtonClick = () => {
+    const forwardToProfile = () => {
         appRouterService.forwardToPsyPublicProfilePage(id)
     }
 
     return <div className={styles.ShortProfile}>
-        <div className={styles.ShortProfileAvatarContainer}>
-            <img src={avatar} className={styles.ShortProfileAvatar} alt='therapist avatar'/>    
-        </div>
+        <Avatar
+            src={avatar}
+            alt='therapist avatar'
+            containerClassName={styles.ShortProfileAvatarContainer}
+            onClick={forwardToProfile}
+        />
         <div className={styles.ShortProfileName}>
             {name}
         </div>
         <p className={styles.ShortProfileStatus}>
             {statuses.map((st, i) => (
-                statuses_length - 1 == i ? st.name : st.name + ", " 
+                statusesLength - 1 === i ? st.name : st.name + ", " 
             ))}
         </p>
         <div className={styles.ShortProfileWrapper}></div>
@@ -46,7 +50,7 @@ const PsyShortProfile = (props) => {
             </div>
         </div>
         <div className={styles.ShortProfilesButtonsWrapper}>
-            <Button className={styles.ShortProfileAboutButton} onClick={onProfileButtonClick}>About</Button>
+            <Button className={styles.ShortProfileAboutButton} onClick={forwardToProfile}>About</Button>
             <Button className={styles.ShortProfileAppoinmentButton}>Make an appoinment</Button>
         </div>
     </div>   

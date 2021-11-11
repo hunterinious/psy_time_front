@@ -18,15 +18,14 @@ class PsyPublicProfileContainer extends Component {
     constructor(props) {
         super()
         this.state = {currentSectionId: null}
-        this.renderSectionComponent = this.renderSectionComponent.bind(this)
-        this.handleSectionClick = this.handleSectionClick.bind(this)
     }
 
     componentDidMount(){
-        this.props.getPsyPublicProfile({id: this.props.match.params.publicProfileId})
+        const {getPsyPublicProfile, match} = this.props
+        getPsyPublicProfile({id: match.params.publicProfileId})
     }
 
-    handleSectionClick(e){
+    handleSectionClick = (e) => {
         const target = e.target
         const id = target.id || target.firstChild?.id || target.closest('li')?.id
   
@@ -42,13 +41,14 @@ class PsyPublicProfileContainer extends Component {
         }
     }
 
-    renderSectionComponent(sectionId){
+    renderSectionComponent = (sectionId) => {
         const paramId = this.props.match.params.publicProfileId
+
         switch(sectionId) {
             case POSTS:
                 return 
             case REVIEWS:
-                return <ReviewsContainer paramId={paramId} />
+                return <ReviewsContainer paramId={paramId}/>
             case EXTENDED_PROFILE:
                 return <ExtendedProfileContainer paramId={paramId} />
           }
@@ -59,28 +59,23 @@ class PsyPublicProfileContainer extends Component {
         const profile = this.props.profile
         let reviews_count = profile ? profile.reviews_count : null
         return (
-            <div className="container">
+            <div className={styles.PsyPublicProfilePage}>
                 { profile
                     ? <>
                     <PsyPublicProfile profile={profile} />
-                    <div id={currentSectionId} className="d-flex flex-row" onClick={this.handleSectionClick}>
-                        <ul className={"nav nav-tabs "} role="tablist">
-                            <div className={"p-2 ml-20 " + styles.navsCustom}> 
-                                <li id={POSTS} className="nav-item">
-                                    Posts
-                                </li>
-                            </div>
-                            <div className={"p-2 ml-20 " + styles.navsCustom}>
-                                <li id={REVIEWS} className="nav-item ml-10">
+                    <div id={currentSectionId} className={styles.PsyPublicProfileNav} onClick={this.handleSectionClick}>
+                        <ul className={styles.PsyPublicProfileNavList} role="tablist">
+                            <div className={styles.PsyPublicProfileNavListItem}>
+                                <li id={REVIEWS} className="">
                                     Reviews
-                                    <span className={styles.counter}>
+                                    <span>
                                         {reviews_count}
                                     </span>
                                 </li>
                             </div>
-                            <div className={"p-2 ml-20 " + styles.navsCustom}>
-                                <li id={EXTENDED_PROFILE} className="nav-item ml-10">
-                                More about therapists
+                            <div className={styles.PsyPublicProfileNavListItem}>
+                                <li id={EXTENDED_PROFILE} className="">
+                                    More about therapists
                                 </li>
                             </div>
                         </ul>
@@ -88,11 +83,9 @@ class PsyPublicProfileContainer extends Component {
                  </>
                     : null
                 }
-                
-                {this.state.currentSectionId ?
-                    this.renderSectionComponent(this.state.currentSectionId)
-                    : null
-                }
+                <div className={styles.PsyPublicProfileSectionWrapper}>
+                    {this.state.currentSectionId && this.renderSectionComponent(this.state.currentSectionId)}
+                </div>
             </div>
         )
     }

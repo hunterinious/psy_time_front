@@ -15,11 +15,10 @@ class RandomPsyContainer extends Component {
 
     render() {
         return <>
-        { this.props.randomProfile
-            ? <RandomPsy
+        { this.props.randomProfile &&
+            <RandomPsy
                 random_profile={this.props.randomProfile}
                 getRandomPsyUserProfile={this.props.getRandomPsyUserProfile} />
-            : null
         }
         </>
     }

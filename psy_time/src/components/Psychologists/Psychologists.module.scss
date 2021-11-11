@@ -3,7 +3,6 @@
 .ProfilesPage {
     display: flex;
     font-family: 'Poppins', sans-serif;
-    background: #E5E5E5;
 }
 
 .ProfilesSidebar {
@@ -63,13 +62,6 @@
 
 .ShortProfileAvatarContainer {
     margin: 20px auto auto;
-}
-
-.ShortProfileAvatar {
-    text-align: center;
-    width: 180px;
-    height: 180px;
-    border-radius: 50%;
 }
 
 .ShortProfileName, .ShortProfileStatus {

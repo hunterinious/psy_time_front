@@ -10,11 +10,16 @@ class ReviewsContainer extends Component {
     }
 
     render() {
+        const {reviewsAreFetching, reviews} = this.props;
+        const reviewaAmount = reviews.length
+
         return (
             <>
-            { this.props.reviewsAreFetching
+            { reviewsAreFetching
                 ? <Preloader />
-                : <Reviews reviews={this.props.reviews} />
+                : reviewaAmount 
+                    ? <Reviews reviews={reviews} />
+                    : 'This therapist doesn\'t have reviews'
             }
             </>
         )
