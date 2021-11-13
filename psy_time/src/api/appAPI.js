@@ -16,5 +16,10 @@ export default {
         method: 'get',
         path: () => `${BASE_URL}/about`,
         requiredAuth: false
+    },
+    getPageSize: {
+        method: 'get',
+        path: () => `${BASE_URL}/page-size`,
+        requiredAuth: false
     }
 }

@@ -19,7 +19,7 @@ export default {
     },
     getPsyUsersProfiles: {
         method: 'get',
-        path: () => `${BASE_URL}`,
+        path: ({pageNumber}) => `${BASE_URL}/?page=${pageNumber}`,
         requiredAuth: false
     },
     getCriteriaNamesPsys: {

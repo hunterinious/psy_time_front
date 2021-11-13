@@ -6,13 +6,13 @@ const Card = (props) => {
 
     return (
         <div className={styles.CardContainer}>
-        <div className={styles.Card}>
-            <h5 className={styles.CardTitle}>{title}</h5>
-            <p className={styles.CardText}>
-                {text}
-            </p>   
-        </div>         
-    </div>
+            <div className={styles.Card}>
+                <h5 className={styles.CardTitle}>{title}</h5>
+                <p className={styles.CardText}>
+                    {text}
+                </p>   
+            </div>         
+        </div>
     );
 };
 

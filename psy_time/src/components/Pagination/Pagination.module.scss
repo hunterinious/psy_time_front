@@ -1,0 +1,83 @@
+@import '../../assets/scss/medias';
+
+.PageNumbers {
+    display: flex;
+    justify-content: center;
+    margin: 0 20px 20px 20px;
+
+    @include media_tablet {
+        margin-bottom: 20px;
+    }
+}
+
+.PageNumbersFirst, .PageNumbersNumber, .PageNumbersLast,
+.PageNumbersPreviousPages, .PageNumbersNextPages {
+    width: 40px;
+    height: 40px;
+    background: white;
+    border: 1px solid #D3D3D3;
+    color: #33CEA5;
+}
+
+
+.PageNumbersNumber, .PageNumbersLast,
+.PageNumbersPreviousPages, .PageNumbersNextPages {
+    border-left: unset;
+}
+
+.PageNumbersFirst, .PageNumbersLast {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    div {
+        width: 6px;
+        height: 6px;
+        position: relative;    
+        border: solid #33CEA5;
+        border-width: 0 3px 3px 0;
+    }
+}
+
+.PageNumbersFirst div {
+    left: 5%;
+    transform: rotate(135deg);
+    -webkit-transform: rotate(135deg);
+}
+
+.PageNumbersNumber {
+    position: relative;
+
+    p { 
+        position: absolute;              
+        top: 50%;    
+        left: 50%;               
+        transform: translate(-50%, -50%)
+    }   
+}
+
+.PageNumbersLast div {
+    right: 5%;
+    transform: rotate(-45deg);
+    -webkit-transform: rotate(-45deg);
+}
+
+.PageNumbersPreviousPages, .PageNumbersNextPages {
+    position: relative;
+
+    p {
+        color: #808080;
+        font-weight: bold;
+        position: absolute;   
+        top: 50%;    
+        left: 50%;               
+        transform: translate(-50%, -50%)
+    }
+}
+
+
+.PageNumbersCurrent {
+    background: #33CEA5;
+    border: 1px solid #33CEA5;
+    color: white;
+}

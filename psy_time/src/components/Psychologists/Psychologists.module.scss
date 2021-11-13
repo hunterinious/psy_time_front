@@ -1,12 +1,16 @@
 @import '../../assets/scss/medias';
 
+.ProfilePageContainer {
+    font-family: 'Poppins', sans-serif;
+}
+
 .ProfilesPage {
     display: flex;
-    font-family: 'Poppins', sans-serif;
 }
 
 .ProfilesSidebar {
     position: fixed;
+    z-index: 5;
     height: 100%;
     width: 200px;
     box-shadow: 5px 0 10px -5px black;

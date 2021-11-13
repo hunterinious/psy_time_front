@@ -1,8 +1,10 @@
 import { PsyPublicProfilesRequest } from '../api';
+import { AppRequest } from '../api';
 import commonApiService from '../services/commonApiService';
 
 
 const SET_PSY_USERS_PROFILES = 'SET_PSY_USERS_PROFILE';
+const SET_PSY_PROFILES_PAGES_AMOUNT = 'SET_PSY_PROFILES_PAGES_AMOUNT';
 const PROFILES_ARE_FETCHING = 'PROFILES_ARE_FETCHING';
 const PROFILES_NOT_FOUND = 'PROFILES_NOT_FOUND';
 const SET_PSY_PUBLIC_PROFILE = 'SET_PSY_PUBLIC_PROFILE';
@@ -14,6 +16,7 @@ let initialState = {
     profiles: [],
     profilesNotFound: false,
     profilesAreFetching: true,
+    profilesPagesAmount: 0,
     publicProfile: undefined,
     extendedPublicProfile: undefined,
     randomProfile: undefined,
@@ -33,6 +36,8 @@ const psyUsersProfilesReducer = (state = initialState, action) => {
             return { ...state, profilesNotFound: action.profilesNotFound}
         case SET_PSY_USERS_PROFILES:
             return {...state, profiles: action.profiles}
+        case SET_PSY_PROFILES_PAGES_AMOUNT:
+            return {...state, profilesPagesAmount: action.amount}
         case SET_RANDOM_PSY_USER_PROFILE:
             return {...state, randomProfile: action.profile}
         default:
@@ -46,6 +51,7 @@ export const setPsyExtendedPublicProfile = (profile) => ({ type: SET_PSY_EXNTEND
 export const profilesAreFetching = (profilesAreFetching) => ({ type: PROFILES_ARE_FETCHING, profilesAreFetching})
 export const profilesNotFound = (profilesNotFound) => ({ type: PROFILES_NOT_FOUND, profilesNotFound})
 export const setPsyUsersProfiles = (profiles) => ({ type: SET_PSY_USERS_PROFILES, profiles})
+export const setPsyProfilesPagesAmount = (amount) => ({ type: SET_PSY_PROFILES_PAGES_AMOUNT, amount})
 export const setRandomPsyUserProfile = (profile) =>  ({ type: SET_RANDOM_PSY_USER_PROFILE, profile})
 
 
@@ -78,27 +84,39 @@ export const getPsyPublicProfile = (data, onSuccess, onFail) => async (dispatch)
     }
 }
 
-export const getPsyUsersProfiles = (onSuccess, onFail) => async (dispatch) => {
+export const getPsyUsersProfiles = (data, onSuccess, onFail) => async (dispatch) => {
     let profiles = JSON.parse(localStorage.getItem('profiles'))
     if(profiles){
-        if(!profiles.length){
+        const profilesAmount = profiles.length
+        if(!profilesAmount){
             dispatch(profilesNotFound(true))
         }else{
-            dispatch(setPsyUsersProfiles(profiles))
-            dispatch(profilesNotFound(false))
+            const apiData = await commonApiService.callRequest(
+                {
+                    action: AppRequest.getPageSize(),
+                }
+            )
+            if(apiData){
+                dispatch(setPsyUsersProfiles(profiles))
+                dispatch(setPsyProfilesPagesAmount(profilesAmount))
+                dispatch(profilesNotFound(false))
+            }
         }
         dispatch(profilesAreFetching(false))
     }
     else{
         const apiData = await commonApiService.callRequest(
             {
+                payload: data,
                 action: PsyPublicProfilesRequest.getPsyUsersProfiles,
                 onSuccess,
                 onFail
             }
         )
         if(apiData) {
-            dispatch(setPsyUsersProfiles(apiData.data.results))
+            const apiD = apiData.data
+            dispatch(setPsyUsersProfiles(apiD.results))
+            dispatch(setPsyProfilesPagesAmount(apiD.pages_amount))
             dispatch(profilesNotFound(false))
             dispatch(profilesAreFetching(false))
         }

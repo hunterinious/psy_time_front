@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
 import cn from 'classnames';
 import { connect } from 'react-redux';
-import { Modal } from 'react-bootstrap';
+import { Modal} from 'react-bootstrap';
 import {setShowSidebar} from '../../redux/app-reducer';
 import { getPsyUsersProfiles } from '../../redux/psy-profiles-reducer';
 import Preloader from '../Common/Preloader/Preloader';
 import CloseButton from '../CloseButton/CloseButton';
 import SidebarWidget from '../SidebarWidget/SidebarWidget';
+import Pagination from '../Pagination/Pagination';
 import PsyShortProfile from './PsyShortProfile';
 import CriteriaPsyContainer from './ModalWindow/CriteriaPsy/CriteriaPsyContainer';
 import HowToChoosePsy from './ModalWindow/HowToChoosePsy/HowToChoosePsy';
@@ -33,7 +34,7 @@ class PsyProfilesContainer extends Component {
     }
 
     componentDidMount() {
-        this.props.getPsyUsersProfiles()
+        this.props.getPsyUsersProfiles({pageNumber: 1})
     }
 
     getModalHeaderText(id) {
@@ -89,12 +90,13 @@ class PsyProfilesContainer extends Component {
           }
     }
 
-    // просто прятать sidebar widget, а не убирать с dom
     render() {
-        const {layoutType, showSidebar, profiles, profilesAreFetching, profilesNotFound} = this.props
+        const {layoutType, showSidebar, profiles, profilesPagesAmount,
+            profilesAreFetching, profilesNotFound, getPsyUsersProfiles} = this.props
+
+        const {showModal, modalHeaderText, currentSectionId, pageNumber} = this.state
     
         const isMobileLayout = layoutService.isMobileLayout(layoutType)
-
 
         const sidebarClassName = showSidebar
             ? styles.ProfilesSidebar
@@ -104,7 +106,7 @@ class PsyProfilesContainer extends Component {
             ? cn(styles.PsyProfilesContainer, styles.PsyProfilesContainerWithSidebar)
             : styles.PsyProfilesContainer
 
-        return <>
+        return <div className={styles.ProfilesPageContainer}>
             {profilesAreFetching ? <Preloader /> : null}
             <div className={styles.ProfilesPage}>
                 {!isMobileLayout &&
@@ -149,15 +151,23 @@ class PsyProfilesContainer extends Component {
                 </div>
             </div>
 
-            <Modal size="lg" show={this.state.showModal} onHide={this.handleClose} animation={false}>
+           {profilesPagesAmount &&
+                <Pagination 
+                    pagesAmount={profilesPagesAmount}
+                    getPageData={getPsyUsersProfiles}
+                    needScrollToTop
+                />
+           }
+
+            <Modal size="lg" show={showModal} onHide={this.handleClose} animation={false}>
                 <Modal.Header closeButton>
-                    <Modal.Title>{this.state.modalHeaderText}</Modal.Title>
+                    <Modal.Title>{modalHeaderText}</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                    { this.renderModalWindowComponent(this.state.currentSectionId) }
+                    { this.renderModalWindowComponent(currentSectionId) }
                 </Modal.Body>
             </Modal>
-        </>
+        </div>
     }
 }
 
@@ -166,6 +176,7 @@ let mapStateToProps = (state) => {
         layoutType: state.app.layoutType,
         showSidebar: state.app.showSidebar,
         profiles: state.psychologistsPage.profiles,
+        profilesPagesAmount: state.psychologistsPage.profilesPagesAmount,
         profilesAreFetching: state.psychologistsPage.profilesAreFetching,
         profilesNotFound: state.psychologistsPage.profilesNotFound,
     }
