@@ -1,5 +1,5 @@
 import React from 'react';
-import Avatar from '../../Avatar/Avatar';
+import Avatar from '../../Common/Avatar/Avatar';
 import Button from '../../Buttons/Button/Button';
 import styles from './PsyPublicProfile.module.scss';
 
