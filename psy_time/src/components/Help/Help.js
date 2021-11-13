@@ -4,6 +4,7 @@ import * as Yup from 'yup';
 import FormikControl from '../Common/FormControl/FormikControl';
 import styles from './Help.module.scss'
 import helpService from '../../services/helpService';
+import SubmitButton from '../Buttons/SubmitButton/SubmitButton';
 
 
 const Help = (props) => {
@@ -111,14 +112,14 @@ const Help = (props) => {
                     </div>
                     <div className="col">
                         <FormikControl
-                            className={"form-control " + styles.message}
+                            className={"form-control " + styles.Message}
                             control='textarea'
                             name='message'
                             label='Text message'
                         />
                     </div>
                 </div>
-                <button type='submit' className='btn btn-primary mb-3'>Submit</button>
+                <SubmitButton type='submit' className={styles.SubmitButton}>Submit</SubmitButton>
             </Form>
             )}
           </Formik>

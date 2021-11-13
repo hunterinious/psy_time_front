@@ -1,5 +1,5 @@
 import React from 'react';
-import Button from '../Button/Button';
+import Button from '../Buttons/Button/Button';
 import Avatar from '../Avatar/Avatar';
 import styles from './Psychologists.module.scss';
 import appRouterService from '../../services/appRouterService';

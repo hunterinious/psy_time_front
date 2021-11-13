@@ -1,0 +1,17 @@
+.RandomPsy {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-family: 'Poppins', sans-serif;
+}
+
+.RandomPsyText, .RandomPsyButton {
+    margin-top: 10px;
+}
+
+.RandomPsyButton {
+    width: 220px;
+    color: white;
+    background: #FDB44B;
+    border: 1px solid #FDB44B;
+}

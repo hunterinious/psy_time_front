@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import cn from 'classnames';
 import * as routePaths from '../../consts/route/routePaths';
 import appRouterService from '../../services/appRouterService';
-import CloseButton from '../CloseButton/CloseButton';
+import CloseButton from '../Buttons/CloseButton/CloseButton';
 import styles from './SlidingMenu.module.scss';
 
 

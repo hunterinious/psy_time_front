@@ -1,6 +1,8 @@
 import React, {useEffect} from 'react'
 import { connect } from 'react-redux'; 
 import { getHowToChoosePsy }  from '../../../../redux/app-reducer';
+import Button from '../../../Buttons/Button/Button';
+import styles from './HowToChoosePsy.module.scss';
 
 const HowToChoosePsy = (props) => {
     const {getHowToChoosePsy, handleClose, text} = props
@@ -10,16 +12,13 @@ const HowToChoosePsy = (props) => {
     }, []);
 
     return (
-        <div>
-            <div>
+        <div className={styles.HowToChoosePsy}>
+            <div className={styles.HowToChoosePsyText}>
                 { text }
             </div>
-        
-            <div>
-                <button className="btn btn-warning" onClick={handleClose}>
-                    Choose Psychologist
-                </button>
-            </div>
+            <Button className={styles.HowToChoosePsyButton} onClick={handleClose}>
+                Choose Psychologist
+            </Button>
         </div>
     )
 }

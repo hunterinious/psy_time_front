@@ -5,7 +5,7 @@ import { Modal} from 'react-bootstrap';
 import {setShowSidebar} from '../../redux/app-reducer';
 import { getPsyUsersProfiles } from '../../redux/psy-profiles-reducer';
 import Preloader from '../Common/Preloader/Preloader';
-import CloseButton from '../CloseButton/CloseButton';
+import CloseButton from '../Buttons/CloseButton/CloseButton';
 import SidebarWidget from '../SidebarWidget/SidebarWidget';
 import Pagination from '../Pagination/Pagination';
 import PsyShortProfile from './PsyShortProfile';
@@ -35,6 +35,7 @@ class PsyProfilesContainer extends Component {
 
     componentDidMount() {
         this.props.getPsyUsersProfiles({pageNumber: 1})
+        this.props.setShowSidebar()
     }
 
     getModalHeaderText(id) {
@@ -42,10 +43,10 @@ class PsyProfilesContainer extends Component {
 
         switch(id) {
             case HOW_TO_CHOOSE_PSY:
-                text = 'How To Choose Psychologist'
+                text = 'How To Choose Therapist'
                 break;
             case  RANDOM_PSY:
-                text = 'Random Psychologist'
+                text = 'Random Therapist'
                 break;
             case HELP:
                 text = 'Help in choosing'
@@ -59,6 +60,7 @@ class PsyProfilesContainer extends Component {
     }
 
     handleOpenModal = (e) => {
+        console.log(e.target, 'target')
         const id = e.target.id || e.target.parentNode.id
         const text = this.getModalHeaderText(id)
 
@@ -94,7 +96,7 @@ class PsyProfilesContainer extends Component {
         const {layoutType, showSidebar, profiles, profilesPagesAmount,
             profilesAreFetching, profilesNotFound, getPsyUsersProfiles} = this.props
 
-        const {showModal, modalHeaderText, currentSectionId, pageNumber} = this.state
+        const {showModal, modalHeaderText, currentSectionId} = this.state
     
         const isMobileLayout = layoutService.isMobileLayout(layoutType)
 
@@ -106,6 +108,9 @@ class PsyProfilesContainer extends Component {
             ? cn(styles.PsyProfilesContainer, styles.PsyProfilesContainerWithSidebar)
             : styles.PsyProfilesContainer
 
+
+        const modalClassName = currentSectionId === HOW_TO_CHOOSE_PSY ? styles.PsyProfilesModal : ''
+
         return <div className={styles.ProfilesPageContainer}>
             {profilesAreFetching ? <Preloader /> : null}
             <div className={styles.ProfilesPage}>
@@ -116,12 +121,12 @@ class PsyProfilesContainer extends Component {
                 }
                 <div className={sidebarClassName}>
                     <CloseButton onClick={this.handleSidebarOpenClose} />
-                    <ul className={styles.ProfilesSidebarList} onClick={this.handleOpenModal}>
+                    <ul id={currentSectionId} className={styles.ProfilesSidebarList} onClick={this.handleOpenModal}>
                         <li id={HOW_TO_CHOOSE_PSY} className={styles.ProfilesSidebarListItem}>
-                            <a>How to choose Psychologist</a>
+                            <a>How to choose Therapist</a>
                         </li>
                         <li id={RANDOM_PSY} className={styles.ProfilesSidebarListItem}>
-                            <a>Random Psychologist</a>
+                            <a>Random Therapist</a>
                         </li>
                         <li id={HELP} className={styles.ProfilesSidebarListItem}>
                             <a>Help in Choosing</a>
@@ -159,7 +164,7 @@ class PsyProfilesContainer extends Component {
                 />
            }
 
-            <Modal size="lg" show={showModal} onHide={this.handleClose} animation={false}>
+            <Modal size="lg" show={showModal} onHide={this.handleClose} animation={false} contentClassName={modalClassName}>
                 <Modal.Header closeButton>
                     <Modal.Title>{modalHeaderText}</Modal.Title>
                 </Modal.Header>

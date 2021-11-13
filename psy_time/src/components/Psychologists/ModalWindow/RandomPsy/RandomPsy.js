@@ -1,6 +1,7 @@
 import React from 'react';
 import Avatar from '../../../Avatar/Avatar';
-import styles from '../../Psychologists.module.scss';
+import Button from '../../../Buttons/Button/Button';
+import styles from './RandomPsy.module.scss';
 import appRouterService from '../../../../services/appRouterService';
 
 const RandomPsy = (props) => {
@@ -15,21 +16,19 @@ const RandomPsy = (props) => {
     }
 
     return (
-        <div>
+        <div className={styles.RandomPsy}>
             <Avatar 
                 onClick={onAvatarClick}
                 src={profile.avatar}
                 className={styles.userPhoto}
                 alt='therapist avatar'
             /> 
-            <div className='mb-3'>
+            <div className={styles.RandomPsyText}>
                 {profile.name}
             </div>
-            <div>
-                <button className="btn btn-warning" onClick={handleGetRandom}>
-                    Try again
-                </button>
-            </div>
+            <Button className={styles.RandomPsyButton} onClick={handleGetRandom}>
+                Try again
+            </Button>
         </div>
     )
 }
