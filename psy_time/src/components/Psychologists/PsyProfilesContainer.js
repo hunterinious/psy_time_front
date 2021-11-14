@@ -60,7 +60,6 @@ class PsyProfilesContainer extends Component {
     }
 
     handleOpenModal = (e) => {
-        console.log(e.target, 'target')
         const id = e.target.id || e.target.parentNode.id
         const text = this.getModalHeaderText(id)
 
