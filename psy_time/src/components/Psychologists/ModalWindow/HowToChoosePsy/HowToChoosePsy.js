@@ -1,7 +1,7 @@
 import React, {useEffect} from 'react'
 import { connect } from 'react-redux'; 
 import { getHowToChoosePsy }  from '../../../../redux/app-reducer';
-import Button from '../../../Buttons/Button/Button';
+import Button from '../../../Common/Buttons/Button/Button';
 import styles from './HowToChoosePsy.module.scss';
 
 const HowToChoosePsy = (props) => {

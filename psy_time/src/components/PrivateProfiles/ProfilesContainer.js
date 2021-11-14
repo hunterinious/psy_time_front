@@ -7,6 +7,7 @@ import Preloader from '../Common/Preloader/Preloader';
 import { withAuthRedirect } from '../hoc/withAuthRedirect';
 import PsyProfileContainer from './Psychologist/PsyProfileContainer';
 import RegularProfileContainer from './Regular/RegularProfileContainer';
+import styles from './Profiles.module.scss';
 
 class ProfilesContainer extends Component {
     componentDidMount(){

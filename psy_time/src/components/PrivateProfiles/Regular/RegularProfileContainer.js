@@ -5,12 +5,13 @@ class RegularProfileContainer extends Component {
     render () {
         const {user, timezones, updateProfile} = this.props
         return (
-            <div>
+            <>
                 <Profile 
                     user={user}
                     timezones={timezones}
-                    updateProfile={updateProfile}/>
-            </div>
+                    updateProfile={updateProfile}
+                />
+            </>
         );
     }
 };

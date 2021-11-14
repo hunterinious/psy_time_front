@@ -15,15 +15,15 @@ class PsyProfileContainer extends Component {
 
         if(!this.props.countriesAreFetching && !this.props.citiesAreFetching){
             return (
-                <div>
+                <>
                     <Profile 
                         user={user}
                         cities={cities}
                         countries={countries}
                         timezones={timezones}
                         updateProfile={updateProfile}
-                        />
-                </div>
+                    />
+                </>
             );
         }else {
             return <Preloader />

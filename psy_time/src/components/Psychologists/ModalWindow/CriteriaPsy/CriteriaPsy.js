@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useReducer, useRef} from 'react';
-import SubmitButton from '../../../Buttons/SubmitButton/SubmitButton';
+import SubmitButton from '../../../Common/Buttons/SubmitButton/SubmitButton';
 import Buttons from './Buttons';
 import RangeSlider from './RangeSlider';
 import styles from './CriteriaPsy.module.scss';

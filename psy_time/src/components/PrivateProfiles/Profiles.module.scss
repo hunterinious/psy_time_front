@@ -1,0 +1,18 @@
+@import '../../assets/scss/medias';
+
+
+.ProfilePage {
+    position: relative;
+    width: 70%;
+    height: 100%;
+    margin: 20px auto;
+    font-family: 'Poppins', sans-serif;
+}
+
+.ProfilePageSubmitButtonContainer {
+    text-align: center;
+
+    @include media_tablet {
+        text-align: left;
+    }
+}

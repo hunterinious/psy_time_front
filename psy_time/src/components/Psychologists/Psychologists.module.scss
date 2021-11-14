@@ -15,6 +15,7 @@
     width: 200px;
     box-shadow: 5px 0 10px -5px black;
     background: white;
+    font-family: 'Poppins', sans-serif;
 }
 
 .ProfilesSidebarHide {
@@ -167,6 +168,10 @@
 }
 
 .PsyProfilesModal {
+    font-family: 'Poppins', sans-serif;
+}
+
+.PsyProfilesModalExtra {
     padding-left: 30px;
     padding-right: 30px;
 }

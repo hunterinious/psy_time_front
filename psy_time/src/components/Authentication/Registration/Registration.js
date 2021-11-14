@@ -1,4 +1,5 @@
 import React from 'react';
+import SubmitButton from '../../Common/Buttons/SubmitButton/SubmitButton';
 import { withRouter } from 'react-router-dom';
 import { Formik, Form} from 'formik';
 import FormikControl from '../../Common/FormControl/FormikControl';
@@ -7,6 +8,7 @@ import { compose } from 'redux';
 import { connect } from 'react-redux';
 import { registerUser } from '../../../redux/auth-reducer';
 import appRouterService from '../../../services/appRouterService';
+import styles from './Registration.module.scss';
 
 
 const RegistrationForm = (props) => {
@@ -77,7 +79,7 @@ const RegistrationForm = (props) => {
                       />  
                   </div>
               </div>
-              <button type='submit' className='btn btn-primary mb-3'>Submit</button>
+              <SubmitButton type='submit'>Submit</SubmitButton>
             </Form>
             )}
           </Formik>
@@ -100,7 +102,7 @@ const Registration = (props) => {
     }
     
     return(
-        <div className="container">
+        <div className={styles.RegistrationPage}>
             <RegistrationForm handlePostSubmit={handlePostSubmit}/>
         </div>
     )

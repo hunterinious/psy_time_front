@@ -5,7 +5,7 @@ import { Modal} from 'react-bootstrap';
 import {setShowSidebar} from '../../redux/app-reducer';
 import { getPsyUsersProfiles } from '../../redux/psy-profiles-reducer';
 import Preloader from '../Common/Preloader/Preloader';
-import CloseButton from '../Buttons/CloseButton/CloseButton';
+import CloseButton from '../Common/Buttons/CloseButton/CloseButton';
 import SidebarWidget from '../SidebarWidget/SidebarWidget';
 import Pagination from '../Pagination/Pagination';
 import PsyShortProfile from './PsyShortProfile';
@@ -109,7 +109,8 @@ class PsyProfilesContainer extends Component {
             : styles.PsyProfilesContainer
 
 
-        const modalClassName = currentSectionId === HOW_TO_CHOOSE_PSY ? styles.PsyProfilesModal : ''
+        const modalClassName = currentSectionId === HOW_TO_CHOOSE_PSY
+             ? cn(styles.PsyProfilesModal, styles.PsyProfilesModalExtra) : styles.PsyProfilesModal
 
         return <div className={styles.ProfilesPageContainer}>
             {profilesAreFetching ? <Preloader /> : null}

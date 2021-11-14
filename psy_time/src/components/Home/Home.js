@@ -2,8 +2,8 @@ import React from 'react';
 import { connect } from 'react-redux';
 import appRouterService from '../../services/appRouterService';
 import layoutService from '../../services/layoutService';
-import Button from '../Button/Button';
-import IntroImage from '../Images/IntroImage';
+import Button from '../Common/Buttons/Button/Button';
+import IntroImage from '../Common/Images/IntroImage';
 import styles from './Home.module.scss';
 
 

@@ -4,7 +4,7 @@ import * as Yup from 'yup';
 import FormikControl from '../Common/FormControl/FormikControl';
 import styles from './Help.module.scss'
 import helpService from '../../services/helpService';
-import SubmitButton from '../Buttons/SubmitButton/SubmitButton';
+import SubmitButton from '../Common/Buttons/SubmitButton/SubmitButton';
 
 
 const Help = (props) => {

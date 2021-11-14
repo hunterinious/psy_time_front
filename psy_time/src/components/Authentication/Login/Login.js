@@ -1,15 +1,17 @@
 import React from 'react';
-import { Link, withRouter } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 import { compose } from 'redux';
 import { Modal } from 'react-bootstrap';
 import { Formik, Form} from 'formik';
+import SubmitButton from '../../Common/Buttons/SubmitButton/SubmitButton';
+import Button from '../../Common/Buttons/Button/Button';
 import FormikControl from '../../Common/FormControl/FormikControl';
 import * as routePaths from '../../../consts/route/routePaths';
 import * as Yup from 'yup';
 import { connect } from 'react-redux';
-import styles from './Login.module.scss'
 import { loginUser } from '../../../redux/auth-reducer';
 import appRouterService from '../../../services/appRouterService';
+import styles from './Login.module.scss'
 
 
 const LoginForm = (props) => {
@@ -46,7 +48,7 @@ const LoginForm = (props) => {
     })
 
     return (
-        <div>
+        <div className={styles.LoginForm}>
             <Formik
             initialValues={initialValues}
             validationSchema={validationSchema}
@@ -54,7 +56,7 @@ const LoginForm = (props) => {
             >
             {formik => (
             <Form>
-                <div className={styles.invalidFeedback}>
+                <div className={styles.InvalidFeedback}>
                     {formik.status}
                 </div>
                 <div className="row">
@@ -76,7 +78,7 @@ const LoginForm = (props) => {
                         />
                     </div>
                 </div>
-                <button type='submit' className='btn btn-primary mb-3'>Submit</button>
+                <SubmitButton className={styles.LoginFormSubmitButton} type='submit'>Submit</SubmitButton>
             </Form>
             )}
           </Formik>
@@ -86,8 +88,11 @@ const LoginForm = (props) => {
 
 const SingUpBlock = (props) => {
     return (
-        <div> 
-            Not registered yet? - <Link to={routePaths.REGISTRATION} onClick={props.handleClose}>Sign Up</Link> 
+        <div className={styles.SingUpBlock}> 
+            <p>Not registered yet? - </p>
+            <a href ={routePaths.REGISTRATION} onClick={props.handleClose}>
+                <Button className={styles.SingUpBlockButton}>Sign Up</Button>
+            </a> 
         </div> 
     )
 }
@@ -119,21 +124,21 @@ const LoginContainer = (props) => {
         <>
         {props.modal
             ?
-            <div>
-                <Modal size="lg" show={true} onHide={handleClose} animation={false}>
-                    <Modal.Header closeButton>
-                            <Modal.Title>Login</Modal.Title>
-                    </Modal.Header>
-                    <Modal.Body>
-                        <LoginForm handlePostSubmit={handlePostSubmit} />
-                    </Modal.Body>
-                    <Modal.Footer>
-                        <SingUpBlock handleClose={handleClose}/>
-                    </Modal.Footer>
-                </Modal>
-            </div>
+            
+            <Modal size="lg" show={true} onHide={handleClose} animation={false}>
+                <Modal.Header closeButton>
+                        <Modal.Title>Login</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    <LoginForm handlePostSubmit={handlePostSubmit} />
+                </Modal.Body>
+                <Modal.Footer>
+                    <SingUpBlock handleClose={handleClose}/>
+                </Modal.Footer>
+            </Modal>
+           
             :
-            <div className="container">
+            <div className={styles.LoginPage}>
                 <LoginForm
                     handlePostSubmit={handlePostSubmit}
                 />

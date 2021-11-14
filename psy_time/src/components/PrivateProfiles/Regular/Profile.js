@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { Formik, Form} from 'formik';
 import FormikControl from '../../Common/FormControl/FormikControl';
 import * as Yup from 'yup';
+import SubmitButton from '../../Common/Buttons/SubmitButton/SubmitButton';
+import commonProfileStyles from '../Profiles.module.scss'
 
 
 const ProfileForm = (props) => {
@@ -89,7 +91,9 @@ const ProfileForm = (props) => {
 						/>  
 					</div>
                 </div>
-                <button type='submit' className='btn btn-primary mb-3'>Submit</button>
+                <div className={commonProfileStyles.ProfilePageSubmitButtonContainer}>
+                    <SubmitButton type='submit'>Submit</SubmitButton>
+                </div>
             </Form>
             )}
           </Formik>
