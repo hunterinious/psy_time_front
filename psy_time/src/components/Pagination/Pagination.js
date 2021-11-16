@@ -6,17 +6,21 @@ import styles from './Pagination.module.scss';
 const Pagination = (props) => {
     const {pagesAmount, getPageData, needScrollToTop} = props
     let pagesAmountInViewport = props.pagesAmountInViewport || 5
-    pagesAmountInViewport = pagesAmountInViewport <= pagesAmount ? pagesAmountInViewport : pagesAmount
+    pagesAmountInViewport = pagesAmountInViewport < pagesAmount ? pagesAmountInViewport : pagesAmount
     const pageShift = pagesAmountInViewport / 2
     const pagesNumbers = useMemo(() => Array.from({length: pagesAmount}, (v, i) => i + 1), [pagesAmount])
     const [currentPageNumber, setCurrentPageNumber] = useState(1)
-    const [pagesNumbersInViewport, setPagesNumbersInViewport] = useState(pagesNumbers.slice(0, pagesAmountInViewport))
+    const [pagesNumbersInViewport, setPagesNumbersInViewport] = useState([])
     const firstPageNumberInViewport = pagesNumbersInViewport[0]
     const lastPageNumberInViewport = pagesNumbersInViewport[pagesNumbersInViewport.length - 1]
 
     useEffect(() => {
         if(needScrollToTop) window.scrollTo(0, 0);
     }, [currentPageNumber, needScrollToTop]);
+
+    useEffect(() => {
+        setPagesNumbersInViewport(pagesNumbers.slice(0, pagesAmountInViewport))
+    }, [pagesAmount, pagesNumbers, pagesAmountInViewport]);
 
 
     const onSelectPageClick = (e) => {

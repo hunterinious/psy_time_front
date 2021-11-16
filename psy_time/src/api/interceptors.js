@@ -4,7 +4,7 @@ import commonApiService from '../services/commonApiService';
 import storageService from '../services/storageService';
 
 export const addAuthorizationHeader = (config) => {
-    config.headers['Authorization'] = "JWT " + localStorage.getItem('access_token');
+    config.headers['Authorization'] = "JWT " + storageService.getAccessToken();
     return config
 }
 
@@ -17,7 +17,7 @@ export const handleUnauthorized = async (error) => {
     const detail = response.data.detail
 
     if (INVALID_OR_EXPIRED.includes(detail) && !isRefreshCalled) {
-        const refresh_token = localStorage.getItem('refresh_token');
+        const refresh_token = localStorage.getRefreshToken();
 
         if(!refresh_token){
             return Promise.reject(error)

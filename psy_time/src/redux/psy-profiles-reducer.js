@@ -1,6 +1,7 @@
 import { PsyPublicProfilesRequest } from '../api';
-import { AppRequest } from '../api';
 import commonApiService from '../services/commonApiService';
+import criteriaPsyService from '../services/criteriaPsyService';
+import storageService from '../services/storageService';
 
 
 const SET_PSY_USERS_PROFILES = 'SET_PSY_USERS_PROFILE';
@@ -21,7 +22,6 @@ let initialState = {
     extendedPublicProfile: undefined,
     randomProfile: undefined,
 };
-
 
 
 const psyUsersProfilesReducer = (state = initialState, action) => {
@@ -85,24 +85,10 @@ export const getPsyPublicProfile = (data, onSuccess, onFail) => async (dispatch)
 }
 
 export const getPsyUsersProfiles = (data, onSuccess, onFail) => async (dispatch) => {
-    let profiles = JSON.parse(localStorage.getItem('profiles'))
-    if(profiles){
-        const profilesAmount = profiles.length
-        if(!profilesAmount){
-            dispatch(profilesNotFound(true))
-        }else{
-            const apiData = await commonApiService.callRequest(
-                {
-                    action: AppRequest.getPageSize(),
-                }
-            )
-            if(apiData){
-                dispatch(setPsyUsersProfiles(profiles))
-                dispatch(setPsyProfilesPagesAmount(profilesAmount))
-                dispatch(profilesNotFound(false))
-            }
-        }
-        dispatch(profilesAreFetching(false))
+    const criteria = JSON.parse(storageService.getCriteriaPsy())
+
+    if(criteria){
+        dispatch(getPsysByCriteria({pageNumber: data.pageNumber, criteria: criteriaPsyService.choosenCriteriaOnlyNames(criteria)}))
     }
     else{
         const apiData = await commonApiService.callRequest(
@@ -137,12 +123,14 @@ export const getRandomPsyUserProfile = (onSuccess, onFail) => async (dispatch) =
 }
 
 
-export const getPsysByCriteria = (criteria, onSuccess, onFail) => async (dispatch) => {
+export const getPsysByCriteria = (data, onSuccess, onFail) => async (dispatch) => {
     dispatch(profilesAreFetching(true))
+
+    const {criteria, isCriteriaChanged, pageNumber} = data
 
     let c = criteria
     const apiData = await commonApiService.callRequest(
-        {
+        {   
             action: PsyPublicProfilesRequest.getPsysByCriteria,
             params: {
                 ages: c.ages.length ? c.ages[0] : [],
@@ -154,22 +142,29 @@ export const getPsysByCriteria = (criteria, onSuccess, onFail) => async (dispatc
                 specializations: c.specializations,
                 educations: c.educations,
                 secondary_educations: c.secondary_educations,
-                languages: c.languages
+                languages: c.languages,
+                page: pageNumber.toString(),
+                is_criteria_changed: isCriteriaChanged,
+                uuid: storageService.getUUID(),
             },
             onSuccess,
             onFail
         }
     )
-
+  
     if(apiData) {
-        let results = apiData.data.results
+        let data = apiData.data
+        const profiles = data.results
+        const pagesAmount = data.pages_amount
         
-        if(results.length){
-            dispatch(setPsyUsersProfiles(results))
+        if(profiles.length){
+            dispatch(setPsyUsersProfiles(profiles))
+            dispatch(setPsyProfilesPagesAmount(pagesAmount))
         }else{
             dispatch(profilesNotFound(true))
         }
-        localStorage.setItem('profiles', JSON.stringify(results))
+        
+        storageService.setUUID(data.uuid)
         dispatch(profilesAreFetching(false))
     }
 }

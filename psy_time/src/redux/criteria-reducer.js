@@ -1,5 +1,6 @@
 import { PsyPublicProfilesRequest } from "../api";
 import commonApiService from "../services/commonApiService";
+import storageService from "../services/storageService";
 
 
 const CRITERIA_ARE_FETCHING = 'CRITERIA_ARE_FETCHING';
@@ -53,7 +54,7 @@ export const removeCriteria = () =>  ({ type: REMOVE_CRITERIA })
 
 export const getCriteriaNamesPsys = (onSuccess, onFail) => async (dispatch) => {
     const apiData = await commonApiService.callRequest(
-        {
+        {   
             action: PsyPublicProfilesRequest.getCriteriaNamesPsys,
             onSuccess,
             onFail
@@ -65,7 +66,7 @@ export const getCriteriaNamesPsys = (onSuccess, onFail) => async (dispatch) => {
 }
 
 export const setInitialCriteriaPsy = () => async (dispatch) => {
-    let storageCritetia = JSON.parse(localStorage.getItem('criteria'))
+    const storageCritetia = JSON.parse(storageService.getCriteriaPsy())
     if(storageCritetia) {
         dispatch(setInitialCriteria(storageCritetia))
     }
@@ -75,12 +76,12 @@ export const setInitialCriteriaPsy = () => async (dispatch) => {
 
 export const changeCriteriaPsy = (criteria) => async (dispatch) => {
     dispatch(changeCriteria(criteria))
-    localStorage.setItem('criteria', JSON.stringify(criteria))
+    storageService.setCriteriaPsy(JSON.stringify(criteria))
 }
 
 export const removeCriteriaPsy = () => async (dispatch) => {
-    localStorage.removeItem('criteria')
-    localStorage.removeItem('profiles')
+    storageService.removeCriteriaPsy()
+    storageService.removeUUID()
     dispatch(removeCriteria())
 }
 

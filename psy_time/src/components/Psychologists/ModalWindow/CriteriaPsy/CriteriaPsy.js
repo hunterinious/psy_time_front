@@ -2,7 +2,9 @@ import React, { useEffect, useState, useReducer, useRef} from 'react';
 import SubmitButton from '../../../Common/Buttons/SubmitButton/SubmitButton';
 import Buttons from './Buttons';
 import RangeSlider from './RangeSlider';
+import criteriaPsyService from '../../../../services/criteriaPsyService';
 import styles from './CriteriaPsy.module.scss';
+
 
 const SET_CHOOSEN_CRITERIA = 'SET_CHOOSEN_CRITERIA';
 const REMOVE_CRITERION = 'REMOVE_CRITERION';
@@ -89,16 +91,7 @@ const CriteriaPsy = (props) => {
     }, [props.choosenCriteria]);
 
     const choosenCriteriaOnlyNames = (choosenCriteria) => {
-        let criteria = {}
-        for (const [key, value] of Object.entries(choosenCriteria)){
-            criteria[key] = value.map(v => { 
-                if(key === "ages"){
-                    return v
-                }
-                return v[1]
-            })
-        }
-        return criteria
+       return criteriaPsyService.choosenCriteriaOnlyNames(choosenCriteria)
     }
 
     const areAnyChoosenCriteria = (choosenCriteria) => {
@@ -130,9 +123,8 @@ const CriteriaPsy = (props) => {
 
     const handleCriterionClick = (e) => {
         const target = e.target
-        const id = target.id
         
-        if(target.tagName === "BUTTON" && id != "submit-button" && id != "remove-button"){
+        if(target.tagName === "BUTTON"){
             const keyId = target.id.split('-')
             const key = keyId[0]
             const id = parseInt(keyId[1])
@@ -167,7 +159,7 @@ const CriteriaPsy = (props) => {
         const areAny = areAnyChoosenCriteria(choosenCriteria)
         if(state.choosenCriteria !== prevCriteria && areAny) {
             const choosenCriteriaForAPI = choosenCriteriaOnlyNames(choosenCriteria)
-            props.getPsysByCriteria(choosenCriteriaForAPI)
+            props.getPsysByCriteria({pageNumber: 1, criteria: choosenCriteriaForAPI, isCriteriaChanged: true})
         
         }
 
@@ -191,13 +183,11 @@ const CriteriaPsy = (props) => {
     }
 
     return (
-        <div onClick={handleCriterionClick}>
-            <div>
-                <SubmitButton id="remove-button" onClick={handleRemove}>
-                    Reset filters
-                </SubmitButton>
-            </div>
-            <div className={styles.CriteriaPsyFilters}>
+        <div>
+            <SubmitButton id="remove-button" onClick={handleRemove}>
+                Reset filters
+            </SubmitButton>
+            <div className={styles.CriteriaPsyFilters} onClick={handleCriterionClick}>
                 { 
                 Object.keys(state.criteriaNames).map((k, i) => (
                     <div>

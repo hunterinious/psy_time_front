@@ -156,7 +156,7 @@ class PsyProfilesContainer extends Component {
                 </div>
             </div>
 
-           {profilesPagesAmount &&
+           {profilesPagesAmount && !profilesNotFound &&
                 <Pagination 
                     pagesAmount={profilesPagesAmount}
                     getPageData={getPsyUsersProfiles}

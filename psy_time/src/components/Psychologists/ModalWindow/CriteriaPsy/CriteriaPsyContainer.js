@@ -37,7 +37,7 @@ class CriteriaPsyContainer extends Component {
     }
 
     getPsyUsersProfiles(){
-        this.props.getPsyUsersProfiles()
+        this.props.getPsyUsersProfiles({pageNumber: 1})
     }
 
     render() {

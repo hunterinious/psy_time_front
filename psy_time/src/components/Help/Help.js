@@ -29,7 +29,7 @@ const Help = (props) => {
         const {email, name, country, selectTheme, theme, message} = values
         const themeValue = selectTheme === themeOptions[0] ? selectTheme : theme
 
-        helpService.callHelpRequest({email, name, country, theme: themeValue, message}, onSuccess, onFail)
+        helpService.callHelpRequest({email, name, country, theme: themeValue, message: message || null}, onSuccess, onFail)
     }
 
     const handleThemeChange = (option) => {
@@ -51,7 +51,7 @@ const Help = (props) => {
     const validationSchema = Yup.object().shape({
         email: Yup.string().required('Required'),
         name: Yup.string().required('Required'),
-        message: Yup.string().required('Required'),
+        message: Yup.string().notRequired(),
         country: Yup.string().required('Required'),
         theme: Yup.string().when('selectTheme', {
             is: themeOptions[1].value,
@@ -68,6 +68,7 @@ const Help = (props) => {
             >
             {formik => (
             <Form>
+                {<div>{formik.errors[0]}</div>}
                 <div className="row">
                     <div className="col">
                         <FormikControl

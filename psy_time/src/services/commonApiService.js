@@ -1,5 +1,6 @@
 import apiCaller from '../api/apiCaller';
 import querystring from 'querystring';
+import storageService from './storageService';
 
 
 const callRequest = async (config) => {
@@ -20,7 +21,7 @@ const callRequest = async (config) => {
             }
         }
         if (requiredAuth) {
-            headers.Authorization = "JWT " + localStorage.getItem('access_token')
+            headers.Authorization = "JWT " + storageService.getAccessToken()
         }
         const url = path(payload);
 
