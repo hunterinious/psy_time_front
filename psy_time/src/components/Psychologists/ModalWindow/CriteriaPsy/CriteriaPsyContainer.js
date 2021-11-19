@@ -9,17 +9,16 @@ import {
 import Preloader from '../../../Common/Preloader/Preloader';
 import CriteriaPsy from './CriteriaPsy';
 
-
 class CriteriaPsyContainer extends Component {
     componentDidMount(){
         this.props.setInitialCriteriaPsy()
     }
 
-    getPsysByCriteria(criteria) {
+    getPsysByCriteria = (criteria) => {
         this.props.getPsysByCriteria(criteria)
     }
 
-    changeCriteriaPsy(criteria) {
+    changeCriteriaPsy = (criteria) => {
         this.props.changeCriteriaPsy(criteria)
     }
 
@@ -33,7 +32,7 @@ class CriteriaPsyContainer extends Component {
     }
 
     render() {
-        const {criteriaAreFetching, criteriaNames, choosenCriteria, handleClose, ...rest} =  this.props
+        const {criteriaAreFetching, criteriaNames, choosenCriteria, hideModal, ...rest} =  this.props
         return <>
             { criteriaAreFetching
                 ? <Preloader /> 
@@ -43,7 +42,7 @@ class CriteriaPsyContainer extends Component {
                     changeCriteria={this.changeCriteriaPsy}
                     removeCriteria={this.removeCriteriaPsy}
                     getPsysByCriteria={this.getPsysByCriteria}
-                    handleClose={handleClose}
+                    hideModal={hideModal}
                     {...rest}/>
             }
         </>

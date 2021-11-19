@@ -68,15 +68,15 @@ function usePrevious(value) {
   
 
 const CriteriaPsy = (props) => {
-    const [state, setState] = useReducer(reducer, { choosenCriteria: props.choosenCriteria,
-                                                  criteriaNames: props.criteriaNames })
+    const {choosenCriteria, criteriaNames, changeCriteria, removeCriteria, getPsysByCriteria, hideModal} = props
+    const [state, setState] = useReducer(reducer, { choosenCriteria: choosenCriteria, criteriaNames: criteriaNames })
     const prevCriteria = usePrevious(state.choosenCriteria)
                                                   
-    const ageMinMax = props.criteriaNames.ages[0].name.split('-')
+    const ageMinMax = criteriaNames.ages[0].name.split('-')
     const ageMin = parseInt(ageMinMax[0])
     const ageMax = parseInt(ageMinMax[1])
     const [ageRange, setAgeRange] = useState(() => {
-        const ages = props.choosenCriteria.ages
+        const ages = choosenCriteria.ages
         if(ages.length > 0){
             return ages[0]
         }
@@ -87,8 +87,8 @@ const CriteriaPsy = (props) => {
                               "Secondary educations", "Languages"];
     
     useEffect(() => {
-        setState({type: SET_CHOOSEN_CRITERIA, choosenCriteria: props.choosenCriteria })
-    }, [props.choosenCriteria]);
+        setState({type: SET_CHOOSEN_CRITERIA, choosenCriteria: choosenCriteria })
+    }, [choosenCriteria]);
 
     const choosenCriteriaOnlyNames = (choosenCriteria) => {
        return criteriaPsyService.choosenCriteriaOnlyNames(choosenCriteria)
@@ -154,22 +154,22 @@ const CriteriaPsy = (props) => {
 
     const handleSubmit = () => {
         const choosenCriteria = state.choosenCriteria
-        props.changeCriteria(choosenCriteria)
+        changeCriteria(choosenCriteria)
 
         const areAny = areAnyChoosenCriteria(choosenCriteria)
         if(state.choosenCriteria !== prevCriteria && areAny) {
             const choosenCriteriaForAPI = choosenCriteriaOnlyNames(choosenCriteria)
-            props.getPsysByCriteria({pageNumber: 1, criteria: choosenCriteriaForAPI, isCriteriaChanged: true})
+            getPsysByCriteria({pageNumber: 1, criteria: choosenCriteriaForAPI, isCriteriaChanged: true})
         
         }
 
-        props.handleClose()
+        hideModal()
     }
 
     const handleRemove = () => {
-        props.removeCriteria()
+        removeCriteria()
         setAgeRange([ageMin, ageMax])
-        setState({type: SET_CHOOSEN_CRITERIA, choosenCriteria: props.choosenCriteria })
+        setState({type: SET_CHOOSEN_CRITERIA, choosenCriteria: choosenCriteria })
     }
 
     const setClassName = (index, key) => {

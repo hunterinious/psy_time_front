@@ -5,7 +5,7 @@ import Button from '../../../Common/Buttons/Button/Button';
 import styles from './HowToChoosePsy.module.scss';
 
 const HowToChoosePsy = (props) => {
-    const {getHowToChoosePsy, handleClose, text} = props
+    const {getHowToChoosePsy, hideModal, text} = props
 
     useEffect(() => {
         getHowToChoosePsy()
@@ -16,8 +16,8 @@ const HowToChoosePsy = (props) => {
             <div className={styles.HowToChoosePsyText}>
                 { text }
             </div>
-            <Button className={styles.HowToChoosePsyButton} onClick={handleClose}>
-                Choose Psychologist
+            <Button className={styles.HowToChoosePsyButton} onClick={hideModal}>
+                Choose Therapist
             </Button>
         </div>
     )

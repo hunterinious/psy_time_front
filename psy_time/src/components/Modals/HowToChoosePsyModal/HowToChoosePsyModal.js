@@ -8,7 +8,7 @@ const HowToChoosePsyModal = (props) => {
 
     return (
         <Modal headerTitle='How To Choose Therapist' hideModal={hideModal} contentClassName={contentClassName}>
-            <HowToChoosePsy {...props} />
+            <HowToChoosePsy {...props} hideModal={hideModal}/>
         </Modal>
     )
 };
