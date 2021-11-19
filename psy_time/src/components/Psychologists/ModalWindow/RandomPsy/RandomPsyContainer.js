@@ -14,11 +14,13 @@ class RandomPsyContainer extends Component {
     }
 
     render() {
+        const {randomProfile, getRandomPsyUserProfile, ...rest} = this.props
         return <>
-        { this.props.randomProfile &&
+        { randomProfile &&
             <RandomPsy
-                random_profile={this.props.randomProfile}
-                getRandomPsyUserProfile={this.props.getRandomPsyUserProfile} />
+                random_profile={randomProfile}
+                getRandomPsyUserProfile={getRandomPsyUserProfile}
+                {...rest} />
         }
         </>
     }

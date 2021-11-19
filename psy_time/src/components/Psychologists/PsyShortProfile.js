@@ -6,11 +6,15 @@ import appRouterService from '../../services/appRouterService';
 
 
 const PsyShortProfile = (props) => {
-    const {id, avatar, price, duration, statuses, themes, name} = props
+    const {id, avatar, price, duration, statuses, themes, name, showAppointmentModal} = props
     const statusesLength = statuses.length
 
     const forwardToProfile = () => {
         appRouterService.forwardToPsyPublicProfilePage(id)
+    }
+
+    const makeAppointment = () => {
+        showAppointmentModal({psyId: id})
     }
 
     return <div className={styles.ShortProfile}>
@@ -51,7 +55,7 @@ const PsyShortProfile = (props) => {
         </div>
         <div className={styles.ShortProfilesButtonsWrapper}>
             <Button className={styles.ShortProfileAboutButton} onClick={forwardToProfile}>About</Button>
-            <Button className={styles.ShortProfileAppoinmentButton}>Make an appoinment</Button>
+            <Button className={styles.ShortProfileAppoinmentButton} onClick={makeAppointment}>Make an appoinment</Button>
         </div>
     </div>   
     

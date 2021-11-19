@@ -40,7 +40,9 @@ const RegistrationForm = (props) => {
     const validationSchema = Yup.object().shape({
         email: Yup.string().required('Required'),
         password: Yup.string().required('Required'),
-        name: Yup.string().required('Required'),
+        name: Yup.string()
+                    .required('Required')
+                    .matches(/^[aA-zZ\s]+$/, "Only alphabets are allowed for this field "),
     })
 
     return (

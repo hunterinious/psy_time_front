@@ -7,6 +7,11 @@ export default {
         path: () => `${BASE_URL}/help`,
         requiredAuth: false
     },
+    appointment: {
+        method: 'post',
+        path: () => `${BASE_URL}/appointment`,
+        requiredAuth: false
+    },
     getHowToChoosePsy: {
         method: 'get',
         path: () => `${BASE_URL}/how-to-choose-psychologist`,

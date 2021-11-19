@@ -3,6 +3,7 @@ import Routes from './Routes';
 import WindowResizeChecker from './components/WindowResizeChecker/WindowReisizeChecker';
 import HeaderContainer from './components/Header/HeaderContainer';
 import Footer from './components/Footer/Footer';
+import ModalsRoot from './components/Modals/ModalsRoot';
 import { connect } from 'react-redux';
 import { getUserLoginData } from './redux/auth-reducer';
 import './App.scss';
@@ -22,6 +23,7 @@ const App = (props) => {
 		<div className="app-wrapper">
 			<WindowResizeChecker />
 			<HeaderContainer/>
+			<ModalsRoot />
 			<main className="app-wrapper-content">
 				<Routes />
 			</main>

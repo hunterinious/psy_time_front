@@ -11,46 +11,40 @@ import CriteriaPsy from './CriteriaPsy';
 
 
 class CriteriaPsyContainer extends Component {
-    constructor(props){
-        super(props)
-        this.getPsysByCriteria = this.getPsysByCriteria.bind(this)
-        this.changeCriteriaPsy = this.changeCriteriaPsy.bind(this)
-        this.removeCriteriaPsy = this.removeCriteriaPsy.bind(this)
-        this.getPsyUsersProfiles = this.getPsyUsersProfiles.bind(this)
-    }
-
     componentDidMount(){
         this.props.setInitialCriteriaPsy()
     }
 
-    getPsysByCriteria(criteria){
+    getPsysByCriteria(criteria) {
         this.props.getPsysByCriteria(criteria)
     }
 
-    changeCriteriaPsy(criteria){
+    changeCriteriaPsy(criteria) {
         this.props.changeCriteriaPsy(criteria)
     }
 
-    removeCriteriaPsy(criteria){
+    removeCriteriaPsy = (criteria) => {
         this.props.removeCriteriaPsy(criteria)
         this.getPsyUsersProfiles()
     }
 
-    getPsyUsersProfiles(){
+    getPsyUsersProfiles() {
         this.props.getPsyUsersProfiles({pageNumber: 1})
     }
 
     render() {
+        const {criteriaAreFetching, criteriaNames, choosenCriteria, handleClose, ...rest} =  this.props
         return <>
-            { this.props.criteriaAreFetching
+            { criteriaAreFetching
                 ? <Preloader /> 
                 : <CriteriaPsy
-                    criteriaNames={this.props.criteriaNames}
-                    choosenCriteria={this.props.choosenCriteria}
+                    criteriaNames={criteriaNames}
+                    choosenCriteria={choosenCriteria}
                     changeCriteria={this.changeCriteriaPsy}
                     removeCriteria={this.removeCriteriaPsy}
                     getPsysByCriteria={this.getPsysByCriteria}
-                    handleClose={this.props.handleClose}/>
+                    handleClose={handleClose}
+                    {...rest}/>
             }
         </>
     }

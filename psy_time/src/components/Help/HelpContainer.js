@@ -11,7 +11,7 @@ class HelpContainer extends Component {
     }
 
     render() {
-        const {countries, handleClose} = this.props
+        const {countries, handleClose, ...rest} = this.props
         return <>
             { this.props.countriesAreFetching 
                 ? <Preloader />
@@ -19,6 +19,7 @@ class HelpContainer extends Component {
                     countries={countries}
                     helpToChoose={true}
                     handleClose={handleClose}
+                    {...rest}
                    />
             }
         </>

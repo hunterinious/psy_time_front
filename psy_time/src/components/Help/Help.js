@@ -2,9 +2,9 @@ import React, { useState } from 'react';
 import { Formik, Form} from 'formik';
 import * as Yup from 'yup';
 import FormikControl from '../Common/FormControl/FormikControl';
-import styles from './Help.module.scss'
 import helpService from '../../services/helpService';
 import SubmitButton from '../Common/Buttons/SubmitButton/SubmitButton';
+import styles from './Help.module.scss'
 
 
 const Help = (props) => {
@@ -50,7 +50,9 @@ const Help = (props) => {
 
     const validationSchema = Yup.object().shape({
         email: Yup.string().required('Required'),
-        name: Yup.string().required('Required'),
+        name: Yup.string()
+                .required('Required')
+                .matches(/^[aA-zZ\s]+$/, "Only alphabets are allowed for this field "),
         message: Yup.string().notRequired(),
         country: Yup.string().required('Required'),
         theme: Yup.string().when('selectTheme', {

@@ -1,18 +1,15 @@
-import React, { Component } from 'react';
+import React, { useState, useEffect } from 'react';
 import cn from 'classnames';
 import { connect } from 'react-redux';
-import { Modal} from 'react-bootstrap';
+import { useModal } from '../hooks/useModal';
 import {setShowSidebar} from '../../redux/app-reducer';
 import { getPsyUsersProfiles } from '../../redux/psy-profiles-reducer';
+import modalTypes from '../../consts/app/modalTypes';
 import Preloader from '../Common/Preloader/Preloader';
 import CloseButton from '../Common/Buttons/CloseButton/CloseButton';
 import SidebarWidget from '../SidebarWidget/SidebarWidget';
 import Pagination from '../Pagination/Pagination';
 import PsyShortProfile from './PsyShortProfile';
-import CriteriaPsyContainer from './ModalWindow/CriteriaPsy/CriteriaPsyContainer';
-import HowToChoosePsy from './ModalWindow/HowToChoosePsy/HowToChoosePsy';
-import RandomPsyContainer from './ModalWindow/RandomPsy/RandomPsyContainer';
-import HelpContainer from '../Help/HelpContainer';
 import layoutService from '../../services/layoutService';
 import styles from './Psychologists.module.scss';
 
@@ -23,105 +20,78 @@ const RANDOM_PSY = 'RANDOM_PSY';
 const HELP = 'HELP';
 
 
-class PsyProfilesContainer extends Component {
-    constructor(props) {
-        super()
-        this.state = {
-            showModal: false,
-            currentSectionId: null,
-            modalHeaderText: '',
-        }
-    }
+const PsyProfilesContainer = (props) => {
+    const {showModal: showAppointmentModal} = useModal(modalTypes.APPOINTMENT_MODAL)
+    const {showModal: showHowToChoosePsyModal} = useModal(modalTypes.HOW_TO_CHOOSE_PSY_MODAL)
+    const {showModal: showRandomPsyModal} = useModal(modalTypes.RANDOM_PSY_MODAL)
+    const {showModal: showHelpModal} = useModal(modalTypes.HELP_MODAL)
+    const {showModal: showCriteriaPsyModal} = useModal(modalTypes.CRITERIA_PSY_MODAL)
+    const [currentSectionId, setCurrentSectionid] = useState(null)
 
-    componentDidMount() {
-        this.props.getPsyUsersProfiles({pageNumber: 1})
-        this.props.setShowSidebar()
-    }
+    useEffect(() => {
+        props.getPsyUsersProfiles({pageNumber: 1})
+        props.setShowSidebar()
+    }, []);
+    
 
-    getModalHeaderText(id) {
-        let text = ''
+    const handleOpenModal = (e) => {
+        const id = e.target.id || e.target.parentNode.id
+
+        const modalContentClassName = id === HOW_TO_CHOOSE_PSY
+            ? styles.PsyProfilesModalExtra : ''
 
         switch(id) {
             case HOW_TO_CHOOSE_PSY:
-                text = 'How To Choose Therapist'
-                break;
-            case  RANDOM_PSY:
-                text = 'Random Therapist'
-                break;
-            case HELP:
-                text = 'Help in choosing'
-                break;
-            case CRITERIA_PSY:
-                text = 'Filtering'
-                break;
-        }
-
-        return text
-    }
-
-    handleOpenModal = (e) => {
-        const id = e.target.id || e.target.parentNode.id
-        const text = this.getModalHeaderText(id)
-
-        this.setState({
-            showModal: true,
-            currentSectionId: id,
-            modalHeaderText: text
-        })
-    }
-
-    handleClose = () => {
-        this.setState({showModal: false})
-    }
-
-    handleSidebarOpenClose = () => {
-        this.props.setShowSidebar()
-    }
-
-    renderModalWindowComponent = (sectionId) => {
-        switch(sectionId) {
-            case HOW_TO_CHOOSE_PSY:
-                return <HowToChoosePsy handleClose={this.handleClose}/>
+                showHowToChoosePsyModal({contentClassName: modalContentClassName})
+                break
             case RANDOM_PSY:
-                return <RandomPsyContainer/>
+                showRandomPsyModal({contentClassName: modalContentClassName})
+                break
             case HELP:
-                return <HelpContainer handleClose={this.handleClose}/>
+                showHelpModal({contentClassName: modalContentClassName})
+                break
             case CRITERIA_PSY:
-                return <CriteriaPsyContainer handleClose={this.handleClose}/>
+                showCriteriaPsyModal({contentClassName: modalContentClassName})
+                break
+            default:
+                break
           }
+          
+        setCurrentSectionid(id)
     }
 
-    render() {
-        const {layoutType, showSidebar, profiles, profilesPagesAmount,
-            profilesAreFetching, profilesNotFound, getPsyUsersProfiles} = this.props
+    const handleSidebarOpenClose = () => {
+        props.setShowSidebar()
+    }
 
-        const {showModal, modalHeaderText, currentSectionId} = this.state
-    
-        const isMobileLayout = layoutService.isMobileLayout(layoutType)
-
-        const sidebarClassName = showSidebar
-            ? styles.ProfilesSidebar
-            : cn(styles.ProfilesSidebar, styles.ProfilesSidebarHide)
-
-        const psyProfilesContainerClassName = showSidebar
-            ? cn(styles.PsyProfilesContainer, styles.PsyProfilesContainerWithSidebar)
-            : styles.PsyProfilesContainer
+   
+    const {layoutType, showSidebar, profiles, profilesPagesAmount,
+        profilesAreFetching, profilesNotFound, getPsyUsersProfiles} = props
 
 
-        const modalClassName = currentSectionId === HOW_TO_CHOOSE_PSY
-             ? cn(styles.PsyProfilesModal, styles.PsyProfilesModalExtra) : styles.PsyProfilesModal
+    const isMobileLayout = layoutService.isMobileLayout(layoutType)
 
-        return <div className={styles.ProfilesPageContainer}>
+    const sidebarClassName = showSidebar
+        ? styles.ProfilesSidebar
+        : cn(styles.ProfilesSidebar, styles.ProfilesSidebarHide)
+
+    const psyProfilesContainerClassName = showSidebar
+        ? cn(styles.PsyProfilesContainer, styles.PsyProfilesContainerWithSidebar)
+        : styles.PsyProfilesContainer
+
+
+    return (
+        <div className={styles.ProfilesPageContainer}>
             {profilesAreFetching ? <Preloader /> : null}
             <div className={styles.ProfilesPage}>
                 {!isMobileLayout &&
                     <SidebarWidget
-                        onClick={this.handleSidebarOpenClose}
+                        onClick={handleSidebarOpenClose}
                     />
                 }
                 <div className={sidebarClassName}>
-                    <CloseButton onClick={this.handleSidebarOpenClose} />
-                    <ul id={currentSectionId} className={styles.ProfilesSidebarList} onClick={this.handleOpenModal}>
+                    <CloseButton onClick={handleSidebarOpenClose} />
+                    <ul id={currentSectionId} className={styles.ProfilesSidebarList} onClick={handleOpenModal}>
                         <li id={HOW_TO_CHOOSE_PSY} className={styles.ProfilesSidebarListItem}>
                             <a>How to choose Therapist</a>
                         </li>
@@ -149,31 +119,24 @@ class PsyProfilesContainer extends Component {
                                 statuses={p.statuses}
                                 themes={p.themes}
                                 name={p.name}
-                                key={p.id} />)
+                                key={p.id}
+                                showAppointmentModal={showAppointmentModal} />)
                             }
                         </div>
                     }
                 </div>
             </div>
 
-           {profilesPagesAmount && !profilesNotFound &&
-                <Pagination 
-                    pagesAmount={profilesPagesAmount}
-                    getPageData={getPsyUsersProfiles}
-                    needScrollToTop
-                />
-           }
-
-            <Modal size="lg" show={showModal} onHide={this.handleClose} animation={false} contentClassName={modalClassName}>
-                <Modal.Header closeButton>
-                    <Modal.Title>{modalHeaderText}</Modal.Title>
-                </Modal.Header>
-                <Modal.Body>
-                    { this.renderModalWindowComponent(currentSectionId) }
-                </Modal.Body>
-            </Modal>
+            {profilesPagesAmount && !profilesNotFound &&
+                    <Pagination 
+                        pagesAmount={profilesPagesAmount}
+                        getPageData={getPsyUsersProfiles}
+                        needScrollToTop
+                    />
+            }
+                
         </div>
-    }
+    )
 }
 
 let mapStateToProps = (state) => {
