@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { getPsyReviews } from '../../../../redux/psy-reviews-reducer';
-import Preloader from '../../../Common/Preloader/Preloader';
 import Reviews from './Reviews';
 
 class ReviewsContainer extends Component {
@@ -16,7 +15,7 @@ class ReviewsContainer extends Component {
         return (
             <>
             { reviewsAreFetching
-                ? <Preloader />
+                ? null
                 : reviewaAmount 
                     ? <Reviews reviews={reviews} />
                     : 'This therapist doesn\'t have reviews'

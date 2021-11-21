@@ -64,7 +64,7 @@
 .PsyPublicProfileAppoinmentButton {
     width: unset;
     margin-top: 20px;
-    font-weight: 500;
+    font-weight: 700;
     height: 40px;
     color: white;
     background: #FDB44B;
@@ -72,6 +72,14 @@
 
     span {
         padding: 20px;
+    }
+
+    @media only screen and (min-width: 480px) and (max-width: 540px) {
+        font-size: 14px;
+        letter-spacing: 0;
+        span {
+            padding: 5px;
+        }
     }
 }
 

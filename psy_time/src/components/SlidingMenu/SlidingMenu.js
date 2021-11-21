@@ -59,7 +59,7 @@ const SlidingMenu = (props) => {
                                 <ul className={dropdownContentClassName}>
                                     <li><a href={routePaths.PRIVATE_PROFILE}>Edit profile</a></li>
                                     <div className={styles.DropdownContentWrapper}> </div>
-                                    <li><a href={routePaths.PRIVATE_PROFILE} onClick={logoutUser}>Logout</a></li>
+                                    <li><a href={routePaths.HOME} onClick={logoutUser}>Logout</a></li>
                                 </ul>
                             </li>
                         : null

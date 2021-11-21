@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { compose } from 'redux';
 import { connect } from 'react-redux'; 
 import { getCountries }  from '../../redux/locations-reducer';
-import Preloader from '../Common/Preloader/Preloader';
 import Help from './Help';
 
 class HelpContainer extends Component {
@@ -13,14 +12,13 @@ class HelpContainer extends Component {
     render() {
         const {countries, handleClose, ...rest} = this.props
         return <>
-            { this.props.countriesAreFetching 
-                ? <Preloader />
-                : <Help
+            { !this.props.countriesAreFetching &&
+                <Help
                     countries={countries}
                     helpToChoose={true}
                     handleClose={handleClose}
                     {...rest}
-                   />
+                />
             }
         </>
     }

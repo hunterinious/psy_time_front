@@ -105,12 +105,12 @@ const Profile = (props) => {
   const {user, timezones, updateProfile} = props
 
   return (
-      <div className="container">
-          <ProfileForm
-              user={user}
-              timezones={timezones}
-              updateProfile={updateProfile} />
-      </div>
+        <div className={commonProfileStyles.ProfilePage}>
+            <ProfileForm
+                user={user}
+                timezones={timezones}
+                updateProfile={updateProfile} />
+        </div>
       
   )
 }

@@ -43,12 +43,6 @@
     }
 }
 
-.PsyProfilesContainerWithSidebar {
-    @include media_desktop {
-        padding-left: 10%;
-    }
-}
-
 .PsyProfiles {
     display: flex;
     flex-wrap: wrap;
@@ -165,6 +159,10 @@
     background: #FDB44B;
     border: 1px solid #FDB44B;
     color: white;
+}
+
+.PsyProfilesModal {
+    font-family: 'Poppins', sans-serif;
 }
 
 .PsyProfilesModalExtra {

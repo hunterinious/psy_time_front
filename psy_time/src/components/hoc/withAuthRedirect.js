@@ -1,7 +1,6 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
-import Preloader from './../Common/Preloader/Preloader';
 import { getUserLoginData, dropLoginStatus }  from '../../redux/auth-reducer';
 
 let mapStateToPropsForRedirect = (state) => ({
@@ -17,8 +16,6 @@ export const withAuthRedirect = (Component) => {
             if (!props.isAuth && !props.loginDataIsFetching){
                 props.dropLoginStatus({isAuth:false, loginFailed:false, isFetching:true})
                 return <Redirect to='/login' />
-            }else if(!props.isAuth){
-                return <Preloader />
             }
             return  <Component {...this.props}/>
         }

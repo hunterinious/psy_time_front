@@ -55,7 +55,6 @@ export const dropLoginStatus = ({isAuth, loginFailed, isFetching}) => ({ type: D
 
 export const logoutUser = (onSuccess, onFail) => {
     storageService.removeTokens()
-    appRouterService.forwardToHomePage()
 }
 
 export const loginUser = async (data, onSuccess, onFail) => {

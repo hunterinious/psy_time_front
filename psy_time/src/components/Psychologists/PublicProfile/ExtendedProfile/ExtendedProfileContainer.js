@@ -11,7 +11,8 @@ class ExtendedProfileContainer extends Component {
     render() {
         return (
             <>
-                {this.props.profile && <ExtendedProfile profile={this.props.profile} />}
+                {this.props.profile && <ExtendedProfile profile={this.props.profile} />
+                }
             </>
         )
     }

@@ -1,7 +1,6 @@
 import React from 'react';
 import { withRouter } from 'react-router-dom';
 import { compose } from 'redux';
-import { Modal } from 'react-bootstrap';
 import { Formik, Form} from 'formik';
 import SubmitButton from '../../Common/Buttons/SubmitButton/SubmitButton';
 import Button from '../../Common/Buttons/Button/Button';
@@ -15,6 +14,8 @@ import styles from './Login.module.scss'
 
 
 const LoginForm = (props) => {
+    const {handleClose, handlePostSubmit} = props
+
     const onSubmit = async (values, actions) => {
         const onFail = (error) => {
             const errorStatus = error.status
@@ -30,7 +31,7 @@ const LoginForm = (props) => {
         }
 
         const onSuccess = (res) => {
-            props.handlePostSubmit()
+            handlePostSubmit()
         }
 
         const {email, password} = values
@@ -79,6 +80,7 @@ const LoginForm = (props) => {
                     </div>
                 </div>
                 <SubmitButton className={styles.LoginFormSubmitButton} type='submit'>Submit</SubmitButton>
+                <SingUpBlock handleClose={handleClose}/>
             </Form>
             )}
           </Formik>
@@ -87,10 +89,16 @@ const LoginForm = (props) => {
 }
 
 const SingUpBlock = (props) => {
+
+    const close = () => {
+        const {handleClose} = props
+        if(handleClose) handleClose()
+    }
+
     return (
         <div className={styles.SingUpBlock}> 
             <p>Not registered yet? - </p>
-            <a href ={routePaths.REGISTRATION} onClick={props.handleClose}>
+            <a href ={routePaths.REGISTRATION} onClick={close}>
                 <Button className={styles.SingUpBlockButton}>Sign Up</Button>
             </a> 
         </div> 
@@ -99,16 +107,18 @@ const SingUpBlock = (props) => {
 
 
 const LoginContainer = (props) => {
+    const {isAuth, modal, hideModal} = props
+
     const redirectToProfile = () => {
         appRouterService.forwardToPrivateProfilePage()
     }
     
     const handleClose = () => {
-        props.handleClose()
+        hideModal()
     }
 
     const handlePostSubmit = () => {
-        if(props.modal){
+        if(modal){
             handleClose()
             redirectToProfile()
         }else{
@@ -116,7 +126,7 @@ const LoginContainer = (props) => {
         }
     }
 
-    if(props.isAuth){
+    if(isAuth){
         redirectToProfile()
     }
 
@@ -124,25 +134,15 @@ const LoginContainer = (props) => {
         <>
         {props.modal
             ?
-            
-            <Modal size="lg" show={true} onHide={handleClose} animation={false}>
-                <Modal.Header closeButton>
-                        <Modal.Title>Login</Modal.Title>
-                </Modal.Header>
-                <Modal.Body>
-                    <LoginForm handlePostSubmit={handlePostSubmit} />
-                </Modal.Body>
-                <Modal.Footer>
-                    <SingUpBlock handleClose={handleClose}/>
-                </Modal.Footer>
-            </Modal>
+                <div className={styles.LoginModal}>
+                    <LoginForm handlePostSubmit={handlePostSubmit} handleClose={handleClose}/>
+                </div>
            
             :
             <div className={styles.LoginPage}>
                 <LoginForm
                     handlePostSubmit={handlePostSubmit}
                 />
-                <SingUpBlock />
             </div>
         }
         </>

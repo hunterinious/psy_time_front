@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import { compose } from 'redux';
 import { getUserProfile, updatePrivateRegularUserProfile, updatePrivatePsyUserProfile } from '../../redux/private-profile-reducer';
 import { getTimezones } from '../../redux/locations-reducer';
-import Preloader from '../Common/Preloader/Preloader';
 import { withAuthRedirect } from '../hoc/withAuthRedirect';
 import PsyProfileContainer from './Psychologist/PsyProfileContainer';
 import RegularProfileContainer from './Regular/RegularProfileContainer';
@@ -21,17 +20,14 @@ class ProfilesContainer extends Component {
         return (
             <>
             {
-             user && !timezonesAreFetching
-                ?
+             user && !timezonesAreFetching &&
                 <div>
                     { userType === 'R' 
-                    ? 
-                    (
+                    ?
                     <RegularProfileContainer
                         user={user}
                         timezones={timezones}
                         updateProfile={updatePrivateRegularUserProfile}/>
-                    )
                     :
                     <PsyProfileContainer
                         user={user}
@@ -39,8 +35,6 @@ class ProfilesContainer extends Component {
                         updateProfile={updatePrivatePsyUserProfile}/>
                     }
                 </div>                
-                :
-                <Preloader />
             }
             </>
         )

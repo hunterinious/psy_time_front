@@ -1,11 +1,10 @@
 import React from 'react';
 import * as routePaths from '../../consts/route/routePaths';
-import LoginContainer from '../Authentication/Login/Login';
 import styles from './Navbar.module.scss';
 
 
 const MyNav = (props) => {
-    const {isLoginDataFetching, isLoginFailed, showModal, handleOpenModal, handleCloseModal, logoutUser} = props;
+    const {isLoginDataFetching, isLoginFailed, handleOpenModal, logoutUser} = props;
 
     return (
         <nav className={styles.Navbar}>
@@ -17,7 +16,6 @@ const MyNav = (props) => {
                         ?
                         <li>
                             <span onClick={handleOpenModal}>Login</span>
-                            { showModal ? <LoginContainer modal={true} handleClose={handleCloseModal} /> : null }
                         </li>
                         :
                         <li className={styles.Dropdown}>
@@ -25,7 +23,7 @@ const MyNav = (props) => {
                             <ul className={styles.DropdownContent}>
                                 <li><a href={routePaths.PRIVATE_PROFILE}>Edit profile</a></li>
                                 <div className={styles.DropdownContentWrapper}> </div>
-                                <li><a href={routePaths.PRIVATE_PROFILE} onClick={logoutUser}>Logout</a></li>
+                                <li><a href={routePaths.HOME} onClick={logoutUser}>Logout</a></li>
                             </ul>
                         </li>
                     : null

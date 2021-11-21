@@ -5,7 +5,6 @@ import { useModal } from '../hooks/useModal';
 import {setShowSidebar} from '../../redux/app-reducer';
 import { getPsyUsersProfiles } from '../../redux/psy-profiles-reducer';
 import modalTypes from '../../consts/app/modalTypes';
-import Preloader from '../Common/Preloader/Preloader';
 import CloseButton from '../Common/Buttons/CloseButton/CloseButton';
 import SidebarWidget from '../SidebarWidget/SidebarWidget';
 import Pagination from '../Pagination/Pagination';
@@ -30,7 +29,6 @@ const PsyProfilesContainer = (props) => {
 
     useEffect(() => {
         props.getPsyUsersProfiles({pageNumber: 1})
-        props.setShowSidebar()
     }, []);
     
 
@@ -75,16 +73,11 @@ const PsyProfilesContainer = (props) => {
         ? styles.ProfilesSidebar
         : cn(styles.ProfilesSidebar, styles.ProfilesSidebarHide)
 
-    const psyProfilesContainerClassName = showSidebar
-        ? cn(styles.PsyProfilesContainer, styles.PsyProfilesContainerWithSidebar)
-        : styles.PsyProfilesContainer
-
 
     return (
         <div className={styles.ProfilesPageContainer}>
-            {profilesAreFetching ? <Preloader /> : null}
             <div className={styles.ProfilesPage}>
-                {!isMobileLayout &&
+                {!isMobileLayout && 
                     <SidebarWidget
                         onClick={handleSidebarOpenClose}
                     />
@@ -106,10 +99,10 @@ const PsyProfilesContainer = (props) => {
                         </li>
                     </ul>
                 </div>
-                <div className={psyProfilesContainerClassName}>
+                <div className={styles.PsyProfilesContainer}>
                     {profilesNotFound
                         ? <p>Nothing found matching your criteria</p>
-                        : 
+                        : !profilesAreFetching &&
                         <div className={styles.PsyProfiles}>
                             { profiles.map(p => <PsyShortProfile 
                                 id={p.id}
@@ -127,7 +120,7 @@ const PsyProfilesContainer = (props) => {
                 </div>
             </div>
 
-            {profilesPagesAmount && !profilesNotFound &&
+            {profilesPagesAmount > 0 && !profilesNotFound &&
                     <Pagination 
                         pagesAmount={profilesPagesAmount}
                         getPageData={getPsyUsersProfiles}

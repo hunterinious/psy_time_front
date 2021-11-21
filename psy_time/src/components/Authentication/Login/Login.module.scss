@@ -1,16 +1,21 @@
 .LoginPage {
-    font-family: 'Poppins', sans-serif;
-    max-width: 720px;
     margin: 20px auto auto;
     padding: 20px;
 }
 
-.LoginPage .SingUpBlock {
-    margin-top: 15px;
+.LoginPage, .LoginModal {
+    font-family: 'Poppins', sans-serif;
+    max-width: 720px;
 }
 
+.LoginFormSubmitButton, .SingUpBlock {
+    display: inline-block;
+}
 
 .SingUpBlock {
+    margin-top: 15px;
+    float: right;
+
     p {
         display: inline-block;
     }

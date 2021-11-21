@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { getCitiesWithCountry } from '../../../redux/locations-reducer';
-import Preloader from '../../Common/Preloader/Preloader';
 import Profile from './Profile'
 
 
@@ -25,8 +24,6 @@ class PsyProfileContainer extends Component {
                     />
                 </>
             );
-        }else {
-            return <Preloader />
         }
     }
 };

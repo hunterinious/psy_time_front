@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { withRouter } from 'react-router-dom';
 import { compose } from 'redux';
 import { connect } from 'react-redux';
@@ -6,42 +6,33 @@ import Header from './Header';
 import * as routePaths from '../../consts/route/routePaths';
 import {setShowSidebar} from '../../redux/app-reducer';
 import { getUserLoginData, logoutUser } from '../../redux/auth-reducer';
+import useModal from '../hooks/useModal';
+import modalTypes from '../../consts/app/modalTypes';
 
-class HeaderContainer extends Component {
-    constructor(props){
-        super()
-        this.state = {showModal: false}
-    }
+const HeaderContainer = (props) => {
+    const {showModal} = useModal(modalTypes.LOGIN_MODAL)
 
-    handleOpenModal = () => {
-        if(this.props.location.pathname !== routePaths.LOGIN){
-            this.setState({showModal: true})
+    const handleOpenModal = () => {
+        if(props.location.pathname !== routePaths.LOGIN){
+            showModal({modal: true})
         }
     }
 
-    handleCloseModal = () => {
-        this.setState({showModal: false})
-    }
+    const {isLoginFailed, isLoginDataFetching, layoutType, setShowSidebar, location} = props
+    const showSidebarWidget = location.pathname === routePaths.PSYCHOLOGISTS
 
-    render() {
-        const {isLoginFailed, isLoginDataFetching, layoutType, setShowSidebar, location} = this.props
-        const showSidebarWidget = location.pathname === routePaths.PSYCHOLOGISTS
-
-        return (
-            <Header
-                handleOpenModal={this.handleOpenModal}
-                handleCloseModal={this.handleCloseModal}
-                showModal={this.state.showModal}
-                showSidebarWidget={showSidebarWidget}
-                setShowSidebar={setShowSidebar}
-                isLoginFailed={isLoginFailed}
-                isLoginDataFetching={isLoginDataFetching}
-                logoutUser={logoutUser}
-                layoutType={layoutType}
-                location={location}
-            />
-        )
-    }
+    return (
+        <Header
+            handleOpenModal={handleOpenModal}
+            showSidebarWidget={showSidebarWidget}
+            setShowSidebar={setShowSidebar}
+            isLoginFailed={isLoginFailed}
+            isLoginDataFetching={isLoginDataFetching}
+            logoutUser={logoutUser}
+            layoutType={layoutType}
+            location={location}
+        />
+    )
 }
 
 const mapStateToProps = (state) => ({

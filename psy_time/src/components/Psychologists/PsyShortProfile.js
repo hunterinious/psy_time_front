@@ -55,7 +55,7 @@ const PsyShortProfile = (props) => {
         </div>
         <div className={styles.ShortProfilesButtonsWrapper}>
             <Button className={styles.ShortProfileAboutButton} onClick={forwardToProfile}>About</Button>
-            <Button className={styles.ShortProfileAppoinmentButton} onClick={makeAppointment}>Make an appoinment</Button>
+            <Button className={styles.ShortProfileAppoinmentButton} onClick={makeAppointment}>Make appointment</Button>
         </div>
     </div>   
     

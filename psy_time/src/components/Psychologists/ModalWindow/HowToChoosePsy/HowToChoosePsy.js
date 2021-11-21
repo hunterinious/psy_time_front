@@ -12,14 +12,18 @@ const HowToChoosePsy = (props) => {
     }, []);
 
     return (
-        <div className={styles.HowToChoosePsy}>
-            <div className={styles.HowToChoosePsyText}>
-                { text }
-            </div>
-            <Button className={styles.HowToChoosePsyButton} onClick={hideModal}>
-                Choose Therapist
-            </Button>
-        </div>
+        <>
+            { text &&
+                <div className={styles.HowToChoosePsy}>
+                    <div className={styles.HowToChoosePsyText}>
+                        { text }
+                    </div>
+                    <Button className={styles.HowToChoosePsyButton} onClick={hideModal}>
+                        Choose Therapist
+                    </Button>
+                </div>
+            }
+        </>
     )
 }
 

@@ -1,5 +1,6 @@
 import React from 'react';
 import {connect} from 'react-redux';
+import LoginModal from './LoginModal/LoginModal';
 import AppointmentModal from './AppointmentModal/AppointmentModal';
 import CriteriaPsyModal from './CriteriaPsyModal/CriteriaPsyModal';
 import HowToChoosePsyModal from './HowToChoosePsyModal/HowToChoosePsyModal';
@@ -10,6 +11,7 @@ import modalService from '../../services/modalService';
 
 
 const MODAL_COMPONENTS = {
+    [modalTypes.LOGIN_MODAL]: LoginModal,
     [modalTypes.APPOINTMENT_MODAL]: AppointmentModal,
     [modalTypes.HOW_TO_CHOOSE_PSY_MODAL]: HowToChoosePsyModal,
     [modalTypes.CRITERIA_PSY_MODAL]: CriteriaPsyModal,
