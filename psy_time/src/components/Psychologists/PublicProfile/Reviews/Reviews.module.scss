@@ -1,0 +1,15 @@
+@import '../../../../assets/scss/medias';
+
+.ReviewFormTextArea {
+    width: 100%;
+    margin: auto;
+
+    @include media_desktop {
+        width: 70%;
+    }
+}
+
+.ReviewFormSubmitButton {
+    display: block;
+    margin: 10px auto 30px;
+}
