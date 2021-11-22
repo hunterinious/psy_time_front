@@ -7,6 +7,7 @@ import {
     removeCriteriaPsy
  } from '../../../redux/criteria-reducer';
 import CriteriaPsy from './CriteriaPsy';
+import Preloader from '../../Common/Preloader/Preloader';
 
 class CriteriaPsyContainer extends Component {
     componentDidMount(){
@@ -33,7 +34,9 @@ class CriteriaPsyContainer extends Component {
     render() {
         const {criteriaAreFetching, criteriaNames, choosenCriteria, hideModal, ...rest} =  this.props
         return <>
-            { !criteriaAreFetching &&
+            { criteriaAreFetching 
+                ? <Preloader />
+                :
                 <CriteriaPsy
                     criteriaNames={criteriaNames}
                     choosenCriteria={choosenCriteria}

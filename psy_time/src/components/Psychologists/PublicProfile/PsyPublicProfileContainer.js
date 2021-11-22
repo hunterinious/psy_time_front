@@ -7,6 +7,7 @@ import styles from './PsyPublicProfile.module.scss';
 import PsyPublicProfile from './PsyPublicProfile';
 import ExtendedProfileContainer from './ExtendedProfile/ExtendedProfileContainer';
 import ReviewsContainer from './Reviews/ReviewsContainer';
+import Preloader from '../../Common/Preloader/Preloader';
 
 
 const POSTS = 'POSTS';
@@ -42,15 +43,15 @@ class PsyPublicProfileContainer extends Component {
     }
 
     renderSectionComponent = (sectionId) => {
-        const paramId = this.props.match.params.publicProfileId
+        const publicProfileId = this.props.match.params.publicProfileId
 
         switch(sectionId) {
             case POSTS:
                 return 
             case REVIEWS:
-                return <ReviewsContainer paramId={paramId}/>
+                return <ReviewsContainer publicProfileId={publicProfileId}/>
             case EXTENDED_PROFILE:
-                return <ExtendedProfileContainer paramId={paramId} />
+                return <ExtendedProfileContainer publicProfileId={publicProfileId} />
           }
     }
 
@@ -60,8 +61,8 @@ class PsyPublicProfileContainer extends Component {
         let reviews_count = profile ? profile.reviews_count : null
         return (
             <div className={styles.PsyPublicProfilePage}>
-                { profile
-                    ? <>
+                { profile ?
+                    <>
                     <PsyPublicProfile profile={profile} />
                     <div id={currentSectionId} className={styles.PsyPublicProfileNav} onClick={this.handleSectionClick}>
                         <ul className={styles.PsyPublicProfileNavList} role="tablist">
@@ -80,8 +81,8 @@ class PsyPublicProfileContainer extends Component {
                             </div>
                         </ul>
                     </div>
-                 </>
-                    : null
+                    </>
+                    : <Preloader />
                 }
                 <div className={styles.PsyPublicProfileSectionWrapper}>
                     {this.state.currentSectionId && this.renderSectionComponent(this.state.currentSectionId)}

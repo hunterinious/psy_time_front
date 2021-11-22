@@ -1,5 +1,6 @@
 import React from 'react';
 import * as routePaths from '../../consts/route/routePaths';
+import Preloader from '../Common/Preloader/Preloader';
 import styles from './Navbar.module.scss';
 
 
@@ -26,7 +27,7 @@ const MyNav = (props) => {
                                 <li><a href={routePaths.HOME} onClick={logoutUser}>Logout</a></li>
                             </ul>
                         </li>
-                    : null
+                    : <Preloader />
                 }
             </ul>
         </nav>

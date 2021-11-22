@@ -11,6 +11,7 @@ import Pagination from '../Common/Pagination/Pagination';
 import PsyShortProfile from './PsyShortProfile';
 import layoutService from '../../services/layoutService';
 import styles from './Psychologists.module.scss';
+import Preloader from '../Common/Preloader/Preloader';
 
 
 const HOW_TO_CHOOSE_PSY = 'HOW_TO_CHOOSE_PSY';
@@ -102,20 +103,22 @@ const PsyProfilesContainer = (props) => {
                 <div className={styles.PsyProfilesContainer}>
                     {profilesNotFound
                         ? <p>Nothing found matching your criteria</p>
-                        : !profilesAreFetching &&
-                        <div className={styles.PsyProfiles}>
-                            { profiles.map(p => <PsyShortProfile 
-                                id={p.id}
-                                avatar={p.avatar}
-                                price={p.price}
-                                duration={p.duration}
-                                statuses={p.statuses}
-                                themes={p.themes}
-                                name={p.name}
-                                key={p.id}
-                                showAppointmentModal={showAppointmentModal} />)
-                            }
-                        </div>
+                        : profilesAreFetching
+                            ? <Preloader />
+                            :
+                            <div className={styles.PsyProfiles}>
+                                { profiles.map(p => <PsyShortProfile 
+                                    id={p.id}
+                                    avatar={p.avatar}
+                                    price={p.price}
+                                    duration={p.duration}
+                                    statuses={p.statuses}
+                                    themes={p.themes}
+                                    name={p.name}
+                                    key={p.id}
+                                    showAppointmentModal={showAppointmentModal} />)
+                                }
+                            </div>
                     }
                 </div>
             </div>

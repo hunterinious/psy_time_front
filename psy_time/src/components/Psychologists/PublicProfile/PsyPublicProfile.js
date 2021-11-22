@@ -29,8 +29,8 @@ const PsyPublicProfile = (props) => {
                         ))}
                     </div>
                     <div className={styles.PsyPublicProfileInfoBasePrice}>
-                        <span>{profile.duration}</span>$/
-                        <span>{profile.price}</span>min
+                        <span>{profile.price}</span>$/
+                        <span>{profile.duration}</span>min
                     </div>
                     <Button className={styles.PsyPublicProfileAppoinmentButton} onClick={showModal}>
                         <span>Make appointment</span>

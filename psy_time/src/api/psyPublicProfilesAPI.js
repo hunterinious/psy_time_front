@@ -17,6 +17,11 @@ export default {
         path: ({id}) => `${BASE_URL}/reviews/${id}/detail`,
         requiredAuth: false
     },
+    createPsyReview: {
+        method: 'post',
+        path: () => `${BASE_URL}/reviews/create`,
+        requiredAuth: false
+    },
     getPsyUsersProfiles: {
         method: 'get',
         path: ({pageNumber}) => `${BASE_URL}/?page=${pageNumber}`,

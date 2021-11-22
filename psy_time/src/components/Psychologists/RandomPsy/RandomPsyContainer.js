@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux'; 
 import { getRandomPsyUserProfile }  from '../../../redux/psy-profiles-reducer';
+import Preloader from '../../Common/Preloader/Preloader';
 import RandomPsy from './RandomPsy'
 
 
@@ -16,11 +17,14 @@ class RandomPsyContainer extends Component {
     render() {
         const {randomProfile, getRandomPsyUserProfile, ...rest} = this.props
         return <>
-        { randomProfile &&
+        { randomProfile
+            ?
             <RandomPsy
                 random_profile={randomProfile}
                 getRandomPsyUserProfile={getRandomPsyUserProfile}
                 {...rest} />
+            : <Preloader />
+
         }
         </>
     }

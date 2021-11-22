@@ -1,7 +1,6 @@
 import { AuthRequest } from '../api';
 import commonApiService from '../services/commonApiService';
 import storageService from '../services/storageService';
-import appRouterService from '../services/appRouterService';
 
 const LOGIN_USER = 'LOGIN_USER';
 const SET_USER_LOGIN_DATA = 'SET_USER_LOGIN_DATA';
@@ -14,6 +13,7 @@ let initialState = {
     loginFailed: false,
     loginDataIsFetching: true,
     userId: null,
+    userProfileId: null,
     userType: null
 }
 
@@ -49,7 +49,7 @@ const authReducer = (state = initialState, action) => {
 }
 
 
-export const setUserLoginData = (userId, userType, isAuth) => ({ type: SET_USER_LOGIN_DATA, data: {userId, userType, isAuth}});
+export const setUserLoginData = (userId, userProfileId, userType, isAuth) => ({ type: SET_USER_LOGIN_DATA, data: {userId, userProfileId, userType, isAuth}});
 export const loginDataIsFetching = (isFetching, loginFailed) => ({ type: LOGIN_DATA_IS_FETCHING, isFetching, loginFailed})
 export const dropLoginStatus = ({isAuth, loginFailed, isFetching}) => ({ type: DROP_LOGIN_STATUS, isAuth, loginFailed, isFetching })
 
@@ -85,7 +85,7 @@ export const getUserLoginData = (onSuccess, onFail) => async (dispatch) => {
 
         if(apiData){
             const data = apiData.data
-            dispatch(setUserLoginData(data.id, data.user_type, true))
+            dispatch(setUserLoginData(data.id, data.profile_id, data.user_type, true))
             dispatch(loginDataIsFetching(false, false))
         }else{
             dispatch(loginDataIsFetching(false, true))
