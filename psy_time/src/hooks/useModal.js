@@ -1,5 +1,5 @@
 import {useDispatch} from 'react-redux';
-import { showModalAction, hideModalAction } from '../../redux/app-reducer';
+import { showModalAction, hideModalAction } from '../redux/app-reducer';
 
 export const useModal = (modalType) => {
     const dispatch = useDispatch();

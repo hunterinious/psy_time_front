@@ -6,7 +6,7 @@ import Header from './Header';
 import * as routePaths from '../../consts/route/routePaths';
 import {setShowSidebar} from '../../redux/app-reducer';
 import { getUserLoginData, logoutUser } from '../../redux/auth-reducer';
-import useModal from '../hooks/useModal';
+import useModal from '../../hooks/useModal';
 import modalTypes from '../../consts/app/modalTypes';
 
 const HeaderContainer = (props) => {

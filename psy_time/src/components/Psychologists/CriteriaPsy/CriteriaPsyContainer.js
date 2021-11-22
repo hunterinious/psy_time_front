@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { getPsysByCriteria, getPsyUsersProfiles } from '../../../../redux/psy-profiles-reducer';
+import { getPsysByCriteria, getPsyUsersProfiles } from '../../../redux/psy-profiles-reducer';
 import { 
     setInitialCriteriaPsy,
     changeCriteriaPsy,
     removeCriteriaPsy
- } from '../../../../redux/criteria-reducer';
+ } from '../../../redux/criteria-reducer';
 import CriteriaPsy from './CriteriaPsy';
 
 class CriteriaPsyContainer extends Component {

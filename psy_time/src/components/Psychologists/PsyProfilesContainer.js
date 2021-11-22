@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import cn from 'classnames';
 import { connect } from 'react-redux';
-import { useModal } from '../hooks/useModal';
+import { useModal } from '../../hooks/useModal';
 import {setShowSidebar} from '../../redux/app-reducer';
 import { getPsyUsersProfiles } from '../../redux/psy-profiles-reducer';
 import modalTypes from '../../consts/app/modalTypes';
 import CloseButton from '../Common/Buttons/CloseButton/CloseButton';
 import SidebarWidget from '../SidebarWidget/SidebarWidget';
-import Pagination from '../Pagination/Pagination';
+import Pagination from '../Common/Pagination/Pagination';
 import PsyShortProfile from './PsyShortProfile';
 import layoutService from '../../services/layoutService';
 import styles from './Psychologists.module.scss';

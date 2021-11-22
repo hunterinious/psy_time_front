@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { compose } from 'redux';
 import { getUserProfile, updatePrivateRegularUserProfile, updatePrivatePsyUserProfile } from '../../redux/private-profile-reducer';
 import { getTimezones } from '../../redux/locations-reducer';
-import { withAuthRedirect } from '../hoc/withAuthRedirect';
+import { withAuthRedirect } from '../../HOC/withAuthRedirect';
 import PsyProfileContainer from './Psychologist/PsyProfileContainer';
 import RegularProfileContainer from './Regular/RegularProfileContainer';
 

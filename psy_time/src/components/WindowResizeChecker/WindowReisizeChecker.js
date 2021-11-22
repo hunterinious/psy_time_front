@@ -3,7 +3,7 @@ import {connect} from 'react-redux';
 
 import * as layoutSizes from '../../consts/layout/layoutSizes';
 import * as layoutTypes from '../../consts/layout/layoutTypes';
-import useWindowResize from '../../components/hooks/useWindowResize';
+import useWindowResize from '../../hooks/useWindowResize';
 import {setLayout} from '../../redux/app-reducer'
 
 

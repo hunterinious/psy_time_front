@@ -1,6 +1,6 @@
 import React from 'react';
 import Modal from '../../Common/Modal/Modal'
-import HowToChoosePsy from '../../Psychologists/ModalWindow/HowToChoosePsy/HowToChoosePsy';
+import HowToChoosePsy from '../../Psychologists/HowToChoosePsy/HowToChoosePsy';
 
 
 const HowToChoosePsyModal = (props) => {

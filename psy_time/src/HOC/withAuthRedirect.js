@@ -1,7 +1,7 @@
 import React from 'react';
 import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { getUserLoginData, dropLoginStatus }  from '../../redux/auth-reducer';
+import { getUserLoginData, dropLoginStatus }  from '../redux/auth-reducer';
 
 let mapStateToPropsForRedirect = (state) => ({
     isAuth: state.auth.isAuth,

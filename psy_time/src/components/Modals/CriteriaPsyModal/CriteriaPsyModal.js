@@ -1,6 +1,6 @@
 import React from 'react';
 import Modal from '../../Common/Modal/Modal'
-import CriteriaPsyContainer from '../../Psychologists/ModalWindow/CriteriaPsy/CriteriaPsyContainer';
+import CriteriaPsyContainer from '../../Psychologists/CriteriaPsy/CriteriaPsyContainer';
 
 
 const CriteriaPsyModal = (props) => {

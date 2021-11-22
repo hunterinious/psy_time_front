@@ -1,6 +1,6 @@
 import React from 'react';
 import Modal from '../../Common/Modal/Modal'
-import RandomPsyContainer from '../../Psychologists/ModalWindow/RandomPsy/RandomPsyContainer';
+import RandomPsyContainer from '../../Psychologists/RandomPsy/RandomPsyContainer';
 
 
 const RandomPsyModal = (props) => {

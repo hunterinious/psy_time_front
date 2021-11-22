@@ -2,7 +2,7 @@ import React from 'react';
 import modalTypes from '../../../consts/app/modalTypes';
 import Avatar from '../../Common/Avatar/Avatar';
 import Button from '../../Common/Buttons/Button/Button';
-import useModal from '../../hooks/useModal';
+import useModal from '../../../hooks/useModal';
 import styles from './PsyPublicProfile.module.scss';
 
 

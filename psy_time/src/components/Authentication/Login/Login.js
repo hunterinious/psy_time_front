@@ -14,7 +14,7 @@ import styles from './Login.module.scss'
 
 
 const LoginForm = (props) => {
-    const {handleClose, handlePostSubmit} = props
+    const {handlePostSubmit} = props
 
     const onSubmit = async (values, actions) => {
         const onFail = (error) => {
@@ -80,7 +80,7 @@ const LoginForm = (props) => {
                     </div>
                 </div>
                 <SubmitButton className={styles.LoginFormSubmitButton} type='submit'>Submit</SubmitButton>
-                <SingUpBlock handleClose={handleClose}/>
+                <SingUpBlock/>
             </Form>
             )}
           </Formik>
@@ -88,18 +88,12 @@ const LoginForm = (props) => {
     )
 }
 
-const SingUpBlock = (props) => {
-
-    const close = () => {
-        const {handleClose} = props
-        if(handleClose) handleClose()
-    }
-
+const SingUpBlock = () => {
     return (
         <div className={styles.SingUpBlock}> 
             <p>Not registered yet? - </p>
-            <a href ={routePaths.REGISTRATION} onClick={close}>
-                <Button className={styles.SingUpBlockButton}>Sign Up</Button>
+            <a href={routePaths.REGISTRATION}>
+                <Button className={styles.SingUpBlockButton} type='button'>Sign Up</Button>
             </a> 
         </div> 
     )
@@ -135,9 +129,8 @@ const LoginContainer = (props) => {
         {props.modal
             ?
                 <div className={styles.LoginModal}>
-                    <LoginForm handlePostSubmit={handlePostSubmit} handleClose={handleClose}/>
+                    <LoginForm handlePostSubmit={handlePostSubmit}/>
                 </div>
-           
             :
             <div className={styles.LoginPage}>
                 <LoginForm

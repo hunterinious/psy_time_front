@@ -1,8 +1,8 @@
 import React from 'react';
-import Avatar from '../../../Common/Avatar/Avatar';
-import Button from '../../../Common/Buttons/Button/Button';
+import Avatar from '../../Common/Avatar/Avatar';
+import Button from '../../Common/Buttons/Button/Button';
 import styles from './RandomPsy.module.scss';
-import appRouterService from '../../../../services/appRouterService';
+import appRouterService from '../../../services/appRouterService';
 
 const RandomPsy = (props) => {
     const profile = props.random_profile

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux'; 
-import { getRandomPsyUserProfile }  from '../../../../redux/psy-profiles-reducer';
+import { getRandomPsyUserProfile }  from '../../../redux/psy-profiles-reducer';
 import RandomPsy from './RandomPsy'
 
 
