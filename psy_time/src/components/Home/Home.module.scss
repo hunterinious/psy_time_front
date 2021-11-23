@@ -67,8 +67,8 @@
     margin-top: 27px;
     padding: 0 20px;
     color: white;
-    background: #FDB44B;
-    border: 1px solid #FDB44B;
+    background: var(--bright-orange-color);
+    border: 1px solid var(--bright-orange-color);
     font-size: 24px;
 
     @include media_tablet {
@@ -84,7 +84,7 @@
 .AdvantagesBlock {
     padding: 0 10px;
     text-align: center;
-    background: #F5F5F5;
+    background: var(--main-background-color);
 }
 
 .AdvantagesBlockTitle {
@@ -130,7 +130,7 @@
 }
 
 .Advantage:first-child .AdvantageCircle .AdvantageCircleText{
-    color: #33CEA5
+    color: var(--eucalyptus-color)
 }
 
 .Advantage:nth-child(2) .AdvantageCircle .AdvantageCircleText{
@@ -138,7 +138,7 @@
 }
 
 .Advantage:nth-child(3) .AdvantageCircle .AdvantageCircleText{
-    color: #FDB44B
+    color: var(--bright-orange-color)
 }
 
 .AdvantageTitle {

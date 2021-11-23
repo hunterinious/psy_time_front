@@ -104,7 +104,7 @@ const Pagination = (props) => {
                     : styles.PageNumbersNumber
 
                 return (
-                    <div className={currentPageClassName} id={num} onClick={onSelectPageClick}>
+                    <div className={currentPageClassName} id={num} key={num} onClick={onSelectPageClick}>
                         <p>{num}</p>
                     </div>
                 )

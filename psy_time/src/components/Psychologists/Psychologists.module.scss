@@ -31,7 +31,7 @@
 .ProfilesSidebarListItem {
     display: block;
     margin-top: 15px;
-    border-bottom: 2px solid #33CEA5;
+    border-bottom: 2px solid var(--eucalyptus-color);
 }
 
 .PsyProfilesContainer {
@@ -71,7 +71,7 @@
 .ShortProfileName {
     font-size: 21px;
     font-weight: 700;
-    color: #33CEA5;
+    color: var(--eucalyptus-color);
 }
 
 .ShortProfileStatus {
@@ -106,7 +106,7 @@
     }
 
     span:nth-child(even) {
-        color: #33CEA5;
+        color: var(--eucalyptus-color);
     }
 
     span:nth-child(odd){
@@ -128,7 +128,7 @@
     padding-top: 0px;
 
     li {
-        color: #33CEA5;
+        color: var(--eucalyptus-color);
 
         span {
             color: black
@@ -150,14 +150,14 @@
 
 .ShortProfileAboutButton {
     background: white;
-    border: 1px solid #33CEA5;
-    color: #33CEA5;
+    border: 1px solid var(--eucalyptus-color);
+    color: var(--eucalyptus-color);
 }
 
 .ShortProfileAppoinmentButton {
     margin-top: 10px;
-    background: #FDB44B;
-    border: 1px solid #FDB44B;
+    background: var(--bright-orange-color);
+    border: 1px solid var(--bright-orange-color);
     color: white;
 }
 

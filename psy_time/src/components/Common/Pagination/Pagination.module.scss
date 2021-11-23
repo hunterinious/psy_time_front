@@ -16,7 +16,7 @@
     height: 40px;
     background: white;
     border: 1px solid #D3D3D3;
-    color: #33CEA5;
+    color: var(--eucalyptus-color);
 }
 
 
@@ -34,7 +34,7 @@
         width: 6px;
         height: 6px;
         position: relative;    
-        border: solid #33CEA5;
+        border: solid var(--eucalyptus-color);
         border-width: 0 3px 3px 0;
     }
 }
@@ -77,7 +77,7 @@
 
 
 .PageNumbersCurrent {
-    background: #33CEA5;
-    border: 1px solid #33CEA5;
+    background: var(--eucalyptus-color);
+    border: 1px solid var(--eucalyptus-color);
     color: white;
 }

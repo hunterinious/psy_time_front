@@ -3,7 +3,7 @@
 .Footer {
     margin-top: auto;
     height: 192px;
-    background: #33CEA5;
+    background: var(--eucalyptus-color);
 }
 
 .FooterContent {
@@ -13,7 +13,7 @@
     text-align: center;
     font-family: "Poppins", sans-serif;
     color: white;
-    background: #33CEA5;
+    background: var(--eucalyptus-color);
 
     @include media_tablet {
         flex-direction: row;

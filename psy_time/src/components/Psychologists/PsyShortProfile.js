@@ -17,7 +17,7 @@ const PsyShortProfile = (props) => {
         showAppointmentModal({psyId: id})
     }
 
-    return <div className={styles.ShortProfile}>
+    return <div className={styles.ShortProfile} key={id}>
         <Avatar
             src={avatar}
             alt='therapist avatar'
@@ -46,7 +46,7 @@ const PsyShortProfile = (props) => {
             <div className={styles.ShortProfileThemes}>
                 <ul className={styles.ShortProfileThemeList}>
                     {themes.map(t => (
-                        <li>
+                        <li key={`${id}-${t.name}`}>
                             <span>{t.name}</span>
                         </li>
                     ))}

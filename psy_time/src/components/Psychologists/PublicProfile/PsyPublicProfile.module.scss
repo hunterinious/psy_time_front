@@ -57,7 +57,7 @@
 
 .PsyPublicProfileInfoBasePrice {
     span {
-        color: #33CEA5
+        color: var(--eucalyptus-color)
     }
 }
 
@@ -67,8 +67,8 @@
     font-weight: 700;
     height: 40px;
     color: white;
-    background: #FDB44B;
-    border: 1px solid #FDB44B;
+    background: var(--bright-orange-color);
+    border: 1px solid var(--bright-orange-color);
 
     span {
         padding: 20px;
@@ -118,7 +118,7 @@
 .PsyPublicProfileNavListItem {
     width: 100%;
     border: 2px solid white;
-    background: #33CEA5;
+    background: var(--eucalyptus-color);
 
     li {
         text-transform: uppercase;
@@ -135,8 +135,8 @@
             margin-left: 5px;
             border-radius: 100%;
             background: white;
-            border: 2px solid #33CEA5;
-            color: #33CEA5;
+            border: 2px solid var(--eucalyptus-color);
+            color: var(--eucalyptus-color);
             font-weight: 700;
         }
     }

@@ -70,8 +70,8 @@ const Reviews = (props) => {
         <div className={styles.Reviews}>
             { userId && <ReviewForm createReview={createReview}/> }
             {
-                reviews.map(r => (
-                    <Card title={r.name} text={r.text} />
+                reviews.map((r, i) => (
+                    <Card title={r.name} text={r.text} key={`${userId}-${i}`}/>
                 ))
             }
         </div>

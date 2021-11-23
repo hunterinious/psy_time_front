@@ -4,7 +4,7 @@ $fontPath: './assets/fonts/';
     min-height: 100vh;
     display: flex;
     flex-direction: column;
-    background: #F5F5F5;
+    background: var(--main-background-color);
 }
 
 @font-face {
