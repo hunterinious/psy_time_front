@@ -147,7 +147,7 @@ const CriteriaPsy = (props) => {
         }
     }
 
-    const handleAgeCriterionChange = (value) => {
+    const handleAgeCriterionChange = (event, value) => {
         setAgeRange(value)
         setState({type: ADD_AGE_CRITERION, data: {key: "ages", name: value}})
     }
@@ -188,32 +188,50 @@ const CriteriaPsy = (props) => {
                 Reset filters
             </SubmitButton>
             <div className={styles.CriteriaPsyFilters} onClick={handleCriterionClick}>
+                <>
                 { 
-                Object.keys(state.criteriaNames).map((k, i) => (
-                    <div>
-                        <div>
-                            <label className="control-label">
-                                {criteriaNamesText[i]}
-                            </label>
-                        </div>
-                        <div id={k} >
-                            <div class="mb-3">
-                                {k === "ages" 
-                                ?   
-                                <RangeSlider value={ageRange}
-                                min={ageMin}
-                                max={ageMax}
-                                onChange={handleAgeCriterionChange}
-                                tipFormatter={() => ageRange[0] + "-" + ageRange[1] }/>
-                                :   <Buttons criteriaNames={state.criteriaNames} itemsKey={k}
-                                        setClassName={setClassName} 
+                    Object.keys(state.criteriaNames).map((k, i) => (
+                        k !== "ages" 
+                            ?
+                            <>
+                                <div>
+                                    <label className="control-label">
+                                        {criteriaNamesText[i]}
+                                    </label>
+                                </div>
+                                <div id={k} >
+                                    <div class="mb-3">
+                                        <Buttons criteriaNames={state.criteriaNames} itemsKey={k}
+                                                setClassName={setClassName} 
+                                        />
+                                    </div>
+                                </div>
+                            </>
+                            :
+                            <div className={styles.CriteriaPsyRangeSliderWrapper}>
+                                <div className={styles.CriteriaPsyRangeSliderLabel}>
+                                    <label className="control-label">
+                                        {criteriaNamesText[i]}
+                                    </label>
+                                </div>
+                                <div id={k} className={styles.CriteriaPsyRangeSlider}>
+                                    <RangeSlider
+                                        value={ageRange}
+                                        min={ageMin}
+                                        max={ageMax}
+                                        onChange={handleAgeCriterionChange}
+                                        valueLabelDisplay='on'
+                                        sx={{
+                                            color: '#0d6efd',
+                                        }}
+                                        
                                     />
-                                }
+                                </div>
                             </div>
-                        </div>
-                    </div>
-                ))
+                              
+                    ))
                 }
+                </>
             </div>
             <div className="mb-3 form-submit">
                 <SubmitButton id="submit-button"  onClick={handleSubmit}>

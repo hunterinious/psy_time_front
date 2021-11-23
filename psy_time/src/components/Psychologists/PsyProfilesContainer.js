@@ -12,6 +12,7 @@ import PsyShortProfile from './PsyShortProfile';
 import layoutService from '../../services/layoutService';
 import styles from './Psychologists.module.scss';
 import Preloader from '../Common/Preloader/Preloader';
+import storageService from '../../services/storageService';
 
 
 const HOW_TO_CHOOSE_PSY = 'HOW_TO_CHOOSE_PSY';
@@ -74,6 +75,8 @@ const PsyProfilesContainer = (props) => {
         ? styles.ProfilesSidebar
         : cn(styles.ProfilesSidebar, styles.ProfilesSidebarHide)
 
+    const areFiltersApllied = storageService.getCriteriaPsy()
+
 
     return (
         <div className={styles.ProfilesPageContainer}>
@@ -127,6 +130,7 @@ const PsyProfilesContainer = (props) => {
                     <Pagination 
                         pagesAmount={profilesPagesAmount}
                         getPageData={getPsyUsersProfiles}
+                        areFiltersApllied={areFiltersApllied}
                         needScrollToTop
                     />
             }

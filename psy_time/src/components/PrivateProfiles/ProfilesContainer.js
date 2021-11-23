@@ -10,7 +10,6 @@ import Preloader from '../Common/Preloader/Preloader';
 
 class ProfilesContainer extends Component {
     componentDidMount(){
-        console.log(this.props)
         const {userId, userType, getUserProfile, getTimezones} = this.props
         getUserProfile({id: userId, userType: userType})
         getTimezones()
