@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { getPsyReviews, createPsyReview } from '../../../../redux/psy-reviews-reducer';
+import { getPsyReviews, createPsyReview, updatePsyReview, deletePsyReview } from '../../../../redux/psy-reviews-reducer';
 import Preloader from '../../../Common/Preloader/Preloader';
 import Reviews from './Reviews';
 
@@ -15,6 +15,14 @@ class ReviewsContainer extends Component {
         createPsyReview({text, userProfileId, publicProfileId}, onSuccess, onFail)
     }
 
+    updateReview = (data, onSuccess, onFail) => {
+        this.props.updatePsyReview(data, onSuccess, onFail)
+    }
+
+    deleteReview = (data, onSuccess, onFail) => {
+        this.props.deletePsyReview(data, onSuccess, onFail)
+    }
+
     render() {
         const {reviewsAreFetching, reviews, userId} = this.props;
         const reviewsAmount = reviews.length
@@ -24,7 +32,12 @@ class ReviewsContainer extends Component {
             { reviewsAreFetching
                 ? <Preloader />
                 : reviewsAmount 
-                    ? <Reviews reviews={reviews} createReview={this.createReview} userId={userId}/>
+                    ? <Reviews 
+                        reviews={reviews}
+                        createReview={this.createReview}
+                        updateReview={this.updateReview}
+                        deleteReview={this.deleteReview}
+                        userId={userId}/>
                     : 'This therapist doesn\'t have reviews'
             }
             </>
@@ -41,4 +54,7 @@ let mapStateToProps = (state) => {
     }
 }
 
-export default connect(mapStateToProps, { getPsyReviews, createPsyReview })(ReviewsContainer)
+export default connect(
+    mapStateToProps,
+    {getPsyReviews, createPsyReview, updatePsyReview, deletePsyReview}
+)(ReviewsContainer)

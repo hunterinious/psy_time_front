@@ -15,12 +15,22 @@ export default {
     getPsyReviews: {
         method: 'get',
         path: ({id}) => `${BASE_URL}/reviews/${id}/detail`,
-        requiredAuth: false
+        requiredAuth: true
     },
     createPsyReview: {
         method: 'post',
         path: () => `${BASE_URL}/reviews/create`,
-        requiredAuth: false
+        requiredAuth: true
+    },
+    deletePsyReview: {
+        method: 'post',
+        path: ({id}) => `${BASE_URL}/reviews/${id}/delete`,
+        requiredAuth: true
+    },
+    updatePsyReview: {
+        method: 'post',
+        path: ({id}) => `${BASE_URL}/reviews/${id}/update`,
+        requiredAuth: true
     },
     getPsyUsersProfiles: {
         method: 'get',

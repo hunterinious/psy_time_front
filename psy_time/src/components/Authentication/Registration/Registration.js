@@ -27,7 +27,7 @@ const RegistrationForm = (props) => {
 
         const timezoneName = Intl.DateTimeFormat().resolvedOptions().timeZone
         const {email, password, name} = values
-        registerUser({email, password, name, timezoneName}, onSuccess, onFail)
+        registerUser({email, password, name: name.trim(), timezoneName}, onSuccess, onFail)
     }
 
     const initialValues = {
